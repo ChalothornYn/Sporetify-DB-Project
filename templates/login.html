@@ -1,18 +1,66 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <title>Document</title>
 </head>
-<body>
-   <h2 class="text-center mt-3" >Sporetify</h2>
-   <br>
-        <hr class="style1">
+<body>     
+    <img id="logo" src="{% static 'images/logo_green.png' %}">
+    <div class="container-fluid">
+        <hr>
+    </div>
+    <div class="container">
+    <p class="text-center h4 fw-normal mb-3">Login with</p>
+    <div class="d-grid justify-content-center gap-2">
+        <a href="#" class="btn btn-default btn-primary facebook "><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
+        <a href="#" class="btn btn-default btn-danger google "><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
+        <a href="#"  class="btn btn-default btn-info  text-light" ><i style="margin-right: 10px" class="fa fa-phone-square"></i><span>Continue with phone number</span></a> 
+    </div>
     <br>
-    <p class="text-center">Login with</p>
+    <div class="container">
+        <div class="row">
+         <hr>
+            <div class="col"></div>
+            <div class="col-4">
+                <form role="form">
+                <div class="form-group">
+                    <label for="inputUsernameEmail">Username</label>
+                    <input type="text" class="form-control" id="inputUsernameEmail">
+                </div>
+                <div class="form-group mt-1">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword">
+                    {% comment %} <a class="pull-right mt-1" href="#">Forgot password?</a> {% endcomment %}
+                </div>
+                <button type="submit" class="btn pull-right btn-primary mt-2">
+                    Log In
+                </button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    </div>
+    <div class="container-fluid">
+                <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <form role="form">
+            <p class="text-center fw-normal">Don't have any account?</p>
+            <div class="text-center">
+                <button type="submit" class="btn btn-pull-center btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
