@@ -30,14 +30,14 @@
                 <br>
                 <hr>
                 <form role="form">
-                    <div class="form-group">
-                        <label for="inputUsernameEmail">Username</label>
-                        <input type="text" class="form-control" id="inputUsernameEmail">
+                    <div class="form-floating mt-2">
+                        <input type="text" class="form-control" id="floatingUsername" placeholder="Username" required>
+                        <label for="floatingUsername">Username</label>
                     </div>
-                    <div class="form-group mt-1">
-                        <label for="inputPassword">Password</label>
-                        <input type="password" class="form-control" id="inputPassword">
-                        <a class="pull-left fw-light mt-1 text-dark" href="#">Forgot password?</a>
+                    <div class="form-floating mt-2">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                        <label for="floatingPassword">Password</label>
+                        <a class="pull-left fw-light mt-2 text-dark" href="#">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn pull-right btn-primary fw-light mt-4">
                         Log In
@@ -46,20 +46,14 @@
                 </form>
                 <br><br><br>
                 <hr>
+                <div class="row"><small class="font-weight-bold">Don't have an account? <a class="text-danger " href="#">Sign up</a></small> </div>
             </div>    
             <div class="col"></div>
         </div>
     </div>
 
     <div class="container">
-        <div class="row">
-            <form role="form">
-                <p class="text-center fw-normal">Don't have an account?</p>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-pull-center fw-light btn-primary">Register</button>
-                </div>
-            </form>
-        </div>
+        
     </div>
 </body>
 </html>

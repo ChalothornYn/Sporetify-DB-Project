@@ -7,5 +7,5 @@ def hello(request):
 def Login(request):
     return render(request, 'login.html')
 
-def Register(request):
-    return render(request, 'register.html')
+def Signup(request):
+    return render(request, 'signup.html')
