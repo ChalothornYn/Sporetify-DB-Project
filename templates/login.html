@@ -13,51 +13,50 @@
     <title>Document</title>
 </head>
 <body>     
-    <img id="logo" src="{% static 'images/logo_green.png' %}">
-    <div class="container-fluid">
-        <hr>
+    <div class="text-center mt-2">
+        <img id="logo" src="{% static 'images/logo.png' %}" width="174.25px">
     </div>
-    <div class="container">
-    <p class="text-center h4 fw-normal mb-3">Login with</p>
-    <div class="d-grid justify-content-center gap-2">
-        <a href="#" class="btn btn-default btn-primary facebook "><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
-        <a href="#" class="btn btn-default btn-danger google "><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
-        <a href="#"  class="btn btn-default btn-info  text-light" ><i style="margin-right: 10px" class="fa fa-phone-square"></i><span>Continue with phone number</span></a> 
-    </div>
-    <br>
+   <hr>
     <div class="container">
         <div class="row">
-         <hr>
             <div class="col"></div>
             <div class="col-4">
+                <p class="text-center h4 fw-normal mb-3">Login with</p>
+                <div class="d-grid gap-3">
+                    <a href="#" class="btn btn-default btn-primary fw-light facebook "><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
+                    <a href="#" class="btn btn-default btn-danger fw-light google "><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
+                    <a href="#"  class="btn btn-default btn-info  fw-light text-light" ><i style="margin-right: 10px" class="fa fa-phone-square"></i><span>Continue with phone number</span></a> 
+                </div>
+                <br>
+                <hr>
                 <form role="form">
-                <div class="form-group">
-                    <label for="inputUsernameEmail">Username</label>
-                    <input type="text" class="form-control" id="inputUsernameEmail">
-                </div>
-                <div class="form-group mt-1">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword">
-                    {% comment %} <a class="pull-right mt-1" href="#">Forgot password?</a> {% endcomment %}
-                </div>
-                <button type="submit" class="btn pull-right btn-primary mt-2">
-                    Log In
-                </button>
+                    <div class="form-group">
+                        <label for="inputUsernameEmail">Username</label>
+                        <input type="text" class="form-control" id="inputUsernameEmail">
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="inputPassword">
+                        <a class="pull-left fw-light mt-1 text-dark" href="#">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn pull-right btn-primary fw-light mt-4">
+                        Log In
+                    </button>
+                    
                 </form>
-            </div>
+                <br><br><br>
+                <hr>
+            </div>    
             <div class="col"></div>
         </div>
     </div>
-    </div>
-    <div class="container-fluid">
-                <hr>
-    </div>
+
     <div class="container">
         <div class="row">
             <form role="form">
-            <p class="text-center fw-normal">Don't have any account?</p>
-            <div class="text-center">
-                <button type="submit" class="btn btn-pull-center btn-primary">Register</button>
+                <p class="text-center fw-normal">Don't have an account?</p>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-pull-center fw-light btn-primary">Register</button>
                 </div>
             </form>
         </div>
