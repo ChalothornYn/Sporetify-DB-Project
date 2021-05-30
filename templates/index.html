@@ -11,7 +11,29 @@
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
-    <title>Document</title>
+    <style>
+        .menu{
+            color: white !important;
+        }
+        .menu:hover{
+            color: #1FD662 !important;
+        }
+        .hero1{
+            background-color: #9bf0e1;
+        }
+        .hero1-container{
+            padding: 100px 0 100px 0;
+            color: rgb(45, 70, 185);
+        }
+
+        /* @media only screen and (max-width: 600px) {
+            .menu {
+                color: red !important;
+            }
+        } */
+    </style>
+
+    <title>Sporetify</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color: black;">
@@ -25,19 +47,39 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto text-end">
                     <li class="nav-item">
-                        <a class="nav-link fw-light fs-5" href="#" style="color: white;">ลงทะเบียน</a>
+                        <a class="nav-link fs-5 menu" href="#">Premium</a>
                     </li>
-                    <li class="nav-item d-flex ms-5">
+                    <li class="nav-item d-md-flex ms-5 d-none">
                         <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
                     </li>
                     <li class="nav-item ms-5">
-                        <a class="nav-link fw-light fs-5" href="#" style="color: white;">เข้าสู่ระบบ</a>
+                        <a class="nav-link fs-5 menu" href="#">Sign up</a>
+                    </li>
+                    <li class="nav-item ms-5">
+                        <a class="nav-link fs-5 menu" href="#"">Log in</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- <div class="container-fluid bg-info" style="height: 100vh;"></div> -->
+    <div class="container-fluid hero1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="hero1-container">
+                        <span class="d-block" style="font-size: 14px;">SPOTIFY PREMIUM</span>
+                        <span class="d-block my-3" style="font-size: 60px; font-weight: 500;">Lorem ipsum dolor sit amet consectetur.</span>
+                        <span class="d-block my-3" style="font-size: 24px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, earum!</span>
+                        <button class="btn btn-primary" style="font-size: 17px;">Description</button>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-md-flex">
+                    <img src="{% static 'images/hero1.png' %}" alt="" class="align-self-center justify-content-center">
+                </div>
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>
