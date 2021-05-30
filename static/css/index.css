@@ -68,6 +68,18 @@ body {
     transition: border 0.2s;
 }
 
+.middle {
+
+}
+
+.middle-content {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+
+
+
 
 /* SECTION 2 */
 
@@ -82,7 +94,7 @@ body {
 }
 
 .page-header2 {
-    padding: 100px 0 100px 0;
+    padding: 0px 0 100px 0;
 }
 
 /* .hero2-content-container {
@@ -92,7 +104,7 @@ body {
 .hero2-content1,
 .hero2-content2,
 .hero2-content3 {
-    color: #000;
+    color: #2D46B9;
 }
 
 .hero2-content1 {

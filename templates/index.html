@@ -43,7 +43,7 @@
                         <a class="nav-link fs-5 menu" href="#">Sign up</a>
                     </li>
                     <li class="nav-item ms-5">
-                        <a class="nav-link fs-5 menu" href="#"">Log in</a>
+                        <a class="nav-link fs-5 menu" href="/login">Log in</a>
                     </li>
                 </ul>
             </div>
@@ -87,17 +87,34 @@
     </header>
 
     <section class="middle">
-
+        <div class="container pt-3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-4 text-center middle-content">
+                    <img src="{% static 'images/house-door.svg'%}" alt="" width="100px">
+                    <img src="{% static 'images/building.svg'%}" alt="" width="100px">
+                    <span class="d-block mt-4">Anywhere</span>
+                </div>
+                <div class="col-md-4 text-center middle-content">
+                    <img src="{% static 'images/clock-history.svg'%}" alt="" width="100px">
+                    <span class="d-block mt-4">Anytime</span>
+                </div>
+                <div class="col-md-4 text-center middle-content">
+                    <img src="{% static 'images/music-player.svg'%}" alt="" width="100px">
+                    <img src="{% static 'images/keyboard.svg'%}" alt="" width="100px">
+                    <span class="d-block mt-4">On your devices</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="page-header2 gradient2">
-        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path 
             fill="#fff" 
             fill-opacity="1" 
             d="M0,32L48,32C96,32,192,32,288,74.7C384,117,480,203,576,202.7C672,203,768,117,864,112C960,107,1056,181,1152,202.7C1248,224,1344,192,1392,176L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
         </path>
-        </svg> -->
+        </svg>
         <div class="container pt-3">
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-5 text-start">
@@ -113,29 +130,24 @@
                 </div>
             </div>
         </div>
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path 
+            fill="#000" 
+            fill-opacity="1"
+            d="M0,32L48,32C96,32,192,32,288,74.7C384,117,480,203,576,202.7C672,203,768,117,864,112C960,107,1056,181,1152,202.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        </path>
+        </svg> -->
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path 
+            fill="#000" 
+            fill-opacity="1" 
+            d="M0,256L48,266.7C96,277,192,299,288,277.3C384,256,480,192,576,154.7C672,117,768,107,864,106.7C960,107,1056,117,1152,128C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        </path></svg> -->
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000" fill-opacity="1" d="M0,160L20,165.3C40,171,80,181,120,192C160,203,200,213,240,224C280,235,320,245,360,229.3C400,213,440,171,480,165.3C520,160,560,192,600,181.3C640,171,680,117,720,117.3C760,117,800,171,840,208C880,245,920,267,960,250.7C1000,235,1040,181,1080,138.7C1120,96,1160,64,1200,48C1240,32,1280,32,1320,48C1360,64,1400,96,1420,112L1440,128L1440,320L1420,320C1400,320,1360,320,1320,320C1280,320,1240,320,1200,320C1160,320,1120,320,1080,320C1040,320,1000,320,960,320C920,320,880,320,840,320C800,320,760,320,720,320C680,320,640,320,600,320C560,320,520,320,480,320C440,320,400,320,360,320C320,320,280,320,240,320C200,320,160,320,120,320C80,320,40,320,20,320L0,320Z"></path></svg> -->
     </section>
 
     <footer style="height: 65px; background-color: black;">
     </footer>
-
-    <!-- <div class="container-fluid hero1">
-        <div class="container">
-            <div class="row align-self-center">
-                <div class="col-lg-5">
-                    <div class="hero1-container">
-                        <span class="d-block" style="font-size: 14px;">SPOTIFY PREMIUM</span>
-                        <span class="d-block my-3" style="font-size: 60px; font-weight: 500;">Lorem ipsum dolor sit amet consectetur.</span>
-                        <span class="d-block my-3" style="font-size: 24px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, earum!</span>
-                        <button class="btn btn-primary" style="font-size: 17px;">Description</button>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <img src="{% static 'images/hero1.png' %}" alt="" class="align-self-center justify-content-center">
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
 </body>
 </html>
 
