@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-def hello(request):
+def landingPage(request):
     return render(request, 'index.html')
 
 def Login(request):
@@ -9,3 +9,6 @@ def Login(request):
 
 def Signup(request):
     return render(request, 'signup.html')
+
+def SignupEn(request):
+    return render(request, 'signupen.html')
