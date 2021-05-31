@@ -12,3 +12,6 @@ def Signup(request):
 
 def SignupEn(request):
     return render(request, 'signupen.html')
+
+def home(request):
+    return render(request, 'layout_role.html')
