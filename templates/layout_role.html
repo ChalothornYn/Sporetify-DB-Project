@@ -14,22 +14,93 @@
     <title>Senmee test</title>
 </head>
 <body>
-    <p id="test">Hi i am tired sud sud</p>
     <!-- header area start -->
-    <header>
-        <div class = "left_area">
-            <h3>Heading <span>logo</span></h3>
+    <nav class="navbar navbar-expand-md navbar-dark nav-bg fixed-top">
+        <div class="container-fluid" style="height: 100%;">
+            <a class="navbar-brand" href="#" style="height: 64px; padding: 10px 0 10px 25px;">
+                <img src="{% static 'images/logo.png' %}" alt="" height="100%">
+            </a>
+            <!-- button small display -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- end button -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu" href="#">Package</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu ms-3" href="#">About us</a>
+                    </li>
+                    <li class="nav-item d-md-flex ms-5 d-none">
+                        <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
+                    </li>
+                </ul>
+                <ul class="navbar-nav text-end fs-5 ms-5">
+                    <li class="nav-item dropdown drop">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+                            Gustboyy
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Credit card</a>
+                            <a class="dropdown-item" href="#">Transaction</a>
+                            <a class="dropdown-item" href="#">Log Out</a>
+                        </div>
+                </li>   
+                </ul>
+                
+            </div>
         </div>
-        <div class = "right_area">
-            <a href="#" class="logout_btn">Logout</a>
-        </div>
-    </header>
+    </nav>
     <!-- header area end -->
+    <!-- sidebar start -->
     <div class = "sidebar">
         <center>
-            <img src="{% static 'images/Gust.jpg' %}" alt="">
+            <img src="{% static 'images/Gust.jpg' %}" class="profile_image" alt="">
             <h4>Gustboyy</h4>
         </center>
+        <a href="#"><i class="fas fa-desktop"></i><span>ภาพรวมโปรไฟล์</span></a>
+        <a href="#"><i class="fas fa-desktop"></i><span>บัตรเครดิต</span></a>
+        <a href="#"><i class="fas fa-desktop"></i><span>ประวัติการชำระเงิน</span></a>
     </div>
+    <!-- sidebar end -->
+    <!-- content start -->
+    <div class="content">
+        <p>test_start</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test_stop</p>
+    </div>
+    <!-- content end -->
 </body>
 </html>

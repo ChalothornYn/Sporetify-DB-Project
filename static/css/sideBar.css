@@ -1,9 +1,59 @@
-.sidebar center img{
-    width: 10%;
-    height: auto;
+.sidebar{
+    background: #1a1a1a;
+    margin-top: 0px;
+    padding-top: 30px;
+    position: fixed;
+    left: 0;
+    width: 250px;
+    height: 1000px;
 }
 
-#test{
-    color: black;
-    background-color: aqua;
+.sidebar .profile_image{
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.sidebar h4{
+    color: #ccc;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar a{
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+}
+
+.sidebar a:hover{
+    background: #1fd662;
+    color: #1a1a1a;
+
+}
+
+.sidebar span{
+    font-size: larger;
+}
+
+.nav-bg {
+    background-color: #000;
+    border-bottom: 5px solid #1FD662;
+}
+
+.menu {
+    color: white !important;
+}
+.menu:hover {
+    color: #1FD662 !important;
+}
+
+.content{
+    margin-top: 80px;
+    margin-left: 250px;
 }
