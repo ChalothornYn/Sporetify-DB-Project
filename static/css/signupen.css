@@ -1,0 +1,7 @@
+.colorbtn2{
+    background-color : #1ED760;
+    border: none;
+}
+.colorbtn2:hover{
+    background-color: #3EC26D;
+}

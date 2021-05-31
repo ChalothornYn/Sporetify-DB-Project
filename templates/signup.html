@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
     <title>Document</title>
 </head>
     <body>
@@ -23,8 +24,8 @@
             <div class="col-4">
                 <p class="text-center fw-normal mb-2 mt-2">Continue sign up with</p>
                 <div class="d-grid gap-3">
-                    <a href="#" class="btn btn-default btn-primary fw-light facebook "><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
-                    <a href="#" class="btn btn-default btn-danger fw-light google "><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
+                    <a href="#" class="btn btn-default btn-primary fw-light rounded-pill facebook facebookbutton"><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
+                    <a href="#" class="btn btn-default btn-danger fw-light rounded-pill google googlebutton"><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
                 </div>
             </div>
             <div class="col"></div>
@@ -60,9 +61,9 @@
                         <input type="text" class="form-control" id="floatingLastname" placeholder="Lastname" required>
                         <label for="floatingLastname">Lastname</label>
                     </div>
-                    <label class="mt-3 mb-1" for="inputGender">Gender</label>
+                    <label class="mt-3" for="inputGender">Gender</label>
                     <br>
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline checkcolor">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioMale" value="option1" required>
                         <label class="form-check-label" for="inlineRadioMale">Male</label>
                     </div>
@@ -83,12 +84,12 @@
                     </div>
                     <i style="margin-right: 10px" class="fa fa-plus-circle mt-3"></i><a class="fw-light text-dark" href="#">Add card</a>
                     <br>
-                    <button type="submit" class="btn pull-right btn-primary fw-light mt-4">
-                            Sign up
+                    <button type="submit" class="btn pull-right fw-light text-light mt-4 colorbtn1" >
+                        Sign up
                     </button>
                     <br><br><br>
                     <hr>
-                    <div class="row "><small class="font-weight-bold">Have an account? <a class="text-danger " href="#">Log in</a></small> </div>
+                    <div class="row "><small class="font-weight-bold">Have an account? <a style="color:#1ED760" href="#">Log in</a></small> </div>
                 </form>
                 <br><br>
             </div>

@@ -1,0 +1,20 @@
+.colorbtn{
+    background-color : #1ED760;
+    border: none;
+}
+.colorbtn:hover{
+    background-color: #3EC26D;
+}
+.facebookbutton{
+    background-color : #4267B2;
+    border: none;
+}
+.googlebutton{
+    background-color : #DB4437;
+    border: none;
+}
+.phonebutton{
+    background-color : none;
+    border-color: rgb(160, 160, 160);
+    color:rgb(160, 160, 160)
+}
