@@ -6,3 +6,6 @@ def landingPage(request):
 
 def Login(request):
     return render(request, 'login.html')
+
+def addSong(request):
+    return render(request, 'addSong.html')
