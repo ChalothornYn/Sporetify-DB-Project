@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingPage),
     path('login/', views.Login),
-    path('addsong/',views.addSong)
+    path('addsong/',views.addSong),
+    path('home/', views.home),
 ]
