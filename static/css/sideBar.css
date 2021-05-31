@@ -1,4 +1,9 @@
+.sidebar center img{
+    width: 25%;
+    height: auto;
+}
+
 #test{
-    color: blue;
+    color: black;
     background-color: aqua;
 }
