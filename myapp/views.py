@@ -6,3 +6,6 @@ def landingPage(request):
 
 def Login(request):
     return render(request, 'login.html')
+
+def home(request):
+    return render(request, 'layout_role.html')
