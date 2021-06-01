@@ -19,6 +19,8 @@ def Testtable(request):
 def AdminHistory(request):
     return render(request, 'adminhistory.html')
 
+def songHome(request):
+    return render(request, 'layout_song.html')
 
-def home(request):
-    return render(request, 'layout_role.html')
+def userProfile(request):
+    return render(request, 'userProfile.html')

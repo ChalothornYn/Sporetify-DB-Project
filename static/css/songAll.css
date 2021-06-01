@@ -1,0 +1,64 @@
+body {
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(41,61,59,1) 75%, rgba(44,70,66) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* navbar */
+.nav-bg {
+    background-color: #000;
+    border-bottom: 5px solid #1FD662;
+}
+
+.menu {
+    color: white !important;
+}
+.menu:hover {
+    color: #1FD662 !important;
+}
+
+/* content */
+.genre{
+    /* background-color: purple;
+    color: white; */
+}
+
+.box-outer{
+    margin-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+.box-outer:hover {
+    border: 2px solid #1FD662;
+    background-color: #000;
+    /* color: white; */
+    border-radius: 20px;
+}
+
+.box-outer:hover .songName{
+    color: #1FD662;
+}
+
+.box-outer:hover .songDetail{
+    color: white;
+}
+
+.songbox { 
+    padding: 10px;
+}
+
+.songbox .image > :first-child {
+    position: relative;
+    display: block;
+    background-color: blue;
+}
+
+.songPic { 
+    max-width: 100%;
+    height: auto;
+}
+
+.see-more{
+    color: #1FD662;
+}

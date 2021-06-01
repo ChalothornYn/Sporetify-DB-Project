@@ -26,5 +26,6 @@ urlpatterns = [
     path('signupen/', views.SignupEn),
     path('testtable/', views.Testtable),
     path('adminhistory/', views.AdminHistory),
-    path('home/', views.home)
+    path('userprofile/', views.userProfile),
+    path('song/', views.songHome)
 ]

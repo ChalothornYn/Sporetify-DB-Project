@@ -1,12 +1,139 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>This is song</title>
+    <!-- call bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- call css -->
+    <link rel="stylesheet" href="{% static 'css/songAll.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
+
 <body>
-    hi
+    <!-- navbar start -->
+    <nav class="navbar navbar-expand-md navbar-dark nav-bg">
+        <div class="container" style="height: 100%;">
+            <a class="navbar-brand" href="#" style="height: 64px; padding: 10px 0 10px 25px;">
+                <img src="{% static 'images/logo.png' %}" alt="" height="100%">
+            </a>
+            <!-- button small display -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- end button -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu" href="#">Package</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu ms-3" href="#">About us</a>
+                    </li>
+                    <li class="nav-item d-md-flex ms-5 d-none">
+                        <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
+                    </li>
+                </ul>
+                <ul class="navbar-nav text-end fs-5 ms-5">
+                    <li class="nav-item dropdown drop">
+                        <a class="nav-link dropdown-toggle menu" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+                            Gustboyy
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+                            aria-labelledby="navbarDropdownMenuLink">
+                            {% block navbar %}
+                            {% endblock %}
+                            <a class="dropdown-item" href="#">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar end -->
+    <!-- ------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- content start -->
+    <div class="container-fluid songList">
+        <div class="col-sm-10 offset-sm-1" style="background-color: white;">
+            <h2 class="text-center">Song</h2>
+            <!-- EDM -->
+            <div class="row">
+                <div class="col-sm-10 genre"><span>อีดีเอ็ม (EDM)</span></div>
+                <div class="col-sm-1 text-end"><span><a href="#" class="see-more">See more></a></span></div>
+            </div>            
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1">
+                    <div class="row">
+                        <div class="col-sm-3 box-outer">
+                            <div class="songbox">
+                                <div class="image">
+                                    <a href="#">
+                                        <img alt="song1" class="songPic"
+                                            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80">
+                                    </a>
+                                    <h3 class="songName">Song name</h3>
+                                    <p class="songDetail">Musician</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3 box-outer">
+                            <div class="songbox">
+                                <div class="image">
+                                    <a href="#">
+                                        <img alt="song1" class="songPic"
+                                            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80">
+                                    </a>
+                                    <h3 class="songName">Song name</h3>
+                                    <p class="songDetail">Musician</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3 box-outer">
+                            <div class="songbox">
+                                <div class="image">
+                                    <a href="#">
+                                        <img alt="song1" class="songPic"
+                                            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80">
+                                    </a>
+                                    <h3 class="songName">Song name</h3>
+                                    <p class="songDetail">Musician</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3 box-outer">
+                            <div class="songbox">
+                                <div class="image">
+                                    <a href="#">
+                                        <img alt="song1" class="songPic"
+                                            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80">
+                                    </a>
+                                    <h3 class="songName">Song name</h3>
+                                    <p class="songDetail">Musician</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end EDM -->
+            
+        </div>
+    </div>
 </body>
+
 </html>
