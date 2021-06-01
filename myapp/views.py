@@ -15,3 +15,6 @@ def SignupEn(request):
 
 def user_profile(request):
     return render(request, 'userProfile.html')
+
+def songList(request):
+    return render(request, 'layout_song.html')

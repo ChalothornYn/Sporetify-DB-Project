@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/', views.Login),
     path('signup/', views.Signup),
     path('signupen/', views.SignupEn),
-    path('userProfile/', views.user_profile)
+    path('userProfile/', views.user_profile),
+    path('song/', views.songList)
 ]

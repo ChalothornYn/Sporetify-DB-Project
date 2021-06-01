@@ -14,7 +14,10 @@
     <!-- call css -->
     <link rel="stylesheet" href="{% static 'css/sideBar2.css' %}">
 
-    <title>Senmee test</title>
+    <title>
+        {% block title%}
+        {% endblock %}
+    </title>
 </head>
 
 <body>
