@@ -1,29 +1,11 @@
-html, 
-body {
-    height: 100%;
-    font-size: 1rem;
-}
-
-.nav-bg {
-    background-color: #000;
-    border-bottom: 5px solid #1FD662;
-}
-
-.menu {
-    color: white !important;
-}
-.menu:hover {
-    color: #1FD662 !important;
-}
-
-.background{
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(41,61,59,1) 75%, rgba(44,70,66) 100%) !important;
+body{
+    background-color: #1e2939;
 }
 
 .sidebar{
     background: #1a1a1a;
     margin-top: 0px;
-    /*margin-left: 290px;*/
+    margin-left: 290px;
     padding-top: 30px;
     position: fixed;
     left: 0;
@@ -32,7 +14,7 @@ body {
 }
 
 .sidebar .profile_image{
-    width: 100px !important;
+    width: 100px;
     height: 100px;
     border-radius: 100px;
     margin-bottom: 10px;
@@ -63,3 +45,16 @@ body {
 .sidebar span{
     font-size: larger;
 }
+
+.nav-bg {
+    background-color: #000;
+    border-bottom: 5px solid #1FD662;
+}
+
+.menu {
+    color: white !important;
+}
+.menu:hover {
+    color: #1FD662 !important;
+}
+
