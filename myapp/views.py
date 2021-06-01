@@ -13,5 +13,12 @@ def Signup(request):
 def SignupEn(request):
     return render(request, 'signupen.html')
 
+def Testtable(request):
+    return render(request, 'testtable.html')
+
+def AdminHistory(request):
+    return render(request, 'adminhistory.html')
+
+
 def home(request):
     return render(request, 'layout_role.html')
