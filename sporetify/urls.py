@@ -24,11 +24,8 @@ urlpatterns = [
     path('login/', views.Login),
     path('signup/', views.Signup),
     path('signupen/', views.SignupEn),
-<<<<<<< HEAD
     path('home/', views.home),
     path('addsong/', views.addSong),
-    path('addsongsubmit/', views.addSongSubmit)
-=======
-    path('userProfile/', views.user_profile)
->>>>>>> 8a555bbe0de4d64d8b0827477d6c17ebff7c4152
+    path('addsongsubmit/', views.addSongSubmit),
+    path('userProfile/', views.user_profile),
 ]
