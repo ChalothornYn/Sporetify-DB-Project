@@ -1,6 +1,11 @@
+body{
+    background-color: #1e2939;
+}
+
 .sidebar{
     background: #1a1a1a;
     margin-top: 0px;
+    margin-left: 290px;
     padding-top: 30px;
     position: fixed;
     left: 0;
@@ -53,7 +58,3 @@
     color: #1FD662 !important;
 }
 
-.content{
-    margin-top: 80px;
-    margin-left: 250px;
-}

@@ -23,3 +23,6 @@ def addSongSubmit(request):
     Sname = request.POST['Sname']
     Aname = request.POST['Aname']
     return render(request, 'tempResult.html', {'Sname': Sname, 'Aname': Aname})
+    
+def user_profile(request):
+    return render(request, 'userProfile.html')

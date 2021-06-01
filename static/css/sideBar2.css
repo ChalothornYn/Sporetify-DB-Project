@@ -1,0 +1,66 @@
+html, 
+body {
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(41,61,59,1) 75%, rgba(44,70,66) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.nav-bg {
+    background-color: #000;
+    border-bottom: 5px solid #1FD662;
+}
+
+.menu {
+    color: white !important;
+}
+.menu:hover {
+    color: #1FD662 !important;
+}
+
+.sidebar{
+    background: #000;
+    margin-top: 80px;
+    padding-top: 40px;
+    position: fixed;
+    left: 0;
+    /* width: 250px;*/
+    height: 1000px;
+}
+
+.sidebar .profile_image{
+    width: 100px !important;
+    height: 100px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.sidebar h4{
+    color: #ccc;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar a{
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.sidebar a:hover{
+    background: #1fd662;
+    color: #1a1a1a;
+
+}
+
+.sidebar span{
+    font-size: larger;
+}
+
+.form-content{
+    background-color: white;
+    margin-top: 80px;
+    padding-top: 30px;
+}
