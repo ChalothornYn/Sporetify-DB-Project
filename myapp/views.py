@@ -13,5 +13,5 @@ def Signup(request):
 def SignupEn(request):
     return render(request, 'signupen.html')
 
-def home(request):
-    return render(request, 'layout_sideBar.html')
+def user_profile(request):
+    return render(request, 'userProfile.html')

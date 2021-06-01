@@ -1,7 +1,8 @@
 html, 
 body {
-    height: 100%;
-    font-size: 1rem;
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(41,61,59,1) 75%, rgba(44,70,66) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .nav-bg {
@@ -16,18 +17,13 @@ body {
     color: #1FD662 !important;
 }
 
-.background{
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(41,61,59,1) 75%, rgba(44,70,66) 100%) !important;
-}
-
 .sidebar{
-    background: #1a1a1a;
-    margin-top: 0px;
-    /*margin-left: 290px;*/
-    padding-top: 30px;
+    background: #000;
+    margin-top: 80px;
+    padding-top: 40px;
     position: fixed;
     left: 0;
-    width: 250px;
+    /* width: 250px;*/
     height: 1000px;
 }
 
@@ -50,7 +46,6 @@ body {
     width: 100%;
     line-height: 60px;
     text-decoration: none;
-    padding-left: 40px;
     box-sizing: border-box;
 }
 
@@ -62,4 +57,10 @@ body {
 
 .sidebar span{
     font-size: larger;
+}
+
+.form-content{
+    background-color: white;
+    margin-top: 80px;
+    padding-top: 30px;
 }
