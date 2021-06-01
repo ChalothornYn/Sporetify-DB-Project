@@ -46,7 +46,7 @@
                 </ul>
                 <ul class="navbar-nav text-end fs-5 ms-5">
                     <li class="nav-item dropdown drop">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        <a class="nav-link dropdown-toggle menu" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
                             Gustboyy
@@ -67,13 +67,13 @@
     <!-- sidebar start -->
     <div class="container-fluid text-center">
         <div class="row content vh-100">
-            <div class="col-sm-2 offset-sm-2 sidebar mh-100">
+            <div class="col-sm-2 offset-sm-1 sidebar mh-100">
                 <img src="{% static 'images/Gust.jpg' %}" class="profile_image" alt="">
                 <h4>Gustboyy</h4>
                 {% block sidebar %}
                 {% endblock %}
             </div>
-            <div class="col-sm-6 offset-sm-4 text-start form-content">
+            <div class="col-sm-8 offset-sm-3 text-start form-content">
                 {% block content %}
                 {% endblock %}
             </div>
