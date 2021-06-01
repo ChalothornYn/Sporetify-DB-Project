@@ -1,5 +1,9 @@
 {% extends 'layout_sideBar.html' %}
 
+{% block title %}
+    user_profile
+{% endblock%}
+
 {% block navbar %}
     <a class="dropdown-item" href="#">Profile</a>
     <a class="dropdown-item" href="#">Credit card</a>
@@ -8,8 +12,8 @@
 
 {% block sidebar %}
     <a href="#"><span>ภาพรวมโปรไฟล์</span></a>
-    <a href="#"></i><span>บัตรเครดิต</span></a>
-    <a href="#"></i><span>ประวัติการชำระเงิน</span></a>
+    <a href="#"><span>บัตรเครดิต</span></a>
+    <a href="#"><span>ประวัติการชำระเงิน</span></a>
 {% endblock %}
 
 {% block content %}

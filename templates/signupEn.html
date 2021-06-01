@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signupen.css' %}">
     <title>Document</title>
 </head>
     <body>
@@ -44,19 +45,19 @@
                             <label for="floatingEnEmail">Email</label>
                         </div>
                         <div class="form-floating mt-3">
-                            <input type="text" class="form-control" id="floatingEnTel" placeholder="Telephone number" required>
+                            <input type="tel" class="form-control" id="floatingEnTel" placeholder="Telephone number" required>
                             <label for="floatingEnTel">Telephone number</label>
                         </div>
                         <div class="form-floating mt-3">
                             <textarea class="form-control" placeholder="Address" id="floatingEnAddress" style="height: 100px"></textarea>
                             <label for="floatingEnAddress">Address</label>
                         </div>
-                        <button type="submit" class="btn pull-right btn-primary fw-light mt-4">
+                        <button type="submit" class="btn pull-right btn-primary fw-light mt-4 colorbtn2">
                             Sign up
                         </button>
                         <br><br><br>
                         <hr>
-                        <div class="row "><small class="font-weight-bold">Have an account? <a class="text-danger " href="#">Log in</a></small> </div>
+                        <div class="row "><small class="font-weight-bold">Have an account? <a style="color:#1ED760" href="#">Log in</a></small> </div>
                     </form>
                     <br><br>
                 </div>

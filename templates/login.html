@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <title>Document</title>
 </head>
 <body>     
@@ -23,9 +24,9 @@
             <div class="col-4">
                 <p class="text-center fw-normal mb-2 mt-2">Continue login with</p>
                 <div class="d-grid gap-3">
-                    <a href="#" class="btn btn-default btn-primary fw-light facebook "><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
-                    <a href="#" class="btn btn-default btn-danger fw-light google "><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
-                    <a href="#"  class="btn btn-default btn-info  fw-light text-light" ><i style="margin-right: 10px" class="fa fa-phone-square"></i><span>Continue with phone number</span></a> 
+                    <a href="#" class="btn btn-default btn-primary fw-light facebook rounded-pill facebookbutton" ><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
+                    <a href="#" class="btn btn-default btn-danger fw-light google rounded-pill googlebutton"><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
+                    <a href="#"  class="btn btn-default border-2 fw-light  rounded-pill phonebutton" ><span>Continue with phone number</span></a> 
                 </div>
                 <br>
                 <hr>
@@ -39,14 +40,14 @@
                         <label for="floatingPassword">Password</label>
                         <a class="pull-left fw-light mt-2 text-dark" href="#">Forgot password?</a>
                     </div>
-                    <button type="submit" class="btn pull-right btn-primary fw-light mt-4">
+                    <button type="submit" class="btn pull-right btn-primary fw-light mt-4 text-light colorbtn">
                         Log In
                     </button>
                     
                 </form>
                 <br><br><br>
                 <hr>
-                <div class="row"><small class="font-weight-bold">Don't have an account? <a class="text-danger " href="#">Sign up</a></small> </div>
+                <div class="row"><small class="font-weight-bold">Don't have an account? <a style="color:#1ED760" href="#">Sign up</a></small> </div>
             </div>    
             <div class="col"></div>
         </div>

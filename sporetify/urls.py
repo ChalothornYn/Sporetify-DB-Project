@@ -28,4 +28,10 @@ urlpatterns = [
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
     path('userProfile/', views.user_profile),
+    path('testtable/', views.Testtable),
+    path('adminhistory/', views.AdminHistory),
+    path('userprofile/', views.userProfile),
+    path('song/', views.songHome),
+    path('songtest/', views.songTest),
+    path('song/edm/', views.songEDM),
 ]
