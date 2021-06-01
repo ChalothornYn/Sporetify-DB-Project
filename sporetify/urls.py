@@ -24,5 +24,7 @@ urlpatterns = [
     path('login/', views.Login),
     path('signup/', views.Signup),
     path('signupen/', views.SignupEn),
-    path('home/', views.home)
+    path('home/', views.home),
+    path('addsong/', views.addSong),
+    path('addsongsubmit/', views.addSongSubmit)
 ]

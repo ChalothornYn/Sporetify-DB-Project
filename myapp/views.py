@@ -15,3 +15,11 @@ def SignupEn(request):
 
 def home(request):
     return render(request, 'layout_role.html')
+
+def addSong(request):
+    return render(request, 'addSong.html')
+
+def addSongSubmit(request):
+    Sname = request.POST['Sname']
+    Aname = request.POST['Aname']
+    return render(request, 'tempResult.html', {'Sname': Sname, 'Aname': Aname})
