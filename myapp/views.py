@@ -20,7 +20,13 @@ def AdminHistory(request):
     return render(request, 'adminhistory.html')
 
 def songHome(request):
-    return render(request, 'layout_song.html')
+    return render(request, 'songHome.html')
 
 def userProfile(request):
     return render(request, 'userProfile.html')
+
+def songTest(request):
+    return render(request, 'layout_song.html')
+
+def songEDM(request):
+    return render(request, 'songEDM.html')

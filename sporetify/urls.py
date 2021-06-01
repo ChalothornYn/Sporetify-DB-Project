@@ -27,5 +27,7 @@ urlpatterns = [
     path('testtable/', views.Testtable),
     path('adminhistory/', views.AdminHistory),
     path('userprofile/', views.userProfile),
-    path('song/', views.songHome)
+    path('song/', views.songHome),
+    path('songtest/', views.songTest),
+    path('song/edm/', views.songEDM)
 ]
