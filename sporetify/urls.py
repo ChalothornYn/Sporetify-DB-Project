@@ -39,6 +39,4 @@ urlpatterns = [
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
     path('userprofile/edit/', views.userProfile_edit),
-]
-    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
