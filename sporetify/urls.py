@@ -33,4 +33,6 @@ urlpatterns = [
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
+    path('userprofile/edit/', views.userProfile_edit),
+    path('flag/', views.flag),
 ]
