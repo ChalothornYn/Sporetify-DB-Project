@@ -51,3 +51,9 @@ def songTest(request):
 
 def songEDM(request):
     return render(request, 'songEDM.html')
+
+def userProfile_edit(request):
+    return render(request, 'userProfile_edit.html')
+
+def flag(request):
+    return render(request, 'flag.html')

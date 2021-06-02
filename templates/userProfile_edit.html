@@ -1,0 +1,184 @@
+{% extends 'layout_sideBar.html' %}
+{% load static %}
+
+{% block header %}
+<title>edit user profile</title>
+<link rel="stylesheet" href="{% static 'css/userProfile_edit2.css' %}">
+<!-- download tel inter  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="{% static 'js/profileImg.js' %}"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="d-inline profile-show">
+    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+</div>
+Gustboyy
+{% endblock %}
+
+{% block navbar %}
+<a class="dropdown-item" href="#">Profile</a>
+<a class="dropdown-item" href="#">Credit card</a>
+<a class="dropdown-item" href="#">Transaction</a>
+{% endblock %}
+
+{% block sidebar %}
+<a href="#"><span>ภาพรวมโปรไฟล์</span></a>
+<a href="#"><span>บัตรเครดิต</span></a>
+<a href="#"><span>ประวัติการชำระเงิน</span></a>
+<a href="#" class="side-hidden"><span>Hidden block</span></a>
+{% endblock %}
+
+{% block content %}
+<!-- Start Form -->
+<form action="/userprofile/" method="POST">
+    {% csrf_token %}
+
+    <div class="text-center">
+        <h1>Edit profile</h1>
+        <hr style="width: 83.33%; margin-left: 8.33%;">
+    </div>
+
+    <!-- pic and ID -->
+    <div class="row">
+        <div class="col-sm-12 col-xl-10 offset-xl-1">
+            <!-- <div class="d-flex justify-content-center">
+                <div class="d-inline">
+                    <div class="profile-container" onclick="uploadProfile()">
+                        <img src="{% static 'images/Gust.jpg' %}" alt="" class="" id="profileImgDisplay">
+                        <div class="text-overlay">
+                            <div class="text">Upload image</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-start text-start" style="margin-left: 30px;">
+                    <div class="align-self-end">
+                        <h2 class="username">Username: <span>{username}</span></h2>
+                        <h4 class="userID">User ID: <span>{userID}</span></h4>
+                    </div>
+                </div>
+            </div> -->
+            <div>
+                <!-- Image show -->
+                <div class="d-flex justify-content-center">
+                    <div class="profile-container" onclick="uploadProfile()">
+                        <img src="{% static 'images/Gust.jpg' %}" alt="" class="" id="profileImgDisplay">
+                        <div class="text-overlay">
+                            <div class="text">Upload image</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- username and ID -->
+                <div class="d-flex justify-content-center text-center">
+                    <div class="align-self-end">
+                        <h2 class="username">{username}</h2>
+                        <h5 class="userID">{#userID}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload profile Image # HIDDEN # -->
+    <div class="d-none">
+        <label for="profileImg" class="form-label">Upload picture</label>
+        <input class="form-control" onchange="displayImg(this)" type="file" id="profileImg" name="profileImg">
+    </div>
+
+
+    <!-- Firstname and Lastname -->
+    <div class="row form">
+        <div class="col-sm-6 col-xl-5 offset-xl-1">
+            <div class="input-group mb-5">
+                <span class="input-group-text">Firstname</span>
+                <input type="text" value="{Firstname}" class="form-control" name="firstname">
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-5">
+            <div class="input-group mb-5">
+                <span class="input-group-text">Lastname</span>
+                <input type="text" class="form-control" name="album" value="{Lastname}">
+            </div>
+        </div>
+    </div>
+
+    <!-- Gender -->
+    <div class="row">
+        <div class="col-sm-6 col-xl-5 offset-xl-1">
+            <div class="input-group mb-5">
+                <span class="input-group-text">Gender</span>
+                <div style="margin-left: 10px; margin-top: 7px;">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="gender_male" value="male">
+                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="gender_female" value="female">
+                        <label class="form-check-label" for="inlineRadio1">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="gender_non_binary"
+                            value="non_binary">
+                        <label class="form-check-label" for="inlineRadio1">Non-binary</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DOB -->
+        <div class="col-sm-6 col-xl-5">
+            <div class="input-group mb-5">
+                <span class="input-group-text">Date of Birth</span>
+                <!-- year - month - date -->
+                <input type="date" class="form-control" id="floatingDOB" value="2000-08-30">
+            </div>
+        </div>
+    </div>
+    <!-- telephone number -->
+    <div class="row">
+        <div class="col-sm-6 col-xl-5 offset-xl-1">
+            <div class="input-group mb-5">
+                <span class="input-group-text">Telephone </span>
+                <input type="tel" class="form-control" id="phone" placeholder="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row save-button">
+        <div class="col-sm-12 col-xl-10 offset-xl-1 text-end">
+            <input type="submit" value="  cancel  " class="btn btn-light">
+            <input type="submit" value="  save  " class="btn btn-primary">
+        </div>
+    </div>
+
+</form>
+
+<!-- telephone script -->
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        // allowDropdown: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: "off",
+        // dropdownContainer: document.body,
+        // excludeCountries: ["us"],
+        // formatOnDisplay: false,
+        // geoIpLookup: function(callback) {
+        //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+        //     var countryCode = (resp && resp.country) ? resp.country : "";
+        //     callback(countryCode);
+        //   });
+        // },
+        // hiddenInput: "full_number",
+        // initialCountry: "auto",
+        // localizedCountries: { 'de': 'Deutschland' },
+        // nationalMode: false,
+        onlyCountries: ['us', 'gb', 'ch', 'ca', 'do', 'th'],
+        // placeholderNumberType: "MOBILE",
+        // preferredCountries: ['cn', 'jp'],
+        separateDialCode: true,
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
+{% endblock %}
