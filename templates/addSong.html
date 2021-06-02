@@ -32,7 +32,7 @@
 
 
 		<!-- Start Form -->
-		<form action="/addsongsubmit/" method="POST">
+		<form action="/addsongsubmit/" enctype="multipart/form-data" method="POST">
 			{% csrf_token %}
 
 			<!-- Upload song Image -->

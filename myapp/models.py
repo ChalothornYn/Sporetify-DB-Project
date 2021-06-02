@@ -6,7 +6,7 @@ from django.db import models
 # Song Table
 class Song (models.Model):  
     songID = models.AutoField(primary_key=True)
-    songName = models.CharField(max_length=20)
+    songName = models.CharField(max_length=100)
     artistID = models.ForeignKey('Artist', on_delete=models.CASCADE)
     songImg = models.ImageField(upload_to='uploads/songImg/')
     normalURL = models.FileField(upload_to='uploads/songQuality/normal/')
@@ -14,7 +14,7 @@ class Song (models.Model):
     genre1 = models.CharField(max_length=20)
     genre2 = models.CharField(max_length=20, null=True)
     genre3 = models.CharField(max_length=20, null=True)
-    album = models.CharField(max_length=30, null=True)
+    album = models.CharField(max_length=100, null=True)
     lyrics = models.TextField()
     description = models.TextField()
     language = models.CharField(max_length=2)
@@ -22,7 +22,7 @@ class Song (models.Model):
 #Artist Table
 class Artist (models.Model):
     artistID = models.AutoField(primary_key=True)
-    artiseName = models.CharField(max_length=20)
+    artistName = models.CharField(max_length=50)
     dob = models.DateField()
     entertainmentID = models.ForeignKey('Entertainment', on_delete=models.CASCADE)
 
@@ -36,4 +36,3 @@ class Entertainment (models.Model):
     telNO = models.CharField(max_length=20) 
     address = models.TextField()
     email = models.CharField(max_length=30)
-

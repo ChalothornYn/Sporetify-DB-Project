@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from myapp import views
 
+# For upload img
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingPage),
@@ -34,4 +38,5 @@ urlpatterns = [
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
-]
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
