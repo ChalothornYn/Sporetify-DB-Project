@@ -38,13 +38,16 @@ def Testtable(request):
     return render(request, 'testtable.html')
 
 def AdminHistory(request):
-    return render(request, 'adminhistory.html')
+    return render(request, 'history.html')
 
 def songHome(request):
     return render(request, 'songHome.html')
 
 def userProfile(request):
     return render(request, 'userProfile.html')
+
+def adminProfile(request):
+    return render(request, 'adminProfile.html')
 
 def songTest(request):
     return render(request, 'layout_song.html')
