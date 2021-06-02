@@ -32,7 +32,8 @@
 
 
 		<!-- Start Form -->
-		<form action="/addsongsubmit/" enctype="multipart/form-data" method="POST">
+		<!-- <form action="/addsongsubmit/" enctype="multipart/form-data" method="POST"> -->
+		<form action="/addsong/" enctype="multipart/form-data" method="POST" class="mb-5">
 			{% csrf_token %}
 
 			<!-- Upload song Image -->
@@ -239,6 +240,17 @@
 
 			<input type="submit" value="อัพโหลด" class="btn btn-primary">
 		</form>
+
+		<div>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<strong>{{ message }}</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
 	</div>
 </body>
 
