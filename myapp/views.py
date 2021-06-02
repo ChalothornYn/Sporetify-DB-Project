@@ -2,7 +2,6 @@ from django.shortcuts import render
 from .models import *
 from .forms import addSongForm
 
-
 # Create your views here.
 def landingPage(request):
     return render(request, 'index.html')
@@ -25,26 +24,30 @@ def addSong(request):
 def addSongSubmit(request):
     form = addSongForm()
     if request.method == 'POST':
-        form = addSongForm(request.POST)
+        form = addSongForm(request.POST or None, request.FILES or None)
         print(form.errors)
         if form.is_valid():
             form.save()
             print('success')
         else:
             print('not success')
-    return render(request, 'tempResult.html')
+    result = Song.objects.last()
+    return render(request, 'tempResult.html', {'result': result})
     
 def Testtable(request):
     return render(request, 'testtable.html')
 
 def AdminHistory(request):
-    return render(request, 'adminhistory.html')
+    return render(request, 'history.html')
 
 def songHome(request):
     return render(request, 'songHome.html')
-
+    
 def userProfile(request):
     return render(request, 'userProfile.html')
+
+def adminProfile(request):
+    return render(request, 'adminProfile.html')
 
 def songTest(request):
     return render(request, 'layout_song.html')
