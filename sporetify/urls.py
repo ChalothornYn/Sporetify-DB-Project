@@ -27,7 +27,6 @@ urlpatterns = [
     path('home/', views.home),
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
-    path('userProfile/', views.user_profile),
     path('testtable/', views.Testtable),
     path('adminhistory/', views.AdminHistory),
     path('userprofile/', views.userProfile),
