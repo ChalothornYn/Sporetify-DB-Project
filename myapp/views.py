@@ -130,7 +130,7 @@ def Testtable(request):
     return render(request, 'testtable.html')
 
 def AdminHistory(request):
-    return render(request, 'adminhistory.html')
+    return render(request, 'history.html')
 
 def songHome(request):
     return render(request, 'songHome.html')
@@ -138,8 +138,17 @@ def songHome(request):
 def userProfile(request):
     return render(request, 'userProfile.html')
 
+def adminProfile(request):
+    return render(request, 'adminProfile.html')
+
 def songTest(request):
     return render(request, 'layout_song.html')
 
 def songEDM(request):
     return render(request, 'songEDM.html')
+
+def userProfile_edit(request):
+    return render(request, 'userProfile_edit.html')
+
+def flag(request):
+    return render(request, 'flag.html')

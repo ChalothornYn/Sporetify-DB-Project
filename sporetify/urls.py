@@ -32,10 +32,13 @@ urlpatterns = [
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
-    path('adminhistory/', views.AdminHistory),
+    path('history/', views.AdminHistory),
     path('userprofile/', views.userProfile),
+    path('adminprofile/', views.adminProfile),
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
+    path('userprofile/edit/', views.userProfile_edit),
+]
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
