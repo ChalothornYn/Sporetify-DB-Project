@@ -1,0 +1,47 @@
+{% extends 'layout_sideBar.html' %}
+{% load static %}
+
+{% block header %}
+<title>edit user profile</title>
+<link rel="stylesheet" href="{% static 'css/userProfile_edit2.css' %}">
+<!-- download tel inter  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="{% static 'js/profileImg.js' %}"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="d-inline profile-show">
+    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+</div>
+Gustboyy
+{% endblock %}
+
+{% block navbar %}
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/userprofile/package">Package & Family</a>
+<a class="dropdown-item disabled" href="/userprofile/transaction">Transaction</a>
+<a class="dropdown-item" href="/">Log Out</a>
+{% endblock %}
+
+{% block sidebar %}
+<a href="/userprofile"><span>Account overview</span></a>
+<a href="/userprofile/edit"><span>Edit profile</span></a>
+<a href="/userprofile/package"><span>Package & Family</span></a>
+<a href="/userprofile/transaction" class="side-active"><span>Transaction</span></a>
+{% endblock %}
+
+{% block content %}
+<!-- Start Form -->
+<form action="/userprofile/" method="POST">
+    {% csrf_token %}
+
+    <div class="text-center">
+        <h1>Transaction</h1>
+        <hr style="width: 83.33%; margin-left: 8.33%;">
+    </div>
+
+    <!-- pic and ID -->
+    
+{% endblock %}

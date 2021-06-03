@@ -18,17 +18,18 @@ Gustboyy
 {% endblock %}
 
 {% block navbar %}
-<a class="dropdown-item" href="#">Account</a>
-<a class="dropdown-item disabled" href="#">Edit profile</a>
-<a class="dropdown-item" href="#">Package & Family</a>
-<a class="dropdown-item" href="#">Transaction</a>
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item disabled" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/userprofile/package">Package & Family</a>
+<a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
+<a class="dropdown-item" href="/">Log Out</a>
 {% endblock %}
 
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
-<a class="side-active"><span>Edit profile</span></a>
-<a href="#"><span>Package & Family</span></a>
-<a href="#"><span>Transaction</span></a>
+<a href="/userprofile/edit" class="side-active"><span>Edit profile</span></a>
+<a href="/userprofile/package"><span>Package & Family</span></a>
+<a href="/userprofile/transaction"><span>Transaction</span></a>
 {% endblock %}
 
 {% block content %}

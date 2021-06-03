@@ -39,6 +39,8 @@ urlpatterns = [
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
     path('userprofile/edit/', views.userProfile_edit),
+    path('userprofile/package', views.userProfile_package),
+    path('userprofile/transaction', views.userProfile_transaction),
 
     # Admin URL
     # path('adminregister/', views.adminRegister, name='adminRegister'),
