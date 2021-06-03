@@ -4,6 +4,8 @@
 {% block header %}
 	<link rel="stylesheet" href="{% static 'css/addSongs.css' %}">
 	<script src="{% static 'js/addSong.js' %}"></script>
+
+
     <title>Sporetify</title>
 {% endblock%}
 
@@ -231,7 +233,8 @@
 				<!-- description -->
 				<div class="col-6">
 					<label for="exampleFormControlTextarea1" class="form-label">คำอธิบายเพิ่มเติม</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+					<textarea class="form-control" id="description" rows="3" name="description"></textarea>
+					<p id="error">sss</p>
 				</div>
 				<!-- lyrics -->
 				<div class="col-6">
@@ -244,14 +247,25 @@
 		</form>
 
 		<div>
-			{% if messages %}
+			{{form.errors}}
+			<!-- {% if messages %}
 				{% for message in messages %}
 					<div class="alert alert-danger alert-dismissible fade show" role="alert">
 						<strong>{{ message }}</strong>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 				{% endfor %}
-			{% endif %}
+			{% endif %} -->
 		</div>
 	</div>
+
+	<script>
+
+		myfn();
+		function myfn() {
+			document.getElementById('error').innerHTML = "error message";
+		}
+
+	</script>
+
 {% endblock %}

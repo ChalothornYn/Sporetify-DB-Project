@@ -57,3 +57,21 @@ class Entertainment (models.Model):
     telNO = models.CharField(max_length=20) 
     address = models.TextField()
     email = models.CharField(max_length=30)
+
+
+#Admin Table
+# class Admin (models.Model):
+
+#     def genID():
+#         n = Entertainment.objects.count()
+#         return "AD" + str(n).zfill(6)
+
+#     # entertainmentID = models.AutoField(primary_key=True)
+#     adminID = models.CharField(max_length=8, default=genID ,primary_key=True)
+#     adminName = models.CharField(max_length=12) 
+#     enUserName = models.CharField(max_length=12)
+#     password = models.CharField(max_length=12)
+#     interCode = models.CharField(max_length=4)
+#     telNO = models.CharField(max_length=20) 
+#     address = models.TextField()
+#     email = models.CharField(max_length=30)

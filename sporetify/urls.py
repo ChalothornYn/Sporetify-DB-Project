@@ -34,9 +34,13 @@ urlpatterns = [
     path('testtable/', views.Testtable),
     path('history/', views.AdminHistory),
     path('userprofile/', views.userProfile),
-    path('adminprofile/', views.adminProfile),
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
     path('userprofile/edit/', views.userProfile_edit),
+
+    # Admin URL
+    path('adminlogin/', views.adminLogin, name='adminLogin'),
+    path('adminprofile/', views.adminProfile),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

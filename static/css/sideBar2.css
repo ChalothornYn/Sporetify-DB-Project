@@ -76,7 +76,7 @@ body {
     background-color: white;
     margin-top: 80px;
     padding-top: 30px;
-    padding-left: calc(250px - 100%/10)
+    padding-left: calc(250px - 100%/11)
 }
 
 .logo-show {
