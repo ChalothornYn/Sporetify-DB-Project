@@ -1,25 +1,23 @@
-{% extends 'layout_sideBar.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block header %}
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'css/addSongs.css' %}">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 	<script src="{% static 'js/addSong.js' %}"></script>
-    <title>Sporetify</title>
-{% endblock%}
 
-{% block navbar %}
-    <a class="dropdown-item" href="#">Profile</a>
-    <a class="dropdown-item" href="#">Credit card</a>
-    <a class="dropdown-item" href="#">Transaction</a>
-{% endblock %}
+	<title>Sporetify</title>
+</head>
 
-{% block sidebar %}
-    <a href="#"><span>ภาพรวมโปรไฟล์</span></a>
-    <a href="#"><span>บัตรเครดิต</span></a>
-    <a href="#"><span>ประวัติการชำระเงิน</span></a>
-{% endblock %}
-
-{% block content %}
+<body>
 	<div class="container pt-3">
 		<!-- Image Preview -->
 		<div class="container-fluid d-flex justify-content-between align-items-center mb-5">
@@ -254,4 +252,6 @@
 			{% endif %}
 		</div>
 	</div>
-{% endblock %}
+</body>
+
+</html>
