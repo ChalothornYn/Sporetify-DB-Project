@@ -33,11 +33,12 @@ urlpatterns = [
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
-    path('history/', views.AdminHistory),
-    path('userprofile/', views.userProfile),
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
+
+    #User URL
+    path('userprofile/', views.userProfile),
     path('userprofile/edit/', views.userProfile_edit),
     path('userprofile/package', views.userProfile_package),
     path('userprofile/transaction', views.userProfile_transaction),
@@ -46,6 +47,7 @@ urlpatterns = [
     # path('adminregister/', views.adminRegister, name='adminRegister'),
     path('adminlogin/', views.adminLogin, name='adminLogin'),
     path('adminlogout/', views.adminLogout, name='adminLogout'),
-    path('adminprofile/', views.adminProfile, name='adminProfile'),
+    # path('adminprofile/', views.adminProfile, name='adminProfile'),
+    path('history/', views.AdminHistory),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,6 +3,7 @@ from .models import *
 from .forms import addSongForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login, logout
 
