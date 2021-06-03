@@ -20,6 +20,7 @@ Gustboyy
 <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
 <a class="dropdown-item" href="/userprofile/package">Package & Family</a>
 <a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
+<a class="dropdown-item" href="/">Log Out</a>
 {% endblock %}
 
 {% block sidebar %}
@@ -74,6 +75,10 @@ Gustboyy
                             <tr>
                                 <td class="col-5 key">User ID</td>
                                 <td class="text-secondary">#{userID}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-5 key">Email</td>
+                                <td class="text-secondary">{email}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Firstname</td>
@@ -151,9 +156,6 @@ Gustboyy
             </div>
         </div>
     </div>
-<<<<<<< HEAD
 </div>
 <br><br>
-=======
->>>>>>> 07a761bd6a425559014b0d65c3103af367780f28
 {% endblock %}
