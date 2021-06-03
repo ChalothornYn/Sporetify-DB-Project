@@ -138,8 +138,6 @@ def songHome(request):
 def userProfile(request):
     return render(request, 'userProfile.html')
 
-def adminProfile(request):
-    return render(request, 'adminProfile.html')
 
 def songTest(request):
     return render(request, 'layout_song.html')
@@ -155,3 +153,11 @@ def userProfile_package(request):
 
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')
+
+# Admin views
+
+def adminLogin(request):
+    return render(request, 'adminPages/adminLogin.html')
+
+def adminProfile(request):
+    return render(request, 'adminPages/adminProfile.html')
