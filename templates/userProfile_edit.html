@@ -19,14 +19,15 @@ Gustboyy
 
 {% block navbar %}
 <a class="dropdown-item" href="#">Account</a>
-<a class="dropdown-item" href="#">Edit profile</a>
+<a class="dropdown-item disabled" href="#">Edit profile</a>
+<a class="dropdown-item" href="#">Package & Family</a>
 <a class="dropdown-item" href="#">Transaction</a>
 {% endblock %}
 
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
-<p class="side-active"><span>Edit profile</span></p>
-<a href="#"><span>Packkage</span></a>
+<a class="side-active"><span>Edit profile</span></a>
+<a href="#"><span>Package & Family</span></a>
 <a href="#"><span>Transaction</span></a>
 {% endblock %}
 

@@ -40,7 +40,7 @@ body {
     margin-bottom: 20px;
 } */
 
-.sidebar a{
+.sidebar a:not(.side-active){
     color: #fff;
     display: block;
     width: 100%;
@@ -58,8 +58,14 @@ body {
     box-sizing: border-box;
 }
 
-.sidebar a:hover{
+.sidebar a:not(.side-active):hover{
     color: #1fd662;
+}
+
+.side-active{
+    color: #000;
+    pointer-events: none;
+    cursor: default;
 }
 
 .sidebar span{
