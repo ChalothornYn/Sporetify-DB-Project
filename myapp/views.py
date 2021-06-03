@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import addSongForm
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def landingPage(request):
-    return render(request, 'index.html', {'field': 20})
+    return render(request, 'index.html')
 
 def Login(request):
     return render(request, 'login.html')
@@ -155,9 +158,29 @@ def flag(request):
 
 
 # Admin views
+def adminRegister(request):
+    form = UserCreationForm()
+    context = {'form': form}
+    return render(request, 'adminPages/adminRegister.html', context)
 
 def adminLogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return render(request, 'adminPages/adminProfile.html')
+        else:
+            messages.info(request, 'Username or Password is incorrect')
+            return render(request, 'adminPages/adminLogin.html', {'username':username})
     return render(request, 'adminPages/adminLogin.html')
+
+def adminLogout(request):
+    logout(request)
+    return redirect('adminLogin')
 
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
