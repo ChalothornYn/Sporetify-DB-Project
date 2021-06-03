@@ -39,4 +39,6 @@ urlpatterns = [
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
     path('userprofile/edit/', views.userProfile_edit),
+    path('userprofile/package', views.userProfile_package),
+    path('userprofile/transaction', views.userProfile_transaction),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

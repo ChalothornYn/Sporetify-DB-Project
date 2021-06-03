@@ -150,5 +150,8 @@ def songEDM(request):
 def userProfile_edit(request):
     return render(request, 'userProfile_edit.html')
 
-def flag(request):
-    return render(request, 'flag.html')
+def userProfile_package(request):
+    return render(request, 'userProfile_package.html')
+
+def userProfile_transaction(request):
+    return render(request, 'userProfile_transaction.html')
