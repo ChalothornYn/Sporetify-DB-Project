@@ -1,21 +1,101 @@
 {% extends 'layout_sideBar.html' %}
+{% load static %}
 
-{% block title %}
-    user_profile
+{% block header %}
+<title>user profile</title>
+<link rel="stylesheet" href="{% static 'css/userProfile.css' %}">
 {% endblock%}
 
+{% block profile_nav %}
+<div class="d-inline profile-show">
+    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+</div>
+Gustboyy
+{% endblock %}
+
 {% block navbar %}
-    <a class="dropdown-item" href="#">Profile</a>
-    <a class="dropdown-item" href="#">Credit card</a>
-    <a class="dropdown-item" href="#">Transaction</a>
+<!-- set class="disabled in current page" -->
+<a class="dropdown-item disabled" href="#">Account</a>
+<a class="dropdown-item" href="#">Edit profile</a>
+<a class="dropdown-item" href="#">Package & Family</a>
+<a class="dropdown-item" href="#">Transaction</a>
 {% endblock %}
 
 {% block sidebar %}
-    <a href="#"><span>ภาพรวมโปรไฟล์</span></a>
-    <a href="#"><span>บัตรเครดิต</span></a>
-    <a href="#"><span>ประวัติการชำระเงิน</span></a>
+<!-- set class="side-active in current page" -->
+<a href="#" class="side-active"><span>Account overview</span></a>
+<a href="/userprofile/edit"><span>Edit profile</span></a>
+<a href="#"><span>Package & Family</span></a>
+<a href="#"><span>Transaction</span></a>
 {% endblock %}
 
 {% block content %}
-    <p>เนื้อหาใส่ตรงนี้นะครับ</p>
-{% endblock %}
+<!-- Start Form -->
+<div class="text-center">
+    <h1>Account overview</h1>
+    <hr style="width: 83.33%; margin-left: 8.33%;">
+</div>
+
+<!-- pic and ID -->
+<div class="col-10 offset-1 d-flex">
+    <div class="col-5 align-self-center">
+        <div class="">
+            <!-- Image show -->
+            <div class="d-flex justify-content-center">
+                <div class="profile-container">
+                    <img src="{% static 'images/Gust.jpg' %}" alt="" class="">
+                </div>
+            </div>
+            <!-- username and ID -->
+            <div class="d-flex justify-content-center text-center">
+                <div class="align-self-end">
+                    <h2 class="username">{username}</h2>
+                    <h5 class="userID">{#userID}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-7">
+        <div class="col-xl-11 col-sm-12">
+            <div class="profile-detail text-start">
+                <h3>Profile</h3>
+                <table class="table profile">
+                    <tbody>
+                        <tr>
+                            <td class="col-4 key">Username</td>
+                            <td class="text-secondary">{username}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">User ID</td>
+                            <td class="text-secondary">#{userID}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">Firstname</td>
+                            <td class="text-secondary">{firstname}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">Lastname</td>
+                            <td class="text-secondary">{lastname}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">Gender</td>
+                            <td class="text-secondary">{gender}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">Age</td>
+                            <td class="text-secondary">{age}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">Date of Birth</td>
+                            <td class="text-secondary">{DOB}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 key">Tel</td>
+                            <td>{interTel} {Tel}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

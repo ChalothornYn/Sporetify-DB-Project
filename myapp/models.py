@@ -3,9 +3,16 @@ from django.db import models
 
 # Create your models here.  # NOT NULL is DEFAULT
 
+
 # Song Table
 class Song (models.Model):  
-    songID = models.AutoField(primary_key=True)
+
+    def genID():
+        n = Song.objects.count()
+        return "S" + str(n).zfill(9)
+
+    # songID = models.AutoField(primary_key=True)
+    songID = models.CharField(max_length=10, default=genID ,primary_key=True)
     songName = models.CharField(max_length=100)
     artistID = models.ForeignKey('Artist', on_delete=models.CASCADE)
     songImg = models.ImageField(upload_to='uploads/songImg/')
@@ -15,21 +22,35 @@ class Song (models.Model):
     genre2 = models.CharField(max_length=20, null=True)
     genre3 = models.CharField(max_length=20, null=True)
     album = models.CharField(max_length=100, null=True)
-    lyrics = models.TextField()
-    description = models.TextField()
+    lyrics = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     language = models.CharField(max_length=2)
+
 
 #Artist Table
 class Artist (models.Model):
-    artistID = models.AutoField(primary_key=True)
+
+    def genID():
+        n = Artist.objects.count()
+        return "AT" + str(n).zfill(6)
+    
+    # artistID = models.AutoField(primary_key=True)
+    artistID = models.CharField(max_length=8, default=genID ,primary_key=True)
     artistName = models.CharField(max_length=50)
     dob = models.DateField()
     entertainmentID = models.ForeignKey('Entertainment', on_delete=models.CASCADE)
 
+
 #Entertainment Table
 class Entertainment (models.Model):
-    entertainmentID = models.AutoField(primary_key=True)
-    entertainmentName = models.CharField(max_length=30)
+    
+    def genID():
+        n = Entertainment.objects.count()
+        return "EN" + str(n).zfill(6)
+
+    # entertainmentID = models.AutoField(primary_key=True)
+    entertainmentID = models.CharField(max_length=8, default=genID ,primary_key=True)
+    entertainmentName = models.CharField(max_length=30) 
     enUserName = models.CharField(max_length=12)
     password = models.CharField(max_length=12)
     interCode = models.CharField(max_length=4)
