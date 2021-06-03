@@ -23,9 +23,8 @@ body {
     margin-top: 80px;
     padding-top: 50px;
     position: fixed;
-    left: 0;
     width: 250px;
-    height: 1000px;
+    height: 100%;
 }
 
 /* .sidebar .profile_image{
@@ -35,11 +34,11 @@ body {
     margin-bottom: 10px;
 } */
 
-.sidebar h4{
+/* .sidebar h4{
     color: #ccc;
     margin-top: 0;
     margin-bottom: 20px;
-}
+} */
 
 .sidebar a{
     color: #fff;
@@ -60,9 +59,7 @@ body {
 }
 
 .sidebar a:hover{
-    background: #1fd662;
-    color: #1a1a1a;
-
+    color: #1fd662;
 }
 
 .sidebar span{
@@ -110,4 +107,14 @@ body {
     object-fit: cover;
     width: 40px;
     margin-right: 5px;
+}
+
+.side-active{
+    color: #000;
+    background-color: #1fd662;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
 }

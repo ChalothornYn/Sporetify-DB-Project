@@ -18,16 +18,16 @@ Gustboyy
 {% endblock %}
 
 {% block navbar %}
-<a class="dropdown-item" href="#">Profile</a>
-<a class="dropdown-item" href="#">Credit card</a>
+<a class="dropdown-item" href="#">Account</a>
+<a class="dropdown-item" href="#">Edit profile</a>
 <a class="dropdown-item" href="#">Transaction</a>
 {% endblock %}
 
 {% block sidebar %}
-<a href="#"><span>ภาพรวมโปรไฟล์</span></a>
-<a href="#"><span>บัตรเครดิต</span></a>
-<a href="#"><span>ประวัติการชำระเงิน</span></a>
-<a href="#" class="side-hidden"><span>Hidden block</span></a>
+<a href="/userprofile"><span>Account overview</span></a>
+<p class="side-active"><span>Edit profile</span></p>
+<a href="#"><span>Packkage</span></a>
+<a href="#"><span>Transaction</span></a>
 {% endblock %}
 
 {% block content %}
