@@ -21,17 +21,23 @@
             </a>
         </div>
         <hr>
-        <div class="containersignup" >
-            <div class="btnclass">
-                <div class="me-2">
-                    <button class="btn btn-primary " type="button">User</button>
-                </div>
-                <div class="ms-2">
-                    <button class="btn btn-primary" type="button">Entertainment</button>
-                </div>
+        <div class="container" >
+            <div class="btnclasssignup">
+                <label style="margin-top: 30px" >
+                    <input type="radio" name="select" value="user" checked>
+                    <div class="me-2 text-center">
+                        User
+                    </div>
+                </label>
+                <label style="margin-top: 30px">
+                    <a  href="http://127.0.0.1:8000/signup/entertainment/"><input type="radio" name="select" value="entertainment">
+                    <div class="ms-2 text-center">
+                        Entertainment
+                    </div>
+                </label>
             </div>
             <form role="form">
-                <div class="form-floating mt-5">
+                <div class="form-floating mt-3">
                     <input type="text" class="form-control" id="floatingEmail" placeholder="Email" required>
                     <label for="floatingEmail">Email</label>
                 </div>
@@ -48,7 +54,7 @@
                     <label for="floatingComfirmPassword">Comfirm Password</label>
                 </div>
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-lg btn-block fw-light text-light mt-4 colorbtn1" >
+                    <button type="submit" class="btn btn-lg btn-block fw-light text-light mt-4 colorbtn2" >
                         Sign up
                     </button>
                 </div>

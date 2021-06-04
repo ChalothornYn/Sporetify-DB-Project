@@ -4,7 +4,6 @@
 {% block header %}
 <title>edit user profile</title>
 <link rel="stylesheet" href="{% static 'css/userProfile_transaction.css' %}">
-<script src="{% static 'js/creditCard.js' %}"></script>
 <script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
 {% endblock%}
 
@@ -89,8 +88,8 @@ Gustboyy
             <div class="col-6 offset-1">
                 <h3>Add card</h3>
                 <div class='card-wrapper'></div>
-                <script src="{% static 'js/creditCard.js'%}"></script>
-                <form>
+                <script src="{% static 'js/card.js'%}"></script>
+                <form class="credit-card">
                     <div class="col-12">
                         <div class="mb-1">
                             <label for="cardNo" class="form-label">Card number</label>
@@ -116,7 +115,7 @@ Gustboyy
                                 <input type="text" class="form-control" id="expiry" name="expiry">
                             </div>
                             <div class="col-6">
-                                <label for="cvc" class="form-label">CVV/CVC</label>
+                                <label for="cvc" class="form-label">CVV</label>
                                 <input type="text" class="form-control" id="cvc" name="cvc" maxlength="3">
                             </div>
                         </div>
@@ -127,12 +126,12 @@ Gustboyy
                 </form>
                 <script>
                     var card = new Card({
-                        form: 'form',
+                        form: '.credit-card',
                         container: '.card-wrapper',
 
                         placeholders: {
                             number: '**** **** **** ****',
-                            name: 'Arya Stark',
+                            name: 'YOUR NAME',
                             expiry: '**/****',
                             cvc: '***'
                         }
