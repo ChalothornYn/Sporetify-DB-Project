@@ -89,7 +89,7 @@ Gustboyy
                 <h3>Add card</h3>
                 <div class='card-wrapper'></div>
                 <script src="{% static 'js/card.js'%}"></script>
-                <form>
+                <form class="credit-card">
                     <div class="col-12">
                         <div class="mb-1">
                             <label for="cardNo" class="form-label">Card number</label>
@@ -126,12 +126,12 @@ Gustboyy
                 </form>
                 <script>
                     var card = new Card({
-                        form: 'form',
+                        form: '.credit-card',
                         container: '.card-wrapper',
 
                         placeholders: {
                             number: '**** **** **** ****',
-                            name: 'GYMMY',
+                            name: 'YOUR NAME',
                             expiry: '**/****',
                             cvc: '***'
                         }
