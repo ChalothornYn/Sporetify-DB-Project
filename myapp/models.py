@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # from django.db.models.deletion import CASCADE
 
 # Create your models here.  # NOT NULL is DEFAULT
@@ -59,19 +60,13 @@ class Entertainment (models.Model):
     email = models.CharField(max_length=30)
 
 
-#Admin Table
-# class Admin (models.Model):
-
-#     def genID():
-#         n = Entertainment.objects.count()
-#         return "AD" + str(n).zfill(6)
-
-#     # entertainmentID = models.AutoField(primary_key=True)
-#     adminID = models.CharField(max_length=8, default=genID ,primary_key=True)
-#     adminName = models.CharField(max_length=12) 
-#     enUserName = models.CharField(max_length=12)
-#     password = models.CharField(max_length=12)
-#     interCode = models.CharField(max_length=4)
-#     telNO = models.CharField(max_length=20) 
-#     address = models.TextField()
-#     email = models.CharField(max_length=30)
+# Admin Table
+class Admin (models.Model):
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    firstName = models.CharField(max_length=50, default='No data')
+    lastName = models.CharField(max_length=50, default='No data')
+    gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
+    profileImage = models.ImageField(upload_to='uploads/profileImage/admin/', default = 'uploads/profileImage/profile-placeholder.png')
+    interCode = models.CharField(max_length=4, null=True)
+    telNO = models.CharField(max_length=20, null=True, unique=True) 
+    dob = models.DateField(null=True)

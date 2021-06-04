@@ -3,8 +3,8 @@
 
 {% block header %}
 <title>user profile</title>
-<link rel="stylesheet" href="{% static 'css/userProfile2.css' %}">
-<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/userProfile.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock%}
 
 {% block profile_nav %}
@@ -18,8 +18,7 @@ Gustboyy
 <!-- set class="disabled in current page" -->
 <a class="dropdown-item disabled" href="/userprofile">Account</a>
 <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/userprofile/package">Package</a>
-<a class="dropdown-item" href="/userprofile/family">Family</a>
+<a class="dropdown-item" href="/userprofile/package">Package & Family</a>
 <a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
 <a class="dropdown-item" href="/">Log Out</a>
 {% endblock %}
@@ -28,8 +27,7 @@ Gustboyy
 <!-- set class="side-active in current page" -->
 <a href="#" class="side-active"><span>Account overview</span></a>
 <a href="edit"><span>Edit profile</span></a>
-<a href="/userprofile/package"><span>Package</span></a>
-<a href="/userprofile/family"><span>Family</span></a>
+<a href="package"><span>Package & Family</span></a>
 <a href="transaction"><span>Transaction</span></a>
 {% endblock %}
 
@@ -67,7 +65,7 @@ Gustboyy
                         <h3>Profile</h3>
                         <a href="edit"><i class="fa fa-edit"></i></a>
                     </span>
-
+                     
                     <table class="table profile">
                         <tbody>
                             <tr>
@@ -120,53 +118,24 @@ Gustboyy
         <div class="row">
             <div class="col-6">
                 <div class="col-10 offset-1">
-                    <div class="row mb-3">
-                        <span class="d-flex justify-content-between topic">
-                            <h3>My Family</h3>
-                            <a href="family"><i class="fa fa-edit"></i></a>
-                        </span>
-                        <table class="table profile">
-                            <tbody>
-                                <tr>
-                                    <td class="col-5 key">{userID1} <i class="fas fa-crown" style="margin-left: 5px;"></i></td>
-                                    <td class="text-secondary">{username1}</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-5 key">{userID2}</td>
-                                    <td class="text-secondary">{username2}</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-5 key">{userID3}</td>
-                                    <td class="text-secondary">{username3}</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-5 key">{userID4}</td>
-                                    <td class="text-secondary">{username4}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row mb-3">
-                        <span class="d-flex justify-content-between topic align-self-end">
-                            <h3>My Card</h3>
-                            <a href="transaction"><i class="fa fa-edit"></i></a>
-                        </span>
-                        <table class="table class">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Card number</th>
-                                    <th scope="col">Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="col key">xxxx-xxxx-xxxx-{cardID}</td>
-                                    <td class="col text-secondary">{cardType}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
+                    <span class="d-flex justify-content-between topic">
+                        <h3>My Card</h3>
+                        <a href="transaction"><i class="fa fa-edit"></i></a>
+                    </span>
+                    <table class="table class">
+                        <thead>
+                            <tr>
+                                <th scope="col">Card number</th>
+                                <th scope="col">Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col key">xxxx-xxxx-xxxx-{cardID}</td>
+                                <td class="col text-secondary">{cardType}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -177,12 +146,10 @@ Gustboyy
                         <a href="package"><i class="fa fa-edit"></i></a>
                     </span>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                            class="package-pic" alt="...">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" class="package-pic" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Pakkage#1 Home alone</h5>
-                            <p class="card-text">This is a detail about the package#1 home alone but i'm lazy to think
-                                about it, so i will use this sentence for testing instead :p</p>
+                            <p class="card-text">This is a detail about the package#1 home alone but i'm lazy to think about it, so i will use this sentence for testing instead :p</p>
                         </div>
                     </div>
                 </div>

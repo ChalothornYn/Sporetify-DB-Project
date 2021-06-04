@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from collections import namedtuple
 from django.contrib import admin
 from django.urls import path
 from myapp import views
@@ -32,17 +33,29 @@ urlpatterns = [
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
-    path('history/', views.AdminHistory),
-    path('userprofile/', views.userProfile),
+
+    #SONG URL
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
+
+    #User URL
+    path('userprofile/', views.userProfile),
     path('userprofile/edit/', views.userProfile_edit),
     path('userprofile/package', views.userProfile_package),
     path('userprofile/transaction', views.userProfile_transaction),
+    path('userprofile/family', views.userProfile_family),
+
+    # Entertainment URL
+    path('en/profile', views.enProfile, name='enProfile'),
+    
+
 
     # Admin URL
+    path('adminregister/', views.adminRegister, name='adminRegister'),
     path('adminlogin/', views.adminLogin, name='adminLogin'),
-    path('adminprofile/', views.adminProfile),
+    path('adminlogout/', views.adminLogout, name='adminLogout'),
+    path('adminprofile/', views.adminProfile, name='adminProfile'),
+    path('history/', views.AdminHistory),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

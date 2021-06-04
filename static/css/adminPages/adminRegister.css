@@ -1,0 +1,47 @@
+html,
+body {
+    height: 100%;
+    background: rgb(255,255,255);
+    background: linear-gradient(120deg, rgba(255,255,255,1) 0%, rgba(206,246,255,1) 20%, rgba(104,225,253,1) 100%);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    height: auto;
+    width: 500px;
+    background-color: azure;
+    padding: 30px 25px 30px 25px;
+    border-radius: 20px;
+}
+
+.login-header {
+    width: 100%;
+}
+.login-header div {
+    width: 100%;
+}
+
+.login-header span{
+    color: #000;
+    font-size: 24px;
+}
+
+.btn {
+    background-color: #2D46B9;
+}
+
+.error-js {
+    font-size: 0px;
+    height: 20px;
+}
+
+#errorlist span {
+    color: red;
+    display: block;
+    margin-bottom: 15px;
+}

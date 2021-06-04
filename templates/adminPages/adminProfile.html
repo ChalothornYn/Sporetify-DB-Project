@@ -7,13 +7,14 @@
 
 {% block profile_nav %}
     <div class="d-inline profile-show">
-        <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+        <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="rounded-circle">
     </div>
-    Gustboyy
+    {{user.admin.firstName}}
 {% endblock %}
 
 {% block navbar %}
     <a class="dropdown-item" href="#">Profile</a>
+    <a class="dropdown-item" href="{% url 'adminLogout' %}">Log Out</a>
 {% endblock %}
 
 {% block sidebar %}

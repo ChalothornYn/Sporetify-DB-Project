@@ -3,11 +3,9 @@
 
 {% block header %}
 <title>edit user profile</title>
-<link rel="stylesheet" href="{% static 'css/userProfile_edit2.css' %}">
-<!-- download tel inter  -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<script src="{% static 'js/profileImg.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/userProfile_transaction.css' %}">
+<script src="{% static 'js/creditCard.js' %}"></script>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
 {% endblock%}
 
 {% block profile_nav %}
@@ -20,27 +18,166 @@ Gustboyy
 {% block navbar %}
 <a class="dropdown-item" href="/userprofile">Account</a>
 <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/userprofile/package">Package & Family</a>
+<a class="dropdown-item" href="/userprofile/package">Package</a>
+<a class="dropdown-item" href="/userprofile/family">Family</a>
 <a class="dropdown-item disabled" href="/userprofile/transaction">Transaction</a>
+<a class="dropdown-item" href="/">Log Out</a>
 {% endblock %}
 
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
 <a href="/userprofile/edit"><span>Edit profile</span></a>
-<a href="/userprofile/package"><span>Package & Family</span></a>
+<a href="/userprofile/package"><span>Package</span></a>
+<a href="/userprofile/family"><span>Family</span></a>
 <a href="/userprofile/transaction" class="side-active"><span>Transaction</span></a>
 {% endblock %}
 
 {% block content %}
-<!-- Start Form -->
-<form action="/userprofile/" method="POST">
-    {% csrf_token %}
+<!-- Header -->
+<div class="text-center">
+    <h1>Transaction</h1>
+    <hr style="width: 83.33%; margin-left: 8.33%;">
+</div>
+<!-- End header -->
 
-    <div class="text-center">
-        <h1>Transaction</h1>
-        <hr style="width: 83.33%; margin-left: 8.33%;">
+<!-- credit card -->
+<div class="col-10 offset-1">
+    <div class="col-10 offset-1">
+        <div class="row">
+            <div class="col-5">
+                <span class="d-flex justify-content-between topic">
+                    <h3>My Card</h3>
+                </span>
+                <form>
+                    <table class="table class">
+                        <thead>
+                            <tr>
+                                <th scope="col">Card number</th>
+                                <th scope="col">Type</th>
+                                <th class="col text-center">Activate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-secondary">{cardID}</td>
+                                <td class="text-secondary">{cardType}</td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="radio" name="card_activate" value="card1" checked>
+                                        <i class="fas fa-check-circle"></i>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">{cardID}</td>
+                                <td class="text-secondary">{cardType}</td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="radio" name="card_activate" value="card2">
+                                        <i class="fas fa-check-circle"></i>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Save change</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Add card -->
+            <div class="col-6 offset-1">
+                <h3>Add card</h3>
+                <div class='card-wrapper'></div>
+                <script src="{% static 'js/creditCard.js'%}"></script>
+                <form>
+                    <div class="col-12">
+                        <div class="mb-1">
+                            <label for="cardNo" class="form-label">Card number</label>
+                            <input type="text" class="form-control" id="cardNo" name="number">
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-7">
+                                <label for="name" class="form-label">Name on card</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="col-5">
+                                <label for="type" class="form-label">Card type</label>
+                                <select class="form-select" aria-label="Default select example" id="type">
+                                    <option selected></option>
+                                    <option value="1">Credit card</option>
+                                    <option value="2">Debit card</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="expiry" class="form-label">Expiry date</label>
+                                <input type="text" class="form-control" id="expiry" name="expiry">
+                            </div>
+                            <div class="col-6">
+                                <label for="cvc" class="form-label">CVV/CVC</label>
+                                <input type="text" class="form-control" id="cvc" name="cvc" maxlength="3">
+                            </div>
+                        </div>
+                        <div class="text-end mb-1">
+                            <button type="submit" class="btn btn-primary">Add card</button>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    var card = new Card({
+                        form: 'form',
+                        container: '.card-wrapper',
+
+                        placeholders: {
+                            number: '**** **** **** ****',
+                            name: 'Arya Stark',
+                            expiry: '**/****',
+                            cvc: '***'
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <br>
+        <div>
+            <h3>Transaction history</h3>
+            <table class="table class">
+                <thead>
+                    <tr>
+                        <th scope="col">Payment ID</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Package Name</th>
+                        <th scope="col">Payer ID</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col key">{paymentID}</td>
+                        <td class="col key">{startDate}</td>
+                        <td class="col key">{endDate}</td>
+                        <td class="col key">{packageName}</td>
+                        <td class="col key">{payerID}</td>
+                        <td class="col key">{packagePrice}</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td class="col key">{paymentID}</td>
+                        <td class="col key">{startDate}</td>
+                        <td class="col key">{endDate}</td>
+                        <td class="col key">{packageName}</td>
+                        <td class="col key">{payerID}</td>
+                        <td class="col key">{packagePrice}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
 
-    <!-- pic and ID -->
-    
+<!-- history -->
 {% endblock %}
