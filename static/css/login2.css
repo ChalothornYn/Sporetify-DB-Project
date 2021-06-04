@@ -18,3 +18,24 @@
     border-color: rgb(160, 160, 160);
     color:rgb(160, 160, 160)
 }
+
+.btnclass{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.btnclass button{
+    width: 100%;
+    padding: 10px 0;
+}
+.userbtn{
+    background-color : #1ED760;
+    border: none;
+}
+.enbtn{
+    background-color : transparent;
+    border: none;
+}
+.container{
+    width: 450px;
+}
