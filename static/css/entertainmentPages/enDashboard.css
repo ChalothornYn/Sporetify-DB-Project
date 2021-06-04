@@ -12,10 +12,9 @@
     background-color: dodgerblue;
     padding: 20px;
 }
-.content-box .inner-content-box{
+.content-box {
     height: 200px;
-    display: flex;
 }
 .content-box i {
-    font-size: 30px;
+    font-size: 5vw;
 }
