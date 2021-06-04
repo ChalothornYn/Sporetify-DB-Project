@@ -133,7 +133,7 @@ def Testtable(request):
 def AdminHistory(request):
     return render(request, 'history.html')
 
-# Song views
+# ------------------------------------------- Song views -------------------------------------------
 
 def songHome(request):
     return render(request, 'songHome.html')

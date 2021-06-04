@@ -49,7 +49,6 @@ urlpatterns = [
 
     # Entertainment URL
     path('en/profile', views.enProfile, name='enProfile'),
-    
 
 
     # Admin URL
