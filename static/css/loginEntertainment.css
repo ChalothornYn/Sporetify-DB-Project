@@ -1,28 +1,26 @@
-.colorbtn{
+.colorbtn1{
     background-color : #1ED760;
     border: none;
 }
-.colorbtn:hover{
+.colorbtn1:hover{
     background-color: #3EC26D;
 }
 
-.btnclass{
+.btnclassen{
     width: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
 }
-.btnclass button{
+.btnclassen button{
     width: 100%;
     padding: 10px 0;
 }
-
-a{
-    text-decoration: none; 
-}
-
 .container{
     width: 450px;
     margin: 0 auto;
+}
+a{
+    text-decoration: none; 
 }
 /* HIDE RADIO*/
 [type=radio] { 
@@ -45,3 +43,4 @@ a{
     /* background: linear-gradient(180deg, rgb(35,214,98) 0%, rgb(35,214,98) 60%, rgb(255, 255, 255) 90%, rgb(245, 245, 245) 100%); */
     color: #1ED760;
   }
+

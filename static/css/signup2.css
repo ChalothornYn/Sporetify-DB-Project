@@ -1,19 +1,43 @@
-.colorbtn1{
+.colorbtn2{
     background-color : #1ED760;
     border: none;
 }
-.colorbtn1:hover{
+.colorbtn2:hover{
     background-color: #3EC26D;
 }
-.containersignup{
+.container{
     width: 450px;
+    margin: 0 auto;
 }
-.btnclass{
+.btnclasssignup{
     width: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
 }
-.btnclass button{
+.btnclasssignup button{
     width: 100%;
     padding: 10px 0;
+}
+a{
+    text-decoration: none; 
+}
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+  /* IMAGE STYLES */
+[type=radio] + div {
+    cursor: pointer;
+    color: rgb(218, 216, 216);
+    font-size: 25px;
+    font-weight: 400;
+}
+  
+  /* CHECKED STYLES */
+[type=radio]:checked + div {
+    /* background: linear-gradient(180deg, rgb(35,214,98) 0%, rgb(35,214,98) 60%, rgb(255, 255, 255) 90%, rgb(245, 245, 245) 100%); */
+    color: #1ED760;
 }

@@ -21,6 +21,12 @@ def landingPage(request):
 def Login(request):
     return render(request, 'login.html')
 
+def LoginEntertainment(request):
+    return render(request, 'entertainmentPages/loginEntertainment.html')
+
+def SignupEntertainment(request):
+    return render(request, 'entertainmentPages/signupEntertainment.html')
+
 def Signup(request):
     return render(request, 'signup.html')
 
