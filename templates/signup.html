@@ -10,90 +10,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signup2.css' %}">
     <title>Document</title>
 </head>
     <body>
-    <div class="text-center mt-4">
-        <img id="logo" src="{% static 'images/logo.png' %}" width="250px">
-    </div>
-    <hr>
-    <div class="container sign up with">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-4">
-                <p class="text-center fw-normal mb-2 mt-2">Continue sign up with</p>
-                <div class="d-grid gap-3">
-                    <a href="#" class="btn btn-default btn-primary fw-light rounded-pill facebook facebookbutton"><i style="margin-right: 10px" class="fa fa-facebook-square"></i><span>Continue with Facebook</span></a> 
-                    <a href="#" class="btn btn-default btn-danger fw-light rounded-pill google googlebutton"><i style="margin-right: 10px" class="fa fa-google-plus-official"></i><span>Continue with google</span></a> 
+    <div>
+        <div class="text-center mt-4">
+            <a href="http://127.0.0.1:8000/">
+                <img id="logo" src="{% static 'images/logo.png' %}" width="250px">
+            </a>
+        </div>
+        <hr>
+        <div class="containersignup" >
+            <div class="btnclass">
+                <div class="me-2">
+                    <button class="btn btn-primary " type="button">User</button>
+                </div>
+                <div class="ms-2">
+                    <button class="btn btn-primary" type="button">Entertainment</button>
                 </div>
             </div>
-            <div class="col"></div>
-        </div>
-    </div>
-    <div class="container sing up">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-4">
-            <hr>
-                <form role="form">
-                    <div class="form-floating mt-1">
-                        <input type="text" class="form-control" id="floatingEmail" placeholder="Email" required>
-                        <label for="floatingEmail">Email</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="text" class="form-control" id="floatingUsername" placeholder="Username" required>
-                        <label for="floatingUsername">Username</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                        <label for="floatingPassword">Password</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="password" class="form-control" id="floatingComfirmPassword" placeholder="Comfirm Password" required>
-                        <label for="floatingComfirmPassword">Comfirm Password</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="text" class="form-control" id="floatingFirstname" placeholder="Firstname" required>
-                        <label for="floatingFirstname">Firstname</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="text" class="form-control" id="floatingLastname" placeholder="Lastname" required>
-                        <label for="floatingLastname">Lastname</label>
-                    </div>
-                    <label class="mt-3" for="inputGender">Gender</label>
-                    <br>
-                    <div class="form-check form-check-inline checkcolor">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioMale" value="option1" required>
-                        <label class="form-check-label" for="inlineRadioMale">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioFemale" value="option2" required>
-                        <label class="form-check-label" for="inlineRadioFemale">Female</label>
-                    </div><div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioNonbinary" value="option2" required>
-                        <label class="form-check-label" for="inlineRadioNonbinary">Non-binary</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="date" class="form-control" id="floatingDOB" placeholder="Date of Birth" required>
-                        <label for="floatingDOB">Date of Birth</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input type="text" class="form-control" id="floatingTel" placeholder="Telephone number" required>
-                        <label for="floatingTel">Telephone number</label>
-                    </div>
-                    <i style="margin-right: 10px" class="fa fa-plus-circle mt-3"></i><a class="fw-light text-dark" href="#">Add card</a>
-                    <br>
-                    <button type="submit" class="btn pull-right fw-light text-light mt-4 colorbtn1" >
+            <form role="form">
+                <div class="form-floating mt-5">
+                    <input type="text" class="form-control" id="floatingEmail" placeholder="Email" required>
+                    <label for="floatingEmail">Email</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="text" class="form-control" id="floatingUsername" placeholder="Username" required>
+                    <label for="floatingUsername">Username</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="password" class="form-control" id="floatingComfirmPassword" placeholder="Comfirm Password" required>
+                    <label for="floatingComfirmPassword">Comfirm Password</label>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-lg btn-block fw-light text-light mt-4 colorbtn1" >
                         Sign up
                     </button>
-                    <br><br><br>
-                    <hr>
-                    <div class="row "><small class="font-weight-bold">Have an account? <a style="color:#1ED760" href="/login">Log in</a></small> </div>
-                </form>
-                <br><br>
-            </div>
-            <div class="col"></div>
+                </div>
+                <br>
+                <div class="text-center">
+                    <div class="row"><small class="fw-normal">Have an account? <a style="color:#1ED760" href="/login">Log in</a></small> </div>
+                </div>
+            </form>
         </div>
     </div>
     </body>
