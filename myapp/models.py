@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from django.db.models.deletion import CASCADE
 
 # Create your models here.  # NOT NULL is DEFAULT
 
@@ -44,27 +43,19 @@ class Artist (models.Model):
 
 #Entertainment Table
 class Entertainment (models.Model):
-    
-    def genID():
-        n = Entertainment.objects.count()
-        return "EN" + str(n).zfill(6)
-
-    # entertainmentID = models.AutoField(primary_key=True)
-    entertainmentID = models.CharField(max_length=8, default=genID ,primary_key=True)
-    entertainmentName = models.CharField(max_length=30) 
-    enUserName = models.CharField(max_length=12)
-    password = models.CharField(max_length=12)
-    interCode = models.CharField(max_length=4)
-    telNO = models.CharField(max_length=20) 
-    address = models.TextField()
-    email = models.CharField(max_length=30)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    entertainmentName = models.CharField(max_length=30, default='No data', blank=False) 
+    profileImage = models.ImageField(upload_to='uploads/profileImage/admin/', default = 'uploads/profileImage/profile-placeholder.png')
+    interCode = models.CharField(max_length=4, null=True)
+    telNO = models.CharField(max_length=20, null=True, unique=True) 
+    address = models.TextField(null=True)
 
 
 # Admin Table
 class Admin (models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    firstName = models.CharField(max_length=50, default='No data')
-    lastName = models.CharField(max_length=50, default='No data')
+    firstName = models.CharField(max_length=50, default='No data', blank=False)
+    lastName = models.CharField(max_length=50, default='No data', blank=False)
     gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
     profileImage = models.ImageField(upload_to='uploads/profileImage/admin/', default = 'uploads/profileImage/profile-placeholder.png')
     interCode = models.CharField(max_length=4, null=True)
