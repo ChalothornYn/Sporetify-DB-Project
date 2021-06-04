@@ -1,0 +1,155 @@
+{% extends 'layout_sideBar.html' %}
+{% load static %}
+
+{% block header %}
+<title>package & family</title>
+<link rel="stylesheet" href="{% static 'css/userProfile_family.css' %}">
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="d-inline profile-show">
+    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+</div>
+Gustboyy
+{% endblock %}
+
+{% block navbar %}
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/userprofile/package">Package</a>
+<a class="dropdown-item disabled" href="/userprofile/family">Family</a>
+<a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
+<a class="dropdown-item" href="/">Log Out</a>
+{% endblock %}
+
+{% block sidebar %}
+<a href="/userprofile"><span>Account overview</span></a>
+<a href="/userprofile/edit"><span>Edit profile</span></a>
+<a href="/userprofile/package"><span>Package</span></a>
+<a href="/userprofile/family" class="side-active"><span>Family</span></a>
+<a href="/userprofile/transaction"><span>Transaction</span></a>
+{% endblock %}
+
+{% block content %}
+<!-- Start Form -->
+<div class="text-center">
+    <h1>Family</h1>
+    <hr style="width: 83.33%; margin-left: 8.33%;">
+</div>
+
+<!-- Family member -->
+<div class="col-10 offset-1">
+    <!-- Package in use -->
+    <form>
+        <div class="col-10 offset-1">
+            <table class="table profile">
+                <tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Firstname</th>
+                            <th scope="col">Lastname</th>
+                            <th scope="col">email</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            <span>
+                                <label>
+                                    <input type="radio" name="family" value="user1" checked>
+                                    <i class="fas fa-crown" style="margin-right: 5px;"></i>
+                                </label>
+
+                                {userID1}
+                            </span>
+                        </td>
+                        <td class="text-secondary">{username}</td>
+                        <td class="text-secondary">{firstname}</td>
+                        <td class="text-secondary">{lastname}</td>
+                        <td class="text-secondary">{email}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>
+                                <label>
+                                    <input type="radio" name="family" value="user2">
+                                    <i class="fas fa-crown" style="margin-right: 5px;"></i>
+                                </label>
+
+                                {userID2}
+                            </span>
+                        </td>
+                        <td class="text-secondary">{username}</td>
+                        <td class="text-secondary">{firstname}</td>
+                        <td class="text-secondary">{lastname}</td>
+                        <td class="text-secondary">{email}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>
+                                <label>
+                                    <input type="radio" name="family" value="user3">
+                                    <i class="fas fa-crown" style="margin-right: 5px;"></i>
+                                </label>
+
+                                {userID3}
+                            </span>
+                        </td>
+                        <td class="text-secondary">{username}</td>
+                        <td class="text-secondary">{firstname}</td>
+                        <td class="text-secondary">{lastname}</td>
+                        <td class="text-secondary">{email}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>
+                                <label>
+                                    <input type="radio" name="family" value="user4">
+                                    <i class="fas fa-crown" style="margin-right: 5px;"></i>
+                                </label>
+
+                                {userID4}
+                            </span>
+                        </td>
+                        <td class="text-secondary">{username}</td>
+                        <td class="text-secondary">{firstname}</td>
+                        <td class="text-secondary">{lastname}</td>
+                        <td class="text-secondary">{email}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6 mb-2">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Delete member</span>
+                        <span class="input-group-text">#</span>
+                        <select class="form-select" id="delete_member">
+                            <option selected>Choose...</option>
+                            <option value="{userID1}">U1234567</option>
+                            <option value="{userID2}">{userID2}</option>
+                            <option value="{userID3}">{userID3}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 mb-2">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Add member</span>
+                        <span class="input-group-text">#</span>
+                        <input type="text" placeholder="e.g. U1234567" class="form-control" name="add_member">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row save-button">
+            <div class="col-10 offset-1 text-end">
+                <input type="submit" value="  cancel  " class="btn btn-light">
+                <input type="submit" value="  save change  " class="btn btn-primary">
+            </div>
+        </div>
+        <br>
+    </form>
+</div>
+{% endblock %}

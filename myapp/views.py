@@ -127,6 +127,8 @@ def Testtable(request):
 def AdminHistory(request):
     return render(request, 'history.html')
 
+# Song views
+
 def songHome(request):
     return render(request, 'songHome.html')
     
@@ -139,6 +141,11 @@ def songTest(request):
 def songEDM(request):
     return render(request, 'songEDM.html')
 
+# ------------------------------------------- User views -------------------------------------------
+
+def userProfile(request):
+    return render(request, 'userProfile.html')
+
 def userProfile_edit(request):
     return render(request, 'userProfile_edit.html')
 
@@ -148,13 +155,17 @@ def userProfile_package(request):
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')
 
+def userProfile_family(request):
+    return render(request, 'userProfile_family.html')
+
+
 # --------------------------------------- Entertainmemt views -------------------------------------
 def enProfile(request):
     return render(request, 'entertainmentPages/enProfile.html')
 
 
 
-# --------------------------------------- Admin views -------------------------------------
+# ------------------------------------------- Admin views -----------------------------------------
 
 # Admin Register Page
 @unauthenticated_admin

@@ -33,6 +33,8 @@ urlpatterns = [
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
+
+    #SONG URL
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
@@ -42,6 +44,7 @@ urlpatterns = [
     path('userprofile/edit/', views.userProfile_edit),
     path('userprofile/package', views.userProfile_package),
     path('userprofile/transaction', views.userProfile_transaction),
+    path('userprofile/family', views.userProfile_family),
 
     # Entertainment URL
     path('en/profile', views.enProfile, name='enProfile'),

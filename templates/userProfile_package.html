@@ -18,7 +18,8 @@ Gustboyy
 {% block navbar %}
 <a class="dropdown-item" href="/userprofile">Account</a>
 <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item disabled" href="/userprofile/package">Package & Family</a>
+<a class="dropdown-item disabled" href="/userprofile/package">Package</a>
+<a class="dropdown-item" href="/userprofile/family">Family</a>
 <a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
 <a class="dropdown-item" href="/">Log Out</a>
 {% endblock %}
@@ -26,7 +27,8 @@ Gustboyy
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
 <a href="/userprofile/edit"><span>Edit profile</span></a>
-<a href="/userprofile/package" class="side-active"><span>Package & Family</span></a>
+<a href="/userprofile/package" class="side-active"><span>Package</span></a>
+<a href="/userprofile/family"><span>Family</span></a>
 <a href="/userprofile/transaction"><span>Transaction</span></a>
 {% endblock %}
 
