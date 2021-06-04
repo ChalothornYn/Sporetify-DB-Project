@@ -1,5 +1,21 @@
 .enUsername {
     /* change color in 'menu class' (enNavbarTemp.css) */
     display: inline-block;
-    margin-left: 7px;
+    margin-left: 10px;
+}
+
+.container-fluid {
+    padding: 0 40px;
+}
+
+.content-box {
+    background-color: dodgerblue;
+    padding: 20px;
+}
+.content-box .inner-content-box{
+    height: 200px;
+    display: flex;
+}
+.content-box i {
+    font-size: 30px;
 }
