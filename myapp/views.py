@@ -160,8 +160,8 @@ def userProfile_family(request):
 
 
 # --------------------------------------- Entertainmemt views -------------------------------------
-def enProfile(request):
-    return render(request, 'entertainmentPages/enProfile.html')
+def enDashboard(request):
+    return render(request, 'entertainmentPages/enDashboard.html')
 
 
 
@@ -221,5 +221,4 @@ def adminLogout(request):
 @login_required(login_url='adminLogin')
 @admin_only
 def adminProfile(request):
-    print('here2')
     return render(request, 'adminPages/adminProfile.html')

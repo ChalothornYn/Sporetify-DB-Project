@@ -1,5 +1,8 @@
 /sporetify/__pycache__
 /myapp/__pycache__
 /myapp/migrations
-/media/
+/media/uploads/profileImage/admin/*
+/media/uploads/profileImage/entertainment/*
+/media/uploads/songImg/*
+/media/uploads/songQuality/*
 /.vscode/

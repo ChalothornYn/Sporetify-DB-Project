@@ -47,8 +47,7 @@ urlpatterns = [
     path('userprofile/family', views.userProfile_family),
 
     # Entertainment URL
-    path('en/profile', views.enProfile, name='enProfile'),
-
+    path('en/dashboard', views.enDashboard, name='enDashboard'),
 
     # Admin URL
     path('adminregister/', views.adminRegister, name='adminRegister'),
