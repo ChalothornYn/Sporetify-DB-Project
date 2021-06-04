@@ -1,14 +1,21 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import addSongForm
+from .forms import *
 from django.contrib import messages
+
+# For authentication
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from .decorators import *
 
 # Create your views here.
 def landingPage(request):
+    # Force logout before login
+    logout(request)
     return render(request, 'index.html')
 
 def Login(request):
@@ -66,26 +73,10 @@ def addSong(request):
             messages.success(request, ('Genre 1 must be selected'))
         elif genre2 != 'none' or genre3 != 'none':
             if len([genre1,genre2,genre3]) != len(set([genre1,genre2,genre3])):
-                print([genre1,genre2,genre3])
-                print(set([genre1,genre2,genre3]))
                 messages.success(request, ('There are duplicate genre (Select none for unselect)'))
         
         if len(language) > 2:
             messages.success(request, ('Song language must be selected'))
-
-        # print()
-        
-        # print(songImg)
-        # print(normalURL)
-        # print(goodURL)
-        # print(genre1)
-        # print(genre2)
-        # print(genre3)
-        # print(album)
-        # print(lyrics)
-        # print(description)
-        # print(language)
-
 
         # Is form valid?
         if form.is_valid():
@@ -142,7 +133,6 @@ def songHome(request):
 def userProfile(request):
     return render(request, 'userProfile.html')
 
-
 def songTest(request):
     return render(request, 'layout_song.html')
 
@@ -158,13 +148,45 @@ def userProfile_package(request):
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')
 
-# Admin views
-def adminRegister(request):
-    form = UserCreationForm()
-    context = {'form': form}
-    return render(request, 'adminPages/adminRegister.html', context)
+# --------------------------------------- Entertainmemt views -------------------------------------
+def enProfile(request):
+    return render(request, 'entertainmentPages/enProfile.html')
 
+
+
+# --------------------------------------- Admin views -------------------------------------
+
+# Admin Register Page
+@unauthenticated_admin
+def adminRegister(request):    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        form = addAdmin(request.POST)
+
+        context = {'username':username, 'email':email, 'form':form}
+        if form.is_valid():
+            adminUser = form.save()
+
+            # Add admin role to user
+            group = Group.objects.get(name='admin')
+            adminUser.groups.add(group)
+
+            # Create OneToOne relationship to user  
+            Admin.objects.create(user=adminUser,)
+            print('success')
+            return redirect('adminLogin')
+        else:
+            # Form is not valid
+            print(form.errors)
+            return render(request, 'adminPages/adminRegister.html', context)
+    return render(request, 'adminPages/adminRegister.html')
+
+# Admin Login Page
+@unauthenticated_admin
 def adminLogin(request):
+    # Force logout before login
+    logout(request)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -173,15 +195,20 @@ def adminLogin(request):
 
         if user is not None:
             login(request, user)
-            return render(request, 'adminPages/adminProfile.html')
+            return redirect('adminProfile')
         else:
             messages.info(request, 'Username or Password is incorrect')
             return render(request, 'adminPages/adminLogin.html', {'username':username})
     return render(request, 'adminPages/adminLogin.html')
 
+# Admin Logout fn
 def adminLogout(request):
     logout(request)
     return redirect('adminLogin')
 
+# Admin Profile Page
+@login_required(login_url='adminLogin')
+@admin_only
 def adminProfile(request):
+    print('here2')
     return render(request, 'adminPages/adminProfile.html')

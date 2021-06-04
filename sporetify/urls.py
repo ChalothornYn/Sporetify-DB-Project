@@ -43,11 +43,16 @@ urlpatterns = [
     path('userprofile/package', views.userProfile_package),
     path('userprofile/transaction', views.userProfile_transaction),
 
+    # Entertainment URL
+    path('en/profile', views.enProfile, name='enProfile'),
+    
+
+
     # Admin URL
-    # path('adminregister/', views.adminRegister, name='adminRegister'),
+    path('adminregister/', views.adminRegister, name='adminRegister'),
     path('adminlogin/', views.adminLogin, name='adminLogin'),
     path('adminlogout/', views.adminLogout, name='adminLogout'),
-    # path('adminprofile/', views.adminProfile, name='adminProfile'),
+    path('adminprofile/', views.adminProfile, name='adminProfile'),
     path('history/', views.AdminHistory),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
