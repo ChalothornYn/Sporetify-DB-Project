@@ -1,3 +1,24 @@
 form{
     margin-top: 20px;
 }
+
+/* HIDE RADIO*/
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* IMAGE STYLES */
+  [type=radio] + i {
+    cursor: pointer;
+    opacity: 0.2;
+  }
+  
+  /* CHECKED STYLES */
+  [type=radio]:checked + i {
+    color: #1fd662;
+    cursor: default;
+    opacity: 1;
+  }
