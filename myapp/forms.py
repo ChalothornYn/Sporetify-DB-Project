@@ -3,7 +3,7 @@ from django.db.models.base import Model
 from django.forms import ModelForm
 from .models import *
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 
 # Add new song 
 class addSongForm (ModelForm):
@@ -30,7 +30,7 @@ class addCustomer (UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 # Add new artist
-class addArtist (ModelForm):
+class addArtistForm (ModelForm):
     class Meta:
         model = Artist
         fields = ['artistName', 'profileImage', 'dob']

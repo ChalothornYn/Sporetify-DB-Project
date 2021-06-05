@@ -1,3 +1,4 @@
+from django.db import reset_queries
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -84,7 +85,6 @@ def addSong(request):
             return render(request, 'addSong.html', {'form': form})
     else:
         return render(request, 'addSong.html')
-
 
 def addSongSubmit(request):
     form = addSongForm()
@@ -367,9 +367,9 @@ def showAllSong(request):
 
 
 def addArtist(request):
-
+    form = addArtistForm()
     if request.method == 'POST':
-        form = addArtist(request.POST or None, request.FILES or None)
+        form = addArtistForm(request.POST or None, request.FILES or None)
 
         artistName = request.POST.get('artistName')
         profileImage = request.FILES.get('profileImage')
@@ -379,7 +379,10 @@ def addArtist(request):
 
         # Is form valid?
         if form.is_valid():
-            form.save()
+            # ----------- Add FK autometically -----------
+            addArtistFK = form.save(commit=False)
+            addArtistFK.entertainmentID = request.user
+            addArtistFK.save()
             print('success')
             return redirect('enDashboard')
         else:
@@ -388,4 +391,7 @@ def addArtist(request):
             return render(request, 'entertainmentPages/addArtist.html', context)
     else:
         return render(request, 'entertainmentPages/addArtist.html')
-    
+
+
+def enaddSong(request):
+    return render(request, 'entertainmentPages/enaddSong.html')

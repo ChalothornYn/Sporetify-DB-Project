@@ -63,7 +63,10 @@
             <div class="Song">
                 <div class="header">
                     <h1>Song</h1>
-                    <a href="{% url 'showAllSong' %}">Edit</a>
+                    <div class="crud-link">
+                        <a href="{% url 'enaddSong' %}">Create</a>
+                        <a href="">Edit</a>
+                    </div>
                 </div>
                 <div class="row Song-content">
                     <div class="col-4 text-center align-self-center">
