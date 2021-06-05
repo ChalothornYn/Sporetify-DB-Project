@@ -1,0 +1,51 @@
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.entertainment.entertainmentName}}</span>
+{% endblock %}
+
+{% block navbar %}
+<!-- set class="disabled in current page" -->
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/">Log Out</a>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <table class="table custom-table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Album</th>
+                <th>Genre</th>
+                <th>language</th>
+                <th>Artist</th>
+            </tr> 
+        </thead>
+        <tbody>
+            <!-- {% for song in Songs %}
+                <tr>
+                    <td>{{song.songName}}</td>
+                    <td>{{song.album}}</td>
+                    <td>{{song.genre1}}</td>
+                    <td>{{song.language}}</td>
+                    <td>{{song.artist.artistName}}</td>
+                    <td><a href="" class="btn bth-info">Update</a></td>
+                    <td><a href="" class="btn bth-danger">Delete</a></td>
+                </tr>
+            {% endfor %}    -->
+        </tbody>
+    </table>
+</div>
+{% endblock %}

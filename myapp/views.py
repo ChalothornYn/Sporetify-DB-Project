@@ -167,7 +167,7 @@ def loginUser(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if (user is not None) and (user.groups.all()[0].name == 'customer'):
             login(request, user)
             return redirect('/userprofile/')
         else:
@@ -235,7 +235,7 @@ def loginEntertainment(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if (user is not None) and (user.groups.all()[0].name == 'entertainment'):
             login(request, user)
             return redirect('enDashboard')
         else:
@@ -289,7 +289,7 @@ def adminLogin(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if (user is not None) and (user.groups.all()[0].name == 'admin'):
             login(request, user)
             return redirect('adminProfile')
         else:
@@ -307,3 +307,34 @@ def adminLogout(request):
 @admin_only
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
+
+
+
+
+def showAllSong(request):
+    return render(request, 'entertainmentPages/allSong.html')
+
+
+def addArtist(request):
+
+    if request.method == 'POST':
+        form = addArtist(request.POST or None, request.FILES or None)
+
+        artistName = request.POST.get('artistName')
+        profileImage = request.FILES.get('profileImage')
+        dob = request.POST.get('dob')
+        
+        context = {'artistName':artistName, 'dob':dob}
+
+        # Is form valid?
+        if form.is_valid():
+            form.save()
+            print('success')
+            return redirect('enDashboard')
+        else:
+            print(form.errors)
+            print('not success')
+            return render(request, 'entertainmentPages/addArtist.html', context)
+    else:
+        return render(request, 'entertainmentPages/addArtist.html')
+    

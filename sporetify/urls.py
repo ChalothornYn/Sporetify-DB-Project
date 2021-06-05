@@ -27,7 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingPage, name='landingPage'),
 
-    path('addsong/', views.addSong),
+    path('addsong/', views.addSong, name='addSong'),
+    path('addartist', views.addArtist, name='addArtist'),
     path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
 
@@ -36,6 +37,8 @@ urlpatterns = [
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
     path('song/playsong/', views.playSong),
+
+    path('song/all/', views.showAllSong, name='showAllSong'),
 
     #User URL
     path('login/', views.loginUser, name='login'),

@@ -1,4 +1,5 @@
 from django.db.models import fields
+from django.db.models.base import Model
 from django.forms import ModelForm
 from .models import *
 from django.contrib.auth.models import User
@@ -27,3 +28,9 @@ class addCustomer (UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+# Add new artist
+class addArtist (ModelForm):
+    class Meta:
+        model = Artist
+        fields = ['artistName', 'profileImage', 'dob']

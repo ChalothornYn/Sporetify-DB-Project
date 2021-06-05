@@ -34,9 +34,9 @@ class Artist (models.Model):
         n = Artist.objects.count()
         return "AT" + str(n).zfill(6)
     
-    # artistID = models.AutoField(primary_key=True)
     artistID = models.CharField(max_length=8, default=genID ,primary_key=True)
     artistName = models.CharField(max_length=50)
+    profileImage = models.ImageField(upload_to='uploads/profileImage/entertainment/', default = 'uploads/profileImage/profile-placeholder.png')
     dob = models.DateField()
     entertainmentID = models.ForeignKey('Entertainment', on_delete=models.CASCADE)
 
