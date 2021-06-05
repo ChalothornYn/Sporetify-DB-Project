@@ -239,8 +239,19 @@ def userProfile_edit(request):
     }
     return render(request, 'userProfile_edit.html', send_data)
 
+# Customer package
 def userProfile_package(request):
-    return render(request, 'userProfile_package.html')
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
+    # sending data to html
+    send_data = {
+        'user': user, 
+        'customer': customer, 
+        'package': package
+    }
+
+    return render(request, 'userProfile_package.html', send_data)
 
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')

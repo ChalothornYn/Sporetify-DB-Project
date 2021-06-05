@@ -32,4 +32,4 @@ class addCustomer (UserCreationForm):
 class editCusInfo (ModelForm):
     class Meta:
         model = Customer
-        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob'] #'interCode', 'telNO'
+        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
