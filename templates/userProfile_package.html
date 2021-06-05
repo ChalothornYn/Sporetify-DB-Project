@@ -10,9 +10,9 @@
 
 {% block profile_nav %}
 <div class="d-inline profile-show">
-    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+    <img src="{{ customer.profileImage.url }}" width="40" height="40" class="rounded-circle">
 </div>
-Gustboyy
+{{ user.username }}
 {% endblock %}
 
 {% block navbar %}
@@ -62,15 +62,15 @@ Gustboyy
                         <tbody>
                             <tr>
                                 <td class="col-5 key">Package</td>
-                                <td class="text-secondary">{packageName}</td>
+                                <td class="text-secondary">{{ package.packageName}}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Price</td>
-                                <td class="text-secondary">{packagePrice}</td>
+                                <td class="text-secondary">{{ package.packagePrice}}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Due date</td>
-                                <td class="text-secondary">{endDate}</td>
+                                <td class="text-secondary">{Waiting..}</td>
                             </tr>
                         </tbody>
                     </table>
