@@ -88,6 +88,15 @@ class Customer (models.Model):
     telNO = models.CharField(max_length=20, null=True, unique=True) 
     dob = models.DateField(null=True)
     packageID = models.ForeignKey('Package', on_delete=models.CASCADE, default=DEFAULT_PACKKAGE)
+    familyID = models.ForeignKey('Family', on_delete=models.CASCADE, null=True)
+
+# Family Table
+class Family (models.Model):
+    def genID():
+        n = Family.objects.count()
+        return "F" + str(n).zfill(7)
+    familyID = models.CharField(max_length=8, default=genID ,primary_key=True)
+    manager = models.CharField(max_length=8)
 
 # Package Table
 class Package (models.Model):
