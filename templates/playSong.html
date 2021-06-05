@@ -62,24 +62,32 @@
         <div class="container songdetail">
 
             <!-- Playlist name -->
-            <p id="title">Playlist name</p>
+            <p id="playlist" class="playlist text-center">playlist</p>
 
-            <!-- song button -->
-            <div class="middle">
-                <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
-                <button onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
-                <button onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+            <!-- song images -->
+            <div class="songimage text-center">
+                 <img id="songimg">
             </div>
+
+            <!-- Artist name -->
+            <p id="title" class="songname mt-3">song name</p>
+            <p id="aetist" class="artistname fw-normal">artist name</p>
 
             <!-- duration -->
             <div class="duration">
                 <input type="range" min="0" max="100" value="0" id="duration_slider" onchange="change_duration()">
             </div>
-                <button id="auto" onclick="autoplay_switch()">Auto play <i class="fa fa-circle-o-notch" aria-hidden="true"></i></button>
+
+            <!-- song button -->
+            <div class="middle text-center">
+                <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+                <button onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
+                <button onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+                {% comment %} <button  onclick="autoplay_switch()" id="auto"><i class="fa fa-refresh" aria-hidden="true"></i></button> {% endcomment %}
             </div>
         </div>
     
     
-        <script src="script.js"></script>
+        <script src="playSong.js"></script>
     </body>
 </html>
