@@ -36,7 +36,7 @@
 
 {% block content %}
 <!-- Start Form -->
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="" method="POST" enctype="multipart/form-data" onsubmit="process()">
     {% csrf_token %}
 
     <div class="text-center">
@@ -83,7 +83,7 @@
                 {% if customer.firstName != "None" %}
                 <input type="text" value="{{ customer.firstName }}" class="form-control" name="firstName">
                 {% else %}
-                <input type="text" placeholder ="Firstname" class="form-control" name="firstName">
+                <input type="text" placeholder="Firstname" class="form-control" name="firstName">
                 {% endif %}
             </div>
         </div>
@@ -93,7 +93,7 @@
                 {% if customer.lastName != "None" %}
                 <input type="text" value="{{ customer.lastName }}" class="form-control" name="lastName">
                 {% else %}
-                <input type="text" placeholder ="Lastname" class="form-control" name="lastName">
+                <input type="text" placeholder="Lastname" class="form-control" name="lastName">
                 {% endif %}
             </div>
         </div>
@@ -107,8 +107,7 @@
                 <div style="margin-left: 10px; margin-top: 7px;">
                     {% if customer.gender == 'M' %}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="gender_male" value='M'
-                            checked>
+                        <input class="form-check-input" type="radio" name="gender" id="gender_male" value='M' checked>
                         <label class="form-check-label" for="inlineRadio1">Male</label>
                     </div>
                     {% else %}
@@ -119,8 +118,7 @@
                     {% endif %}
                     {% if customer.gender == 'F' %}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="gender_female" value='F'
-                            checked>
+                        <input class="form-check-input" type="radio" name="gender" id="gender_female" value='F' checked>
                         <label class="form-check-label" for="inlineRadio1">Female</label>
                     </div>
                     {% else %}
@@ -131,14 +129,13 @@
                     {% endif %}
                     {% if customer.gender == 'O' %}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="gender_non_binary"
-                            value='O' checked>
+                        <input class="form-check-input" type="radio" name="gender" id="gender_non_binary" value='O'
+                            checked>
                         <label class="form-check-label" for="inlineRadio1">Non-binary</label>
                     </div>
                     {% else %}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="gender_non_binary"
-                            value='O'>
+                        <input class="form-check-input" type="radio" name="gender" id="gender_non_binary" value='O'>
                         <label class="form-check-label" for="inlineRadio1">Non-binary</label>
                     </div>
                     {% endif %}
@@ -156,23 +153,26 @@
     </div>
     <!-- telephone number -->
     <div class="row">
-        <div class="col-sm-6 col-xl-5 offset-xl-1">
-            <div class="input-group mb-5">
+        <div class="col-sm-8 col-xl-7 offset-xl-1">
+            <div class="input-group mb-3">
                 <span class="input-group-text">Telephone </span>
-                <input type="tel" class="form-control" id="phone" placeholder="{{ telNO }}">
+                <input type="tel" class="form-control" id="phone">
             </div>
         </div>
     </div>
 
-    <div class="row save-button">
+    <div class="row save-button mb-5">
         <div class="col-sm-12 col-xl-10 offset-xl-1 text-end">
-            <!-- <input type="submit" value="  cancel  " class="btn btn-light"> -->
+            <a class="btn btn-light me-2" href="/userprofile/edit" role="button">  Cancel  </a>
             <input type="submit" value="  save  " class="btn btn-primary">
         </div>
     </div>
 
+    <!-- HIDDEN TEL -->
+    <input type="text" class="d-none" name="interCode" id="interCode">
+    <input type="text" class="d-none" name="telNO" id="telNO">
+
 </form>
-{{form.errors}}
 
 <div class="alert alert-info" style="display: none;"></div>
 
@@ -196,7 +196,7 @@
         // initialCountry: "auto",
         // localizedCountries: { 'de': 'Deutschland' },
         // nationalMode: false,
-        onlyCountries: ['us', 'gb', 'ch', 'ca', 'do', 'th'],
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do', 'th'],
         // placeholderNumberType: "MOBILE",
         // preferredCountries: ['cn', 'jp'],
         separateDialCode: true,
@@ -204,25 +204,20 @@
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
-    // 
-    // const info = document.querySelector(".alert-info");
 
-    // function process(event) {
-    //     event.preventDefault();
+    function process() {
+        var phoneNumber = phoneInput.getNumber();
+        var interNumber = phoneInput.getSelectedCountryData().dialCode;
+        var interCode = "+" + interNumber;
+        var telNO = phoneNumber.replace(interCode,'');
 
-    //     var setFlag = phoneInput.setNumber("+66 844397535");
-    //     var phoneNumber = phoneInput.getNumber();
-    //     var interCode = phoneInput.getSelectedCountryData().dialCode;
-
-
-    //     info.style.display = "";
-    //     info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber} ${interCode}</strong>`;
-    // }
+        document.getElementById("interCode").value = interCode;
+        document.getElementById("telNO").value = telNO;
+    }
 </script>
 <script type="text/javascript">
     var telNO = "{{ telNO }}";
     document.addEventListener('DOMContentLoaded', function () {
-        event.preventDefault();
         phoneInput.setNumber(telNO);
     }, false);
 </script>
