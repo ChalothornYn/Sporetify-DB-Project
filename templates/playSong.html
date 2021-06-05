@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/playSong2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/playSong.css' %}">
     <title>Document</title>
 </head>
     <body>
@@ -60,10 +60,6 @@
         </nav>
         <!-- navbar end --> 
         <div class="container songdetail">
-
-            <!-- Playlist name -->
-            <p id="playlist" class="playlist text-center">playlist</p>
-
             <!-- song images -->
             <div class="songimage text-center">
                  <img id="songimg">
@@ -71,7 +67,7 @@
 
             <!-- Artist name -->
             <p id="title" class="songname mt-3">song name</p>
-            <p id="aetist" class="artistname fw-normal">artist name</p>
+            <p id="artist" class="artistname fw-normal">artist name</p>
 
             <!-- duration -->
             <div class="duration">
@@ -81,13 +77,12 @@
             <!-- song button -->
             <div class="middle text-center">
                 <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
-                <button onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
-                <button onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
-                {% comment %} <button  onclick="autoplay_switch()" id="auto"><i class="fa fa-refresh" aria-hidden="true"></i></button> {% endcomment %}
+                <button style="margin-left: 20px" onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
+                <button style="margin-left: 20px" onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+                <button style="margin-left: 20px" onclick="autoplay_switch()"id="auto"><i class="fa fa-refresh" aria-hidden="true"></i></button>
             </div>
         </div>
-    
-    
-        <script src="playSong.js"></script>
+
+        <script src="{% static 'js/playSong.js'  %}"></script>
     </body>
 </html>

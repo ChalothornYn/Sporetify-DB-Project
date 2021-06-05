@@ -23,6 +23,7 @@ def landingPage(request):
 def playSong(request):
     return render(request, 'playSong.html')
 
+
 def addSong(request):
     form = addSongForm()
     if request.method == 'POST':
