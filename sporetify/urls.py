@@ -25,12 +25,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.landingPage),
-    path('login/', views.Login),
-    path('login/entertainment/', views.LoginEntertainment),
-    path('signup/', views.Signup),
-    path('signup/entertainment/', views.SignupEntertainment),
-    path('home/', views.home),
+    path('', views.landingPage, name='landingPage'),
+
     path('addsong/', views.addSong),
     path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
@@ -42,6 +38,8 @@ urlpatterns = [
     path('song/playsong/', views.playSong),
 
     #User URL
+    path('login/', views.loginUser, name='login'),
+    path('signup/', views.signupUser, name='signup'),
     path('userprofile/', views.userProfile),
     path('userprofile/edit/', views.userProfile_edit),
     path('userprofile/package', views.userProfile_package),
@@ -49,6 +47,8 @@ urlpatterns = [
     path('userprofile/family', views.userProfile_family),
 
     # Entertainment URL
+    path('signup/entertainment/', views.signupEntertainment, name='enSignup'),
+    path('login/entertainment/', views.loginEntertainment, name='enLogin'),
     path('en/dashboard', views.enDashboard, name='enDashboard'),
 
     # Admin URL
