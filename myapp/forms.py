@@ -27,3 +27,9 @@ class addCustomer (UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+# Edit Customer infomation
+class editCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob'] #'interCode', 'telNO'
