@@ -22,47 +22,48 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid mt-5">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-4 px-5">
-            <div class="container content-box">
-                <div class="row">
-                    <div class="col-4 align-self-center">
-                        <i class="fab fa-spotify"></i>  
-                    </div>
-                    <div class="col-8">
-                        <span class="d-block">1,563</span>
-                        <span class="d-inline-block">Number of Song</span>
-                    </div>
+        <div class="col-3 content-container">
+            <div class="content-box">
+                <div class="box-header">
+                    <i class="fab fa-spotify"></i>
+                    <span class="d-inline-block">Number of Song</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">1,563</span>
+                    <span class="">tracks</span>
+                </div>
+            </div>
+            
+            <div class="content-box" onclick="window.location.href='#';">
+                <div class="box-header">
+                    <i class="fas fa-microphone-alt"></i>
+                    <span class="d-inline-block">Number of Artist</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">12</span>
+                    <span class="">artists</span>
+                </div>
+            </div>
+            
+            <div class="content-box">
+                <div class="box-header">
+                    <i class="far fa-play-circle"></i>
+                    <span class="d-inline-block">Song played</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">2,984</span>
+                    <span class="">times</span>
                 </div>
             </div>
         </div>
-        <div class="col-4 px-5">
-            <div class="container content-box">
-                <div class="row">
-                    <div class="col-4 align-self-center">
-                        <i class="fas fa-microphone-alt"></i>
-                    </div>
-                    <div class="col-8">
-                        <span class="d-block">12</span>
-                        <span class="d-inline-block">Number of Artist</span>
-                    </div>
-                </div>
-            </div>
+
+        <div class="col-9">
+            <div class="Song"></div>
+            <div class="Artist"></div>
         </div>
-        <div class="col-4 px-5">
-            <div class="container content-box">
-                <div class="row">
-                    <div class="col-4 align-self-center">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                    <div class="col-8">
-                        <span class="d-block">2,984</span>
-                        <span class="d-inline-block">Number of song played</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div> 
 </div>
 {% endblock %}
+

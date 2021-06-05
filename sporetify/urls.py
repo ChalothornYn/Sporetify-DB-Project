@@ -39,6 +39,7 @@ urlpatterns = [
     path('song/', views.songHome),
     path('songtest/', views.songTest),
     path('song/edm/', views.songEDM),
+    path('song/playsong/', views.playSong),
 
     #User URL
     path('userprofile/', views.userProfile),

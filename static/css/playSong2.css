@@ -1,0 +1,15 @@
+body {
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(41,61,59,1) 75%, rgba(44,70,66) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* navbar */
+.nav-bg {
+    background-color: #000;
+    border-bottom: 5px solid #1FD662;
+}
+.songdetail{
+    width: 500px;
+    margin: 0 auto;
+}

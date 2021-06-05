@@ -36,6 +36,9 @@ def SignupEn(request):
 def home(request):
     return render(request, 'layout_role.html')
 
+def playSong(request):
+    return render(request, 'playSong.html')
+
 def addSong(request):
     form = addSongForm()
     if request.method == 'POST':
