@@ -4,6 +4,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed; */
     background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-bg {
