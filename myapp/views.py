@@ -137,9 +137,6 @@ def AdminHistory(request):
 
 def songHome(request):
     return render(request, 'songHome.html')
-    
-def userProfile(request):
-    return render(request, 'userProfile.html')
 
 def songTest(request):
     return render(request, 'layout_song.html')
@@ -150,7 +147,11 @@ def songEDM(request):
 # ------------------------------------------- User views -------------------------------------------
 
 def userProfile(request):
-    return render(request, 'userProfile.html')
+    # current_user = request.user
+    # user = Customer.objects.filter(current_user)
+    user = User.objects.get(username='senmeetechin')
+    customer = Customer.objects.get(firstName = "firstname_test2")
+    return render(request, 'userProfile.html', {'customer': customer, 'user': user})
 
 def userProfile_edit(request):
     return render(request, 'userProfile_edit.html')

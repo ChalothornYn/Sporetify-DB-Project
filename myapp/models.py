@@ -53,7 +53,12 @@ class Entertainment (models.Model):
 
 # Admin Table
 class Admin (models.Model):
+    def genID():
+        n = Admin.objects.count()
+        return "AD" + str(n).zfill(6)
+
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    adminID =  models.CharField(max_length=8, default=genID)
     firstName = models.CharField(max_length=50, default='No data', blank=False)
     lastName = models.CharField(max_length=50, default='No data', blank=False)
     gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
@@ -64,7 +69,12 @@ class Admin (models.Model):
 
 # User Table
 class Customer (models.Model):
+    DEFAULT_PACKKAGE = "PF00"
+    def genID():
+        n = Customer.objects.count()
+        return "U" + str(n).zfill(7)
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    customerID =  models.CharField(max_length=8, default=genID)
     firstName = models.CharField(max_length=50, default='No data', blank=False)
     lastName = models.CharField(max_length=50, default='No data', blank=False)
     gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
@@ -72,11 +82,11 @@ class Customer (models.Model):
     interCode = models.CharField(max_length=4, null=True)
     telNO = models.CharField(max_length=20, null=True, unique=True) 
     dob = models.DateField(null=True)
-    packageID = models.ForeignKey('Package', on_delete=models.CASCADE)
+    packageID = models.ForeignKey('Package', on_delete=models.CASCADE, default=DEFAULT_PACKKAGE)
 
 # Package Table
 class Package (models.Model):
     packageID = models.CharField(max_length=4, primary_key=True)
     packageName = models.CharField(max_length=30)
-    packagePrice = models.DecimalField(max_digits=8, decimal_places=2)
-    packageDuration = models.DurationField()
+    packagePrice = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    packageDuration = models.DurationField(null=True)

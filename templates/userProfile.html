@@ -72,39 +72,39 @@ Gustboyy
                         <tbody>
                             <tr>
                                 <td class="col-5 key">Username</td>
-                                <td class="text-secondary">{username}</td>
+                                <td class="text-secondary">{{ user.username }}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">User ID</td>
-                                <td class="text-secondary">#{userID}</td>
+                                <td class="text-secondary">#{{ customer.customerID}}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Email</td>
-                                <td class="text-secondary">{email}</td>
+                                <td class="text-secondary">{{ user.email }}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Firstname</td>
-                                <td class="text-secondary">{firstname}</td>
+                                <td class="text-secondary">{{ customer.firstName }}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Lastname</td>
-                                <td class="text-secondary">{lastname}</td>
+                                <td class="text-secondary">{{ customer.lastName }}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Gender</td>
-                                <td class="text-secondary">{gender}</td>
+                                <td class="text-secondary">{{ customer.gender }}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Age</td>
-                                <td class="text-secondary">{age}</td>
+                                <td class="text-secondary">{calculating..}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Date of Birth</td>
-                                <td class="text-secondary">{DOB}</td>
+                                <td class="text-secondary">{{ customer.dob }}</td>
                             </tr>
                             <tr>
                                 <td class="col-5 key">Telephone</td>
-                                <td class="text-secondary">{interTel} {Tel}</td>
+                                <td class="text-secondary">{{ customer.interCode}} {{ customer.telNO }}</td>
                             </tr>
                         </tbody>
                     </table>
