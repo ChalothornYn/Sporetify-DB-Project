@@ -34,3 +34,9 @@ class addArtist (ModelForm):
     class Meta:
         model = Artist
         fields = ['artistName', 'profileImage', 'dob']
+
+# Edit Customer infomation
+class editCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob'] #'interCode', 'telNO'

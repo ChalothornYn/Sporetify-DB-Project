@@ -36,7 +36,7 @@ class Artist (models.Model):
     
     artistID = models.CharField(max_length=8, default=genID ,primary_key=True)
     artistName = models.CharField(max_length=50)
-    profileImage = models.ImageField(upload_to='uploads/profileImage/entertainment/', default = 'uploads/profileImage/profile-placeholder.png')
+    profileImage = models.ImageField(upload_to='uploads/profileImage/admin/', default = 'uploads/profileImage/profile-placeholder.png')
     dob = models.DateField()
     entertainmentID = models.ForeignKey('Entertainment', on_delete=models.CASCADE)
 

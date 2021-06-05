@@ -1,4 +1,1 @@
 INSERT INTO `myapp_package` (`packageID`, `packageName`, `packagePrice`, `packageDuration`) VALUES ('PF00', 'ใช้บริการฟรี', NULL, NULL), ('PP01', 'ลำพังแต่ฟังเพลิน', '199', '30'), ('PP02', 'ลำพังจนฟังสองเดือน', '349', '60'), ('PP03', 'ก่อนจะพังลองฟังก่อน', '69', '7'), ('PG01', 'สามสิบวันฉันและเกลอ', '399', '30'), ('PG02', 'ฟังฉลองสองเดือน', '749', '60'), ('PG03', 'กลุ่มนี้พี่ขอลอง', '199', '7');
-
-INSERT INTO `myapp_customer` (`user_id`, `customerID`, `firstName`, `lastName`, `gender`, `profileImage`, `interCode`, `telNO`, `dob`, `packageID_id`) VALUES ('2', '', 'firstname_test1', 'lastname_test1', 'F', '', '+66', '841234567', NULL, 'PF00');
-INSERT INTO `myapp_customer` (`user_id`, `customerID`, `firstName`, `lastName`, `gender`, `profileImage`, `interCode`, `telNO`, `dob`, `packageID_id`) VALUES ('3', '', 'firstname_test2', 'lastname_test2', 'M', '', NULL, NULL, '2021-06-17', 'PG01');

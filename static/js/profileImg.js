@@ -1,5 +1,5 @@
 function uploadProfile() {
-    document.querySelector('#profileImg').click();
+    document.querySelector('#profileImage').click();
 }
 
 function displayImg(e) {
