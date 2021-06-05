@@ -61,3 +61,22 @@ class Admin (models.Model):
     interCode = models.CharField(max_length=4, null=True)
     telNO = models.CharField(max_length=20, null=True, unique=True) 
     dob = models.DateField(null=True)
+
+# User Table
+class Customer (models.Model):
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    firstName = models.CharField(max_length=50, default='No data', blank=False)
+    lastName = models.CharField(max_length=50, default='No data', blank=False)
+    gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
+    profileImage = models.ImageField(upload_to='uploads/profileImage/user/', default = 'uploads/profileImage/profile-placeholder.png')
+    interCode = models.CharField(max_length=4, null=True)
+    telNO = models.CharField(max_length=20, null=True, unique=True) 
+    dob = models.DateField(null=True)
+    packageID = models.ForeignKey('Package', on_delete=models.CASCADE)
+
+# Package Table
+class Package (models.Model):
+    packageID = models.CharField(max_length=4, primary_key=True)
+    packageName = models.CharField(max_length=30)
+    packagePrice = models.DecimalField(max_digits=8, decimal_places=2)
+    packageDuration = models.DurationField()
