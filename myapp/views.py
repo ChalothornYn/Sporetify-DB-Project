@@ -18,23 +18,6 @@ def landingPage(request):
     logout(request)
     return render(request, 'index.html')
 
-def Login(request):
-    return render(request, 'login.html')
-
-def LoginEntertainment(request):
-    return render(request, 'entertainmentPages/loginEntertainment.html')
-
-def SignupEntertainment(request):
-    return render(request, 'entertainmentPages/signupEntertainment.html')
-
-def Signup(request):
-    return render(request, 'signup.html')
-
-def SignupEn(request):
-    return render(request, 'signupen.html')
-
-def home(request):
-    return render(request, 'layout_role.html')
 
 def playSong(request):
     return render(request, 'playSong.html')
@@ -140,9 +123,6 @@ def AdminHistory(request):
 
 def songHome(request):
     return render(request, 'songHome.html')
-    
-def userProfile(request):
-    return render(request, 'userProfile.html')
 
 def songTest(request):
     return render(request, 'layout_song.html')
@@ -151,9 +131,59 @@ def songEDM(request):
     return render(request, 'songEDM.html')
 
 # ------------------------------------------- User views -------------------------------------------
+# Customer Register Page
+@unauthenticated_customer
+def signupUser(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        form = addCustomer(request.POST)
 
+        context = {'username':username, 'email':email, 'form':form}
+        if form.is_valid():
+            customerUser = form.save()
+
+            # Add admin role to user
+            group = Group.objects.get(name='customer')
+            customerUser.groups.add(group)
+
+            # Create OneToOne relationship to user  
+            Customer.objects.create(user=customerUser,)
+            print('success')
+            return redirect('login')
+        else:
+            # Form is not valid
+            print(form.errors)
+            return render(request, 'signup.html', context)
+    return render(request, 'signup.html')
+
+# Customer login Page
+@unauthenticated_customer
+def loginUser(request):
+    logout(request)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/userprofile/')
+        else:
+            messages.info(request, 'Username or Password is incorrect')
+            return render(request, 'login.html', {'username':username})
+    return render(request, 'login.html')
+
+# Customer Profile Page
+@login_required(login_url='enLogin')
+@customer_only
 def userProfile(request):
-    return render(request, 'userProfile.html')
+    # current_user = request.user
+    # user = Customer.objects.filter(current_user)
+    user = User.objects.get(username='senmeetechin')
+    customer = Customer.objects.get(firstName = "firstname_test2")
+    return render(request, 'userProfile.html', {'customer': customer, 'user': user})
 
 def userProfile_edit(request):
     return render(request, 'userProfile_edit.html')
@@ -169,9 +199,55 @@ def userProfile_family(request):
 
 
 # --------------------------------------- Entertainmemt views -------------------------------------
+# Entertainment Register Page
+@unauthenticated_entertainment
+def signupEntertainment(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        form = addEntertainment(request.POST)
+
+        context = {'username':username, 'email':email, 'form':form}
+        if form.is_valid():
+            entertainmentUser = form.save()
+
+            # Add admin role to user
+            group = Group.objects.get(name='entertainment')
+            entertainmentUser.groups.add(group)
+
+            # Create OneToOne relationship to user  
+            Entertainment.objects.create(user=entertainmentUser,)
+            print('success')
+            return redirect('enLogin')
+        else:
+            # Form is not valid
+            print(form.errors)
+            return render(request, 'entertainmentPages/signupEntertainment.html', context)
+    return render(request, 'entertainmentPages/signupEntertainment.html')
+
+# Entertainment Login Page
+@unauthenticated_entertainment
+def loginEntertainment(request):
+    logout(request)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('enDashboard')
+        else:
+            messages.info(request, 'Username or Password is incorrect')
+            return render(request, 'entertainmentPages/loginEntertainment.html', {'username':username})
+    return render(request, 'entertainmentPages/loginEntertainment.html')
+
+# Entertainment Dashboard Page
+@login_required(login_url='enLogin')
+@entertainment_only
 def enDashboard(request):
     return render(request, 'entertainmentPages/enDashboard.html')
-
 
 
 # ------------------------------------------- Admin views -----------------------------------------

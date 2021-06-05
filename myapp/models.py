@@ -43,17 +43,26 @@ class Artist (models.Model):
 
 #Entertainment Table
 class Entertainment (models.Model):
+    def genID():
+        n = Entertainment.objects.count()
+        return "EN" + str(n).zfill(6)
+
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    entertainmentID = models.CharField(max_length=8, default=genID)
     entertainmentName = models.CharField(max_length=30, default='No data', blank=False) 
-    profileImage = models.ImageField(upload_to='uploads/profileImage/admin/', default = 'uploads/profileImage/profile-placeholder.png')
+    profileImage = models.ImageField(upload_to='uploads/profileImage/entertainment/', default = 'uploads/profileImage/profile-placeholder.png')
     interCode = models.CharField(max_length=4, null=True)
     telNO = models.CharField(max_length=20, null=True, unique=True) 
     address = models.TextField(null=True)
 
-
 # Admin Table
 class Admin (models.Model):
+    def genID():
+        n = Admin.objects.count()
+        return "AD" + str(n).zfill(6)
+
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    adminID =  models.CharField(max_length=8, default=genID)
     firstName = models.CharField(max_length=50, default='No data', blank=False)
     lastName = models.CharField(max_length=50, default='No data', blank=False)
     gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
@@ -62,9 +71,15 @@ class Admin (models.Model):
     telNO = models.CharField(max_length=20, null=True, unique=True) 
     dob = models.DateField(null=True)
 
-# User Table
+# Customer Table
 class Customer (models.Model):
+    DEFAULT_PACKKAGE = "PF00"
+    def genID():
+        n = Customer.objects.count()
+        return "U" + str(n).zfill(7)
+
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    customerID =  models.CharField(max_length=8, default=genID)
     firstName = models.CharField(max_length=50, default='No data', blank=False)
     lastName = models.CharField(max_length=50, default='No data', blank=False)
     gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
@@ -72,11 +87,20 @@ class Customer (models.Model):
     interCode = models.CharField(max_length=4, null=True)
     telNO = models.CharField(max_length=20, null=True, unique=True) 
     dob = models.DateField(null=True)
-    packageID = models.ForeignKey('Package', on_delete=models.CASCADE)
+    packageID = models.ForeignKey('Package', on_delete=models.CASCADE, default=DEFAULT_PACKKAGE)
+    familyID = models.ForeignKey('Family', on_delete=models.CASCADE, null=True)
+
+# Family Table
+class Family (models.Model):
+    def genID():
+        n = Family.objects.count()
+        return "F" + str(n).zfill(7)
+    familyID = models.CharField(max_length=8, default=genID ,primary_key=True)
+    manager = models.CharField(max_length=8)
 
 # Package Table
 class Package (models.Model):
     packageID = models.CharField(max_length=4, primary_key=True)
     packageName = models.CharField(max_length=30)
-    packagePrice = models.DecimalField(max_digits=8, decimal_places=2)
-    packageDuration = models.DurationField()
+    packagePrice = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    packageDuration = models.DurationField(null=True)

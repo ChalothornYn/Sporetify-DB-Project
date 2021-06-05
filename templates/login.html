@@ -13,47 +13,54 @@
     <link rel="stylesheet" href="{% static 'css/login2.css' %}">
     <title>Document</title>
 </head>
-    <body>     
-        <div class="text-center mt-4">
-            <a href="http://127.0.0.1:8000/">
-                <img id="logo" src="{% static 'images/logo.png' %}" width="250px">
-            </a>
-        </div>
-        <hr>
-        <div class="container">
-            <div class="btnclass">
-                <label style="margin-top: 30px" >
-                    <input type="radio" name="select" value="user" checked>
-                        <div class="me-2 text-center">
-                            User
-                        </div>
-                </label>
-                <label style="margin-top: 30px">
-                    <a href="http://127.0.0.1:8000/login/entertainment/"><input type="radio" name="select" value="entertainment">
-                    <div class="ms-2 text-center">
-                        Entertainment
+<body>     
+    <div class="text-center mt-4">
+        <a href="{% url 'landingPage' %}">
+            <img id="logo" src="{% static 'images/logo.png' %}" width="250px">
+        </a>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="btnclass">
+            <label style="margin-top: 30px" >
+                <input type="radio" name="select" value="user" checked>
+                    <div class="me-2 text-center">
+                        User
                     </div>
-                </label>
-            </div>
-            <form role="form">
-                <div class="form-floating mt-3">
-                    <input type="text" class="form-control " id="floatingUsername" placeholder="Username" required>
-                    <label for="floatingUsername">Username</label>
+            </label>
+            <label style="margin-top: 30px">
+                <a href="{% url 'enLogin' %}"><input type="radio" name="select" value="entertainment">
+                <div class="ms-2 text-center">
+                    Entertainment
                 </div>
-                <div class="form-floating mt-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                    <label for="floatingPassword">Password</label>
-                </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-lg btn-block btn-primary fw-light mt-3 text-light colorbtn" >
-                        Log in
-                    </button>
-                </div>
-                <br>
-                <div class="text-center">
-                    <div class="row"><small class="fw-normal">Don't have an account? <a style="color:#1ED760" href="/signup">Sign up</a></small> </div>
-                </div>
-            </form> 
+            </label>
         </div>
-    </body>
+
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-floating mt-3">
+                <input type="text" class="form-control " id="floatingUsername" placeholder="Username" name="username" value="{{username}}" required>
+                <label for="floatingUsername">Username</label>
+            </div>
+            <div class="form-floating mt-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-lg btn-block btn-primary fw-light mt-3 text-light colorbtn" >
+                    Log in
+                </button>
+            </div>
+            <br>
+            <div class="text-center">
+                <div class="row"><small class="fw-normal">Don't have an account? <a style="color:#1ED760" href="{% url 'enSignup' %}">Sign up</a></small> </div>
+            </div>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <span class="d-block mt-3 ms-2" style="color: crimson; font-size: 16px;">{{message}}</span>
+            {% endfor %}
+        {% endif %} 
+    </div>
+</body>
 </html>

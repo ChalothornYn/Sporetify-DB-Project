@@ -9,9 +9,9 @@
 
 {% block profile_nav %}
 <div class="profile-show">
-    <img src="{% static 'images/img-placeholder.png'%}" width="40" height="40" class="">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
 </div>
-<span class="enUsername">GRAMMY</span>
+<span class="enUsername">{{user.entertainment.entertainmentName}}</span>
 {% endblock %}
 
 {% block navbar %}
