@@ -1,0 +1,32 @@
+{% extends 'layout_sideBar.html' %}
+{% load static %}
+
+{% block title %}
+<title>Sporetify</title>
+{% endblock%}
+
+{% block profile_nav %}
+    <div class="d-inline profile-show">
+        <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="rounded-circle">
+    </div>
+    {{user.admin.firstName}}
+{% endblock %}
+
+{% block navbar %}
+    <a class="dropdown-item" href="#">Profile</a>
+    <a class="dropdown-item" href="{% url 'adminLogout' %}">Log Out</a>
+{% endblock %}
+
+{% block sidebar %}
+    <a href="#" class="side-active"><span>Account overview</span></a>
+    <a href="#"><span>Music Library</span></a>
+    <a href="#"><span>Artists</span></a>
+    <a href="#"><span>Entertainments</span></a>
+
+    <a href="#" class="mt-5"><span>Manage</span></a>
+    <a href="#"><span>History</span></a>
+{% endblock %}
+
+{% block content %}
+    
+{% endblock %}
