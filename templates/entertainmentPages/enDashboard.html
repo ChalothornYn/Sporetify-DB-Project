@@ -11,7 +11,7 @@
 <div class="profile-show">
     <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
 </div>
-<span class="enUsername">{{user.entertainment.entertainmentName}}</span>
+<span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
 {% block navbar %}
@@ -35,7 +35,7 @@
                     <span class="">tracks</span>
                 </div>
             </div>
-            
+
             <div class="content-box" onclick="window.location.href='#';">
                 <div class="box-header">
                     <i class="fas fa-microphone-alt"></i>
@@ -46,7 +46,7 @@
                     <span class="">artists</span>
                 </div>
             </div>
-            
+
             <div class="content-box">
                 <div class="box-header">
                     <i class="far fa-play-circle"></i>
@@ -59,11 +59,132 @@
             </div>
         </div>
 
-        <div class="col-9">
-            <div class="Song"></div>
-            <div class="Artist"></div>
+        <div class="col-9 content2-container">
+            <div class="Song">
+                <div class="header">
+                    <h1>Song</h1>
+                    <div class="crud-link">
+                        <a href="{% url 'enaddSong' %}">Create</a>
+                        <a href="">Edit</a>
+                    </div>
+                </div>
+                <div class="row Song-content">
+                    <div class="col-4 text-center align-self-center">
+                        <div class="image-container">
+                            <img src="{% static 'images/img-placeholder.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-8 align-self-center">
+                        <div class="table-responsive">
+                            <table class="table custom-table table-hover">
+                                <thead>
+                                    <tr class="custom-table">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Album</th>
+                                        <th scope="col">Genre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Artist">
+                <div class="header">
+                    <h1>Artist</h1>
+                    <div class="crud-link">
+                        <a href="{% url 'addArtist' %}">Create</a>
+                        <a href="">Edit</a>
+                    </div>
+                </div>
+                <div class="row Artist-content">
+                    <div class="col-4 text-center align-self-center">
+                        <div class="image-container">
+                            <img src="{% static 'images/profile-placeholder.png' %}" alt="">
+                        </div>  
+                    </div>
+                    <div class="col-8 align-self-center">
+                        <div class="table-responsive">
+                            <table class="table custom-table table-hover">
+                                <thead>
+                                    <tr class="custom-table">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Album</th>
+                                        <th scope="col">Genre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div> 
+    </div>
 </div>
 {% endblock %}
-

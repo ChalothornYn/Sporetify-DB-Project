@@ -1,7 +1,9 @@
+from django.db import reset_queries
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib import messages
+from datetime import date, datetime
 
 # For authentication
 from django.contrib.auth.forms import UserCreationForm
@@ -89,7 +91,6 @@ def addSong(request):
     else:
         return render(request, 'addSong.html')
 
-
 def addSongSubmit(request):
     form = addSongForm()
     if request.method == 'POST':
@@ -173,7 +174,7 @@ def loginUser(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if (user is not None) and (user.groups.all()[0].name == 'customer'):
             login(request, user)
             return redirect('/userprofile/')
         else:
@@ -181,21 +182,90 @@ def loginUser(request):
             return render(request, 'login.html', {'username':username})
     return render(request, 'login.html')
 
-# Customer Profile Page
+# ------------------------------------------- Customer profile -------------------------------------------
 @login_required(login_url='enLogin')
 @customer_only
+# Account overview
 def userProfile(request):
-    # current_user = request.user
-    # user = Customer.objects.filter(current_user)
-    user = User.objects.get(username='senmeetechin')
-    customer = Customer.objects.get(firstName = "firstname_test2")
-    return render(request, 'userProfile.html', {'customer': customer, 'user': user})
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    # calculate age
+    if customer.dob != None:
+        birth = customer.dob
+        today = date.today()
+        age = today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
+    else:
+        age = None
+    # full gender
+    gender = {
+        None: None,
+        'M': 'Male',
+        'F': 'Female',
+        'O': 'Non-binary'
+    }
+    # phone number
+    phone = customer.interCode + ' ' + customer.telNO if customer.interCode != None and customer.telNO != None else None
 
+    # sending data to html
+    send_data = {
+        'user': user, 
+        'customer': customer, 
+        'age': age,
+        'gender': gender[customer.gender],
+        'phone': phone
+    }
+    return render(request, 'userProfile.html', send_data)
+
+# Edit profile
 def userProfile_edit(request):
-    return render(request, 'userProfile_edit.html')
+    ### show result ###
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    # date of birth
+    DOB = str(datetime.strptime(str(customer.dob), '%Y-%m-%d').date()) if customer.dob != None else None
+    #phone
+    telNO = customer.interCode + customer.telNO if customer.telNO != None and customer.interCode != None else ''
 
+    ### update ###
+    form = editCusInfo(instance=customer)
+    if request.method == 'POST':
+        form = editCusInfo(request.POST or None, request.FILES or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('/userprofile/edit')
+    
+    # sending data to html
+    send_data = {
+        'user': user, 
+        'customer': customer,
+        'DOB': DOB,
+        'telNO': telNO,
+        'form': form
+    }
+    return render(request, 'userProfile_edit.html', send_data)
+
+# Customer package
 def userProfile_package(request):
-    return render(request, 'userProfile_package.html')
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
+
+    ### update ###
+    form = packCusInfo(instance=customer)
+    if request.method == 'POST':
+        form = packCusInfo(request.POST or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('/userprofile/package')
+
+    # sending data to html
+    send_data = {
+        'user': user, 
+        'customer': customer, 
+        'package': package
+    }
+
+    return render(request, 'userProfile_package.html', send_data)
 
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')
@@ -241,7 +311,7 @@ def loginEntertainment(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if (user is not None) and (user.groups.all()[0].name == 'entertainment'):
             login(request, user)
             return redirect('enDashboard')
         else:
@@ -295,7 +365,7 @@ def adminLogin(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if (user is not None) and (user.groups.all()[0].name == 'admin'):
             login(request, user)
             return redirect('adminProfile')
         else:
@@ -313,3 +383,40 @@ def adminLogout(request):
 @admin_only
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
+
+
+
+
+def showAllSong(request):
+    return render(request, 'entertainmentPages/allSong.html')
+
+
+def addArtist(request):
+    form = addArtistForm()
+    if request.method == 'POST':
+        form = addArtistForm(request.POST or None, request.FILES or None)
+
+        artistName = request.POST.get('artistName')
+        profileImage = request.FILES.get('profileImage')
+        dob = request.POST.get('dob')
+        
+        context = {'artistName':artistName, 'dob':dob}
+
+        # Is form valid?
+        if form.is_valid():
+            # ----------- Add FK autometically -----------
+            addArtistFK = form.save(commit=False)
+            addArtistFK.entertainmentID = request.user
+            addArtistFK.save()
+            print('success')
+            return redirect('enDashboard')
+        else:
+            print(form.errors)
+            print('not success')
+            return render(request, 'entertainmentPages/addArtist.html', context)
+    else:
+        return render(request, 'entertainmentPages/addArtist.html')
+
+
+def enaddSong(request):
+    return render(request, 'entertainmentPages/enaddSong.html')

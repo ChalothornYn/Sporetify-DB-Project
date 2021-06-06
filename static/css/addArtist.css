@@ -1,21 +1,38 @@
-.form{
-    margin-top: 20px;
+html,
+body {
+    height: 100%;
+}
+.text-username {
+    display: inline-block;
+    color: #F3BE5A; 
+    background-color: #000;
+    font-weight: 400;
+    padding: 0 15px;
+    border-radius: 23px;
+    margin: 0 10px;
 }
 
-.profile-container {
+.input-group-text {
+    font-size: 18px;
+}
+.input-control {
+    font-size: 18px;
+} 
+
+.song-cover-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    height: 170px;
-    width: 170px;
+    border-radius: 30px;
+    height: 200px;
+    width: 200px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     /* border: 3px solid black; */
 }
 
-.profile-container > img {
+.song-cover-container > img {
     object-fit: cover;
     width: 100%;
 }
@@ -33,9 +50,11 @@
     background-color: #e9e9e9;
 }
 
-.profile-container:hover .text-overlay {
-    opacity: 0.5;
+.song-cover-container:hover .text-overlay {
+    opacity: 1;
 }
+
+
 
 .text {
     width: 150px;

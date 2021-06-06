@@ -1,5 +1,5 @@
-function uploadProfile() {
-    document.querySelector('#profileImage').click();
+function uploadSongCover() {
+    document.querySelector('#songImg').click();
 }
 
 function displayImg(e) {
@@ -8,7 +8,7 @@ function displayImg(e) {
 
         reader.onload = function(e) {
             // console.log(e.lengthComputable)
-            document.querySelector('#profileImgDisplay').setAttribute('src', e.target.result);
+            document.querySelector('#songImgDisplay').setAttribute('src', e.target.result);
         }
         reader.readAsDataURL(e.files[0]);
     }

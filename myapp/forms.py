@@ -1,8 +1,9 @@
 from django.db.models import fields
+from django.db.models.base import Model
 from django.forms import ModelForm
 from .models import *
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 
 # Add new song 
 class addSongForm (ModelForm):
@@ -27,3 +28,20 @@ class addCustomer (UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+# Add new artist
+class addArtistForm (ModelForm):
+    class Meta:
+        model = Artist
+        fields = ['artistName', 'profileImage', 'dob']
+
+# Edit Customer infomation
+class editCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
+
+class packCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['packageID']

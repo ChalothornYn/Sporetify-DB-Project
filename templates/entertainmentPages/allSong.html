@@ -1,0 +1,28 @@
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/enaddSong.css' %}">
+<script src="{% static 'js/addSong.js' %}"></script>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block navbar %}
+<!-- set class="disabled in current page" -->
+<a class="dropdown-item" href="#">Account</a>
+<a class="dropdown-item" href="#">Edit profile</a>
+<a class="dropdown-item" href="#">Log Out</a>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
