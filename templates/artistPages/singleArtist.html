@@ -57,9 +57,9 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-10 offset-1">
+        <div class="col-12">
             <div class="row">
-                <div class="col-4 text-center">
+                <div class="col-3 text-center">
                     <div class="image-placeholder">
                         <img src="{{artist.profileImage.url}}" alt="">
                     </div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8 px-5" style="display: grid; grid-template-rows: 160px auto;">
+                <div class="col-9 px-5" style="display: grid; grid-template-rows: 160px auto;">
                     <table class="table profile">
                         <tbody class="custom-table">
                             <tr>
@@ -95,22 +95,28 @@
                     </table>
                     
                     <div class="song-container" style="overflow: scroll; width: 100%; height: 100%;">
-                        <span class="d-block fs-3">Song</span>
+                        <span class="d-block fs-3">{{artist.artistName}} sang</span>
                         <div class="table-responsive">
                             <table class="table custom-table">
                                 <thead>
                                     <tr>
+                                        <th>Song ID</th>
                                         <th>Name</th>
                                         <th>Album</th>
-                                        <th>Genre</th>
+                                        <th>View</th>
+                                        <th>Update</th>
+                                        <th>Remove</th>
                                     </tr> 
                                 </thead>
                                 <tbody>
                                     {% for song in artist_song %}
                                         <tr>
+                                            <td>{{song.songID}}</td>
                                             <td>{{song.songName}}</td>
                                             <td>{{song.album}}</td>
-                                            <td>{{song.genre1}}</td>
+                                            <td><a href="{% url 'singleSong' song.songID %}" class="btn btn-warning">View</a></td>
+                                            <td><a href="{% url 'updateSong' song.songID %}" class="btn btn-info">Update</a></td>
+                                            <td><a href="{% url 'deleteSong' song.songID %}" class="btn btn-danger">Delete</a></td>
                                         </tr>
                                     {% endfor %}  
                                 </tbody>

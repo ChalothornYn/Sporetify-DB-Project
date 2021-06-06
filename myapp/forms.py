@@ -41,7 +41,36 @@ class editCusInfo (ModelForm):
         model = Customer
         fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
 
+# Edit Customer infomation
+class editCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
+
+# Change customer package
 class packCusInfo (ModelForm):
     class Meta:
         model = Customer
         fields = ['packageID']
+
+class editEntertainment (ModelForm):
+    class Meta:
+        model = Entertainment
+        fields = ['entertainmentName', 'profileImage', 'interCode', 'telNO', 'address'] 
+        
+# Add family
+class addFamily (ModelForm):
+    class Meta:
+        model = Family
+        fields = ['manager']
+
+# changeFamily
+class changeFamily (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['familyID']
+
+class manageFamily (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['familyID', 'packageID']
