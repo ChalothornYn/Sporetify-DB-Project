@@ -663,16 +663,12 @@ def deleteSong (request, pk):
             return redirect('adminProfile')
 
     context = {'song': song}
-<<<<<<< HEAD
     return render(request, 'deleteSong.html', context)
 
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
-=======
-    return render(request, 'songPages/deleteSong.html', context)
 
 def singleSong (request, pk):
     song = Song.objects.get(songID = pk)
     context = {'song': song}
     return render(request, 'songPages/singleSong.html', context)
->>>>>>> 6ab335cd8d1d2670fb0a32609b56a05602fb30cb
