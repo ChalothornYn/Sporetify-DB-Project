@@ -36,7 +36,7 @@ urlpatterns = [
     path('testtable/', views.Testtable),
 
     #SONG URL
-    path('song/', views.Song),
+    path('song/', views.viewSong),
     path('songtest/', views.songTest),
     path('songtestjs/', views.Songtestjs),
     path('song/edm/', views.songEDM),

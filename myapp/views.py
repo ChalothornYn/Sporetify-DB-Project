@@ -20,7 +20,7 @@ def landingPage(request):
     logout(request)
     return render(request, 'index.html')
 
-def Song(request):
+def viewSong(request):
     return render(request, 'song.html')
 
 
@@ -393,13 +393,13 @@ def loginEntertainment(request):
 @login_required(login_url='enLogin')
 @entertainment_only
 def enDashboard(request):
-    
     latest5Artist = request.user.artist_set.all().order_by('-artistID')[:5]
     artist_count = request.user.artist_set.count()
     latest5Song = [None, None, None, None, None]
     index = 0
     song_count = 0
     allSong = Song.objects.all().order_by('-songID')
+    print(allSong)
     for song in allSong:
         # print(song.artistID.artistID)
         if request.user.artist_set.filter(artistID = song.artistID.artistID).exists():
@@ -407,8 +407,8 @@ def enDashboard(request):
             if index < 5:
                 latest5Song[index] = song
             index = index + 1
-    # print(latest5Artist)
-    # print(latest5Artist[0].artistName)
+    print(latest5Artist)
+    print(latest5Artist[0].artistName)
     
     context = {'latest5Artist': latest5Artist, 'latest5Song': latest5Song,
                 'artist1':latest5Artist[0],
@@ -520,8 +520,8 @@ def addArtist(request):
 
 def showAllSong(request):
     songs = []
-    # index = 0
-    # song_count = 0
+    index = 0
+    song_count = 0
     allSong = Song.objects.all().order_by('-songID')
     for song in allSong:
         # print(song.artistID.artistID)
@@ -534,13 +534,6 @@ def showAllSong(request):
 
 
 def updateSong(request, pk):
-    # song = Song.objects.get(songID = pk)
-    # form = addSongForm(instance=song)
-    # if form.is_valid():
-    #     print(form.cleaned_data['lyrics'])
-    # context = {'form': form}
-    # return render(request, 'updateSong.html', context)
-
     song = Song.objects.get(songID = pk)
     form = addSongForm(instance=song)
     if request.method == 'POST':
@@ -570,6 +563,6 @@ def deleteSong (request, pk):
                 return redirect('enDashboard')
         if request.user.groups.all()[0].name == 'admin':
             return redirect('adminProfile')
-            
+
     context = {'song': song}
     return render(request, 'deleteSong.html', context)
