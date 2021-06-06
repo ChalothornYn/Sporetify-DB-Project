@@ -117,7 +117,7 @@ Gustboyy
                         <span class="input-group-text">#</span>
                         <select class="form-select" id="delMember" name="delMember">
                             <option selected disabled>Choose...</option>
-                            {% for child, childUser in childs %}
+                            {% for child, childUser in delete %}
                                 <option value="{{child.customerID}}">{{child.customerID}}</option>
                             {% endfor %}
                         </select>

@@ -65,7 +65,7 @@ class changeFamily (ModelForm):
         model = Customer
         fields = ['familyID']
 
-    def __init__(self, *args, **kwargs):
-        super(changeFamily, self).__init__(*args, **kwargs)
-        self.fields['familyID'].queryset = Family.objects.all()
-        print("YES I HAVE USED")
+class manageFamily (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['familyID', 'packageID']
