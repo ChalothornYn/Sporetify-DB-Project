@@ -244,6 +244,15 @@ def userProfile_package(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
+
+    ### update ###
+    form = packCusInfo(instance=customer)
+    if request.method == 'POST':
+        form = packCusInfo(request.POST or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('/userprofile/package')
+
     # sending data to html
     send_data = {
         'user': user, 
