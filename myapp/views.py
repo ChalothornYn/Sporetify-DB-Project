@@ -274,6 +274,7 @@ def usersongHistory(request):
 def userProfile(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
     # calculate age
     if customer.dob != None:
         birth = customer.dob
@@ -297,7 +298,8 @@ def userProfile(request):
         'customer': customer, 
         'age': age,
         'gender': gender[customer.gender],
-        'phone': phone
+        'phone': phone,
+        'package': package
     }
     return render(request, 'userProfile.html', send_data)
 
@@ -336,12 +338,70 @@ def userProfile_package(request):
     package = Package.objects.get(packageID=customer.packageID_id)
 
     ### update ###
-    form = packCusInfo(instance=customer)
     if request.method == 'POST':
-        form = packCusInfo(request.POST or None, instance=customer)
-        if form.is_valid():
-            form.save()
-            return redirect('/userprofile/package')
+        # Nothing change
+        
+        # Change group // change packageID, same Family ID, change package to everyone!    ### Please change package to everyone !!!!
+        if customer.packageID_id[1] == 'G' and request.POST['packageID'][1] == 'G':
+            # change package (for everyone)
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+            
+
+        # Solo -> group // change packageID, add Family, changeFamily only user
+        elif customer.packageID_id[1] != 'G' and request.POST['packageID'][1] == 'G':
+            # add family
+            famID = ""
+            if 'manager' in request.POST:
+                managerform = addFamily(request.POST or None)
+                if managerform.is_valid():
+                    famID = managerform.save()
+            famID = famID.familyID
+
+            # update familyID
+            if 'familyID' in request.POST:
+                familyForm = changeFamily(request.POST or None, instance=customer)
+                if familyForm.is_valid():
+                    new_familyForm = familyForm.save(commit=False)
+                    new_familyForm.familyID_id = famID
+                    new_familyForm.save()
+                    familyForm.save()
+
+            # change package
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+            
+
+        # group -> solo // change packageID, delete Family                              ##### Please update all to None !!!!!!!
+        elif customer.packageID_id[1] == 'G' and request.POST['packageID'][1] != 'G':
+            # change package
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+            # update familyID to None
+            if 'familyID' in request.POST:
+                familyForm = changeFamily(request.POST or None, instance=customer)
+                if familyForm.is_valid():
+                    new_familyForm = familyForm.save(commit=False)
+                    new_familyForm.familyID_id = None
+                    new_familyForm.save()
+                    familyForm.save()
+
+        # solo -> solo // change packageID, not add not change Family
+        else:
+            #change package
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+        user = request.user
+        customer = Customer.objects.get(user_id=user.id)
+        package = Package.objects.get(packageID=customer.packageID_id)
 
     # sending data to html
     send_data = {
@@ -663,16 +723,12 @@ def deleteSong (request, pk):
             return redirect('adminProfile')
 
     context = {'song': song}
-<<<<<<< HEAD
     return render(request, 'deleteSong.html', context)
 
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
-=======
-    return render(request, 'songPages/deleteSong.html', context)
 
 def singleSong (request, pk):
     song = Song.objects.get(songID = pk)
     context = {'song': song}
     return render(request, 'songPages/singleSong.html', context)
->>>>>>> 6ab335cd8d1d2670fb0a32609b56a05602fb30cb

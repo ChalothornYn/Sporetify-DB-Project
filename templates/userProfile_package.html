@@ -18,7 +18,6 @@
 {% block navbar %}
 <a class="dropdown-item" href="/userprofile">Account</a>
 <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/userprofile/songHistory">History</a>
 <a class="dropdown-item disabled" href="/userprofile/package">Package</a>
 <a class="dropdown-item" href="/userprofile/family">Family</a>
 <a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
@@ -28,7 +27,6 @@
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
 <a href="/userprofile/edit"><span>Edit profile</span></a>
-<a href="/userprofile/songHistory"><span>History</span></a>
 <a href="/userprofile/package" class="side-active"><span>Package</span></a>
 <a href="/userprofile/family"><span>Family</span></a>
 <a href="/userprofile/transaction"><span>Transaction</span></a>
@@ -37,7 +35,7 @@
 {% block content %}
 <!-- Start Form -->
 <div class="text-center">
-    <h1>Package & Family</h1>
+    <h1>Package</h1>
     <hr style="width: 83.33%; margin-left: 8.33%;">
 </div>
 
@@ -49,7 +47,7 @@
                 <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                     class="package-pic" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">{{ package.packageID_id }} {{ package.packageName }}</h5>
+                    <h5 class="card-title">{{ package.packageID }} {{ package.packageName }}</h5>
                     <p class="card-text">This is a detail about the package#1 home alone but i'm lazy to think about it,
                         so
                         i will use this sentence for testing instead :p</p>
@@ -259,7 +257,11 @@
         </div>
     </div>
     <br>
+    <!-- manager family # HIDE # -->
+    <input type="text" value="{{ customer.customerID }}" name="manager" class = "d-none">
+    <input type="text" value="F0000000" name="familyID" class = "d-none">
 </form>
+
 <script>
     current_package = document.getElementById("{{ customer.packageID_id }}");
     current_package.checked = true;

@@ -41,7 +41,31 @@ class editCusInfo (ModelForm):
         model = Customer
         fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
 
+# Edit Customer infomation
+class editCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
+
+# Change customer package
 class packCusInfo (ModelForm):
     class Meta:
         model = Customer
         fields = ['packageID']
+
+# Add family
+class addFamily (ModelForm):
+    class Meta:
+        model = Family
+        fields = ['manager']
+
+# changeFamily
+class changeFamily (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['familyID']
+
+    def __init__(self, *args, **kwargs):
+        super(changeFamily, self).__init__(*args, **kwargs)
+        self.fields['familyID'].queryset = Family.objects.all()
+        print("YES I HAVE USED")
