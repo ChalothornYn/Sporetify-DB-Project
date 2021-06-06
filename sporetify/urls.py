@@ -45,9 +45,10 @@ urlpatterns = [
     path('song/all/', views.showAllSong, name='showAllSong'),
 
     #User URL
-    path('login/', views.loginUser, name='login'),
+    path('login/', views.loginUser, name='login'), 
     path('signup/', views.signupUser, name='signup'),
     path('userprofile/', views.userProfile),
+    path('userprofile/songHistory', views.usersongHistory),
     path('userprofile/edit/', views.userProfile_edit),
     path('userprofile/package', views.userProfile_package),
     path('userprofile/transaction', views.userProfile_transaction),
@@ -57,6 +58,7 @@ urlpatterns = [
     path('signup/entertainment/', views.signupEntertainment, name='enSignup'),
     path('login/entertainment/', views.loginEntertainment, name='enLogin'),
     path('en/dashboard', views.enDashboard, name='enDashboard'),
+    path('songhistory/entertainment', views.songHistoryforEntertainment),
 
     # Admin URL
     path('adminregister/', views.adminRegister, name='adminRegister'),

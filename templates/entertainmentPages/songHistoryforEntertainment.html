@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- call bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/songHistoryforEntertainment.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- call css -->
+    <link rel="stylesheet" href="{% static 'css/entertainmentPages/enNavbarTemp.css' %}">
+    {% block header %}
+
+    {% endblock %}
+</head>
+
+<body>
+    <!-- navbar start -->
+    <nav class="navbar navbar-expand-md navbar-dark nav-bg">
+        <div class="container" style="height: 100%;">
+            <a class="navbar-brand" href="/en/dashboard" style="height: 64px; padding: 10px 0 10px 25px;">
+                <img src="{% static 'images/logo_black.png' %}" alt="" height="100%">
+            </a>
+            <!-- button small display -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> 
+            </button>
+            <!-- end button -->
+            <div class="collapse navbar-collapse justify-content-end d-flex" id="navbarSupportedContent">
+                <!-- <ul class="navbar-nav text-end">
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu" href="/song">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu ms-3" href="#">Package</a>
+                    </li>
+                    <li class="nav-item d-md-flex ms-4 d-none">
+                        <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
+                    </li>
+                </ul> -->
+                <ul class="navbar-nav text-end fs-5 ms-4">
+                    <li class="nav-item dropdown drop">
+                        <div class="d-flex">
+                            <a class="nav-link dropdown-toggle menu d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% block profile_nav %}
+                                {% endblock %}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+                                aria-labelledby="navbarDropdownMenuLink">
+                                {% block navbar %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- navbar end -->
+    {% block content %}
+    <!-- Start Form -->
+    <div class="text-center head" style="margin-top: 20px">
+        <h>History</h>
+        <hr style="width: 83.33%; margin-left: 8.33%;">
+    </div>
+
+    <!-- History -->
+    <div class="col-10 offset-1">
+        <!-- Package in use -->
+        <form>
+            <div class="col-13">
+                <div id="table-wrapper">
+                    <div id="table-scroll">
+                        <table class="table profile">
+                            <thead >
+                                <tr class = "headstyle">
+                                    <th scope="col" style=" font-weight: normal">Date</th>
+                                    <th scope="col" style=" font-weight: normal">songID</th>
+                                    <th scope="col" style=" font-weight: normal">Song name</th>
+                                    <th scope="col" style=" font-weight: normal">Artist</th>
+                                    <th scope="col" style=" font-weight: normal">Entertainment</th>
+                                </tr>
+                            </thead>   
+                                <tbody class="bodystyle">
+                                    <tr>
+                                            <td>2021/06/01 : 10.35</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                    <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                    <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                    <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                    <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                    <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                    <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                     <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                     <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                     <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                     <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                     <tr>
+                                            <td>2021/06/01 : 10.30</td>
+                                            <td>#s00000321</td>
+                                            <td>DRIVE</td>
+                                            <td>Jaypark ft.GRAY</td>
+                                            <td>AOMG</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </form>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>

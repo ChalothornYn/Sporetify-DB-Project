@@ -252,6 +252,9 @@ def loginUser(request):
             return render(request, 'login.html', {'username':username})
     return render(request, 'login.html')
 
+def usersongHistory(request):
+    return render(request, 'usersongHistory.html')
+
 # ------------------------------------------- Customer profile -------------------------------------------
 @login_required(login_url='enLogin')
 @customer_only
@@ -425,6 +428,9 @@ def enDashboard(request):
                 'artist_count':artist_count}
     return render(request, 'entertainmentPages/enDashboard.html', context)
 
+def songHistoryforEntertainment(request):
+    return render(request, 'entertainmentPages/songHistoryforEntertainment.html')
+
 
 # ------------------------------------------- Admin views -----------------------------------------
 
@@ -566,3 +572,6 @@ def deleteSong (request, pk):
 
     context = {'song': song}
     return render(request, 'deleteSong.html', context)
+
+def adminProfile(request):
+    return render(request, 'adminPages/adminProfile.html')

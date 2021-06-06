@@ -1,0 +1,28 @@
+.head h{
+    font-weight: 400px;
+    font-size: 40px;
+}
+
+.headstyle{
+    font-size: 20px;
+}
+
+.bodystyle{
+    color: rgba(0, 0, 0, 0.719);
+}
+#table-wrapper {
+    position:relative;
+  }
+  #table-scroll {
+    height: 300px;
+    overflow: auto;  
+    margin-top: 20px;
+  }
+  #table-wrapper table {
+    width:100%;
+  
+  }
+  #table-wrapper table * {
+    
+    color:black;
+  }

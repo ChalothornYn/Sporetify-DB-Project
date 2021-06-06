@@ -1,0 +1,171 @@
+{% extends 'layout_sideBar.html' %}
+{% load static %}
+
+{% block header %}
+<title>song history</title>
+<link rel="stylesheet" href="{% static 'css/usersongHistory2.css' %}">
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="d-inline profile-show">
+    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+</div>
+Gustboyy
+{% endblock %}
+
+{% block navbar %}
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/userprofile/songHistory">History</a>
+<a class="dropdown-item" href="/userprofile/package">Package</a>
+<a class="dropdown-item disabled" href="/userprofile/family">Family</a>
+<a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
+<a class="dropdown-item" href="/">Log Out</a>
+{% endblock %}
+
+{% block sidebar %}
+<a href="/userprofile"><span>Account overview</span></a>
+<a href="/userprofile/edit"><span>Edit profile</span></a>
+<a href="/userprofile/songHistory" class="side-active"><span>History</span></a>
+<a href="/userprofile/package"><span>Package</span></a>
+<a href="/userprofile/family" ><span>Family</span></a>
+<a href="/userprofile/transaction"><span>Transaction</span></a>
+{% endblock %}
+
+{% block content %}
+<!-- Start Form -->
+<div class="text-center head">
+    <h>History</h>
+    <hr style="width: 83.33%; margin-left: 8.33%;">
+</div>
+
+<!-- History -->
+<div class="col-10 offset-1">
+    <!-- Package in use -->
+    <form>
+        <div class="col-13">
+            <div id="table-wrapper">
+                <div id="table-scroll">
+                    <table class="table profile">
+                        <thead >
+                            <tr class = "headstyle">
+                                <th scope="col" style=" font-weight: normal">Date</th>
+                                <th scope="col" style=" font-weight: normal">songID</th>
+                                <th scope="col" style=" font-weight: normal">Song name</th>
+                                <th scope="col" style=" font-weight: normal">Artist</th>
+                                <th scope="col" style=" font-weight: normal">Entertainment</th>
+                            </tr>
+                        </thead>   
+                        <tbody class="bodystyle">
+                            <tr>
+                                    <td>2021/06/01 : 10.35</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                            <tr>
+                                    <td>2021/06/01 : 10.30</td>
+                                    <td>#s00000321</td>
+                                    <td>DRIVE</td>
+                                    <td>Jaypark ft.GRAY</td>
+                                    <td>AOMG</td>
+                            </tr>
+                        </div>
+                        </tbody>
+                    </table>
+                    <br>
+                    <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
