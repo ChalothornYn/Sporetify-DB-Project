@@ -274,6 +274,7 @@ def usersongHistory(request):
 def userProfile(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
     # calculate age
     if customer.dob != None:
         birth = customer.dob
@@ -297,7 +298,8 @@ def userProfile(request):
         'customer': customer, 
         'age': age,
         'gender': gender[customer.gender],
-        'phone': phone
+        'phone': phone,
+        'package': package
     }
     return render(request, 'userProfile.html', send_data)
 
@@ -310,22 +312,45 @@ def userProfile_edit(request):
     DOB = str(datetime.strptime(str(customer.dob), '%Y-%m-%d').date()) if customer.dob != None else None
     #phone
     telNO = customer.interCode + customer.telNO if customer.telNO != None and customer.interCode != None else ''
-
+    errorflag = 0
     ### update ###
-    form = editCusInfo(instance=customer)
     if request.method == 'POST':
-        form = editCusInfo(request.POST or None, request.FILES or None, instance=customer)
-        if form.is_valid():
-            form.save()
-            return redirect('/userprofile/edit')
+        # validation
+        if request.POST['gender'] == None:
+            messages.success(request, ('Gender must be selected'))
+            errorflag = 1
+            
+        if request.POST['dob'] == None:
+            messages.success(request, ('Please field your date of birth'))
+            errorflag = 1
+        
+        if request.POST['interCode']== None or request.POST['telNO'] == None:
+            messages.success(request, ('Please field your telephone number'))
+            errorflag = 1
+
+        if request.POST['firstName'] == "No data":
+            messages.success(request, ('Please field your firstname'))
+            errorflag = 1
+        
+        if request.POST['lastName'] == "No data":
+            messages.success(request, ('Please field your lastname'))
+            errorflag = 1
+
+        if errorflag==0:
+            form = editCusInfo(request.POST or None, request.FILES or None, instance=customer)
+            if form.is_valid():
+                form.save()
+        # date of birth
+        DOB = str(datetime.strptime(str(customer.dob), '%Y-%m-%d').date()) if customer.dob != None else None
+        #phone
+        telNO = customer.interCode + customer.telNO if customer.telNO != None and customer.interCode != None else ''
     
     # sending data to html
     send_data = {
         'user': user, 
         'customer': customer,
         'DOB': DOB,
-        'telNO': telNO,
-        'form': form
+        'telNO': telNO
     }
     return render(request, 'userProfile_edit.html', send_data)
 
@@ -336,12 +361,70 @@ def userProfile_package(request):
     package = Package.objects.get(packageID=customer.packageID_id)
 
     ### update ###
-    form = packCusInfo(instance=customer)
     if request.method == 'POST':
-        form = packCusInfo(request.POST or None, instance=customer)
-        if form.is_valid():
-            form.save()
-            return redirect('/userprofile/package')
+        # Nothing change
+        
+        # Change group // change packageID, same Family ID, change package to everyone!    ### Please change package to everyone !!!!
+        if customer.packageID_id[1] == 'G' and request.POST['packageID'][1] == 'G':
+            # change package (for everyone)
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+            
+
+        # Solo -> group // change packageID, add Family, changeFamily only user
+        elif customer.packageID_id[1] != 'G' and request.POST['packageID'][1] == 'G':
+            # add family
+            famID = ""
+            if 'manager' in request.POST:
+                managerform = addFamily(request.POST or None)
+                if managerform.is_valid():
+                    famID = managerform.save()
+            famID = famID.familyID
+
+            # update familyID
+            if 'familyID' in request.POST:
+                familyForm = changeFamily(request.POST or None, instance=customer)
+                if familyForm.is_valid():
+                    new_familyForm = familyForm.save(commit=False)
+                    new_familyForm.familyID_id = famID
+                    new_familyForm.save()
+                    familyForm.save()
+
+            # change package
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+            
+
+        # group -> solo // change packageID, delete Family                              ##### Please update all to None !!!!!!!
+        elif customer.packageID_id[1] == 'G' and request.POST['packageID'][1] != 'G':
+            # change package
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+            # update familyID to None
+            if 'familyID' in request.POST:
+                familyForm = changeFamily(request.POST or None, instance=customer)
+                if familyForm.is_valid():
+                    new_familyForm = familyForm.save(commit=False)
+                    new_familyForm.familyID_id = None
+                    new_familyForm.save()
+                    familyForm.save()
+
+        # solo -> solo // change packageID, not add not change Family
+        else:
+            #change package
+            if 'packageID' in request.POST:
+                packageIDform = packCusInfo(request.POST or None, instance=customer)
+                if packageIDform.is_valid():
+                    packageIDform.save()
+        user = request.user
+        customer = Customer.objects.get(user_id=user.id)
+        package = Package.objects.get(packageID=customer.packageID_id)
 
     # sending data to html
     send_data = {
@@ -352,11 +435,77 @@ def userProfile_package(request):
 
     return render(request, 'userProfile_package.html', send_data)
 
+# family table
+def userProfile_family(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
+    family = Family.objects.get(manager=customer.customerID)
+    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+    
+    childID = []
+    for i in range(len(childs)):
+        childID.append(childs[i].user_id)
+    childUser = User.objects.filter(customer__user_id__in=childID)    
+    manager = Customer.objects.get(customerID = family.manager)
+    managerUser = User.objects.get(id=manager.user_id)
+    empty_list = '123'[:(3-len(childs))]
+
+    if request.method == "POST":
+        # DELETE member
+        if 'delMember' in request.POST:
+            if Customer.objects.filter(customerID=request.POST['delMember']).exists():
+                member = Customer.objects.get(customerID=request.POST['delMember'])
+                memberChange = manageFamily(request.POST or None, instance=member)
+                if memberChange.is_valid():
+                    del_member = memberChange.save(commit=False)
+                    del_member.packageID_id = "PF00"
+                    del_member.familyID = None
+                    del_member.save()
+                    memberChange.save()
+            #else:
+        # ADD member
+        if 'addMember' in request.POST:
+            if Customer.objects.filter(customerID=request.POST['addMember']).exists():
+                newMember = Customer.objects.get(customerID=request.POST['addMember'])
+                memberChange = manageFamily(request.POST or None, instance=newMember)
+                if memberChange.is_valid():
+                    memberChange.save()
+                else:
+                    print("ERROR: ", memberChange.errors)
+            else:
+                print("not ADD")
+        user = request.user
+        customer = Customer.objects.get(user_id=user.id)
+        package = Package.objects.get(packageID=customer.packageID_id)
+        family = Family.objects.get(manager=customer.customerID)
+        childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+        childID = []
+        for i in range(len(childs)):
+            childID.append(childs[i].user_id)
+        childUser = User.objects.filter(customer__user_id__in=childID)
+        manager = Customer.objects.get(customerID = family.manager)
+        managerUser = User.objects.get(id=manager.user_id)
+        empty_list = '123'[:(3-len(childs))]
+
+    # sending data to html
+    send_data = {
+        'user': user, 
+        'customer': customer,
+        'childs': zip(childs, childUser),
+        'delete': zip(childs, childUser),
+        'family': family,
+        'manager': manager,
+        'managerUser': managerUser,
+        'empty_list': empty_list,
+        'package': package
+    }
+    return render(request, 'userProfile_family.html', send_data)
+
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')
 
-def userProfile_family(request):
-    return render(request, 'userProfile_family.html')
+
 
 
 # --------------------------------------- Entertainmemt views -------------------------------------
@@ -695,12 +844,10 @@ def deleteSong (request, pk):
     context = {'song': song}
     return render(request, 'deleteSong.html', context)
 
+def adminProfile(request):
+    return render(request, 'adminPages/adminProfile.html')
 
 def singleSong (request, pk):
     song = Song.objects.get(songID = pk)
     context = {'song': song}
     return render(request, 'songPages/singleSong.html', context)
-
-def adminProfile(request):
-    return render(request, 'adminPages/adminProfile.html')
-
