@@ -24,7 +24,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
+    border-radius: 8px;
     height: 200px;
     width: 200px;
     overflow: hidden;

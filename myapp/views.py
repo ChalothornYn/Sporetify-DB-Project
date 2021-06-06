@@ -439,6 +439,7 @@ def enDashboard(request):
     #     userROLE[0] = 1
     print(artist_count)
     print(song_count)
+    print(latest5Artist[0].profileImage.url)
 
     context = {'latest5Artist': latest5Artist, 'latest5Song': latest5Song,
                 'artistPresent':latest5Artist[0],
