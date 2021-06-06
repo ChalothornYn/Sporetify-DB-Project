@@ -14,13 +14,6 @@
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
-{% block navbar %}
-<!-- set class="disabled in current page" -->
-<a class="dropdown-item" href="/userprofile">Account</a>
-<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/">Log Out</a>
-{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
     <form action="{% url 'enDashboard' %}">
@@ -29,27 +22,23 @@
     <table class="table custom-table">
         <thead>
             <tr>
+                <th>Artist ID</th>
                 <th>Name</th>
-                <th>Album</th>
-                <th>Genre</th>
-                <th>language</th>
-                <th>Artist</th>
+                <th>Debut date</th>
                 <th>View</th>
                 <th>Update</th>
                 <th>Remove</th>
             </tr> 
         </thead>
         <tbody>
-            {% for song in songs %}
+            {% for artist in artists %}
                 <tr>
-                    <td>{{song.songName}}</td>
-                    <td>{{song.album}}</td>
-                    <td>{{song.genre1}}</td>
-                    <td>{{song.language}}</td>
-                    <td>{{song.artistID.artistName}}</td>
-                    <td><a href="" class="btn btn-warning">View</a></td>
-                    <td><a href="{% url 'updateSong' song.songID %}" class="btn btn-info">Update</a></td>
-                    <td><a href="{% url 'deleteSong' song.songID %}" class="btn btn-danger">Delete</a></td>
+                    <td>{{artist.artistID}}</td>
+                    <td>{{artist.artistName}}</td>
+                    <td>{{artist.dob}}</td>
+                    <td><a href="{% url 'singleArtist' artist.artistID %}" class="btn btn-warning">View</a></td>
+                    <td><a href="{% url 'updateArtist' artist.artistID %}" class="btn btn-info">Update</a></td>
+                    <td><a href="{% url 'deleteArtist' artist.artistID %}" class="btn btn-danger">Delete</a></td>
                 </tr>
             {% endfor %}   
         </tbody>

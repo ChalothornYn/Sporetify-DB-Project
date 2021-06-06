@@ -95,6 +95,7 @@ def Songtestjs(request):
 def addSong(request):
     form = addSongForm()
     if request.method == 'POST':
+        errorFlag = 0
         form = addSongForm(request.POST or None, request.FILES or None)
 
         songName = request.POST['songName']
@@ -112,33 +113,44 @@ def addSong(request):
 
         if songName == '':
             messages.success(request, ('Please provide song name'))
+            errorFlag = 1
         elif len(songName) > 100:
             messages.success(request, ('Your song name cannot exceed 100 character'))
+            errorFlag = 1
 
         if artistID == '':
             messages.success(request, ('Please provide artist ID'))
-        elif len(artistID) > 6:
+            errorFlag = 1
+        elif len(artistID) > 8:
             messages.success(request, ('artist ID not found'))
+            errorFlag = 1
         elif not ((request.user.artist_set.filter(artistID = artistID)).exists()):
             messages.success(request, ('artist ID not found'))
+            errorFlag = 1
         
         if genre1 == 'none':
             messages.success(request, ('Genre 1 must be selected'))
+            errorFlag = 1
         elif genre2 != 'none' or genre3 != 'none':
             if len([genre1,genre2,genre3]) != len(set([genre1,genre2,genre3])):
                 messages.success(request, ('There are duplicate genre (Select none for unselect)'))
+                errorFlag = 1
 
         if songImg == None:
             messages.success(request, ('Please upload song cover image'))
+            errorFlag = 1
         
         if normalURL == None:
             messages.success(request, ('Please upload normal quality song'))
+            errorFlag = 1
         
         if goodURL == None:
             messages.success(request, ('Please upload good quality song'))
+            errorFlag = 1
         
         if len(language) > 2:
             messages.success(request, ('Song language must be selected'))
+            errorFlag = 1
 
         context = {'songName': songName, 
                     'artistID': artistID, 
@@ -147,19 +159,19 @@ def addSong(request):
                     'description': description}
 
         # Is form valid?
-        if form.is_valid():
-            form.save()
-            print('success')
-            if request.user.groups.all()[0].name == 'entertainment':
-                return redirect('enDashboard')
-            if request.user.groups.all()[0].name == 'admin':
-                return redirect('adminProfile')
-        else:
-            print(form.errors)
-            print('not success')
-            return render(request, 'addSong.html', context)
+        if errorFlag == 0:
+            if form.is_valid():
+                form.save()
+                print('success')
+                if request.user.groups.all()[0].name == 'entertainment':
+                    return redirect('enDashboard')
+                if request.user.groups.all()[0].name == 'admin':
+                    return redirect('adminProfile')
+        print(form.errors)
+        print('not success')
+        return render(request, 'songPages/addSong.html', context)
     else:
-        return render(request, 'addSong.html')
+        return render(request, 'songPages/addSong.html')
 
 # def addSongSubmit(request):
 #     form = addSongForm()
@@ -393,13 +405,17 @@ def loginEntertainment(request):
 @login_required(login_url='enLogin')
 @entertainment_only
 def enDashboard(request):
-    latest5Artist = request.user.artist_set.all().order_by('-artistID')[:5]
+    allArtist = Artist.objects.filter(entertainmentID = request.user.id)
+    # latest5Artist = request.user.artist_set.all().order_by('-artistID')[:5]
+    Qlatest5Artist = allArtist.order_by('-artistID')[:5]
     artist_count = request.user.artist_set.count()
+
+    latest5Artist = [None, None, None, None, None]
     latest5Song = [None, None, None, None, None]
     index = 0
     song_count = 0
+
     allSong = Song.objects.all().order_by('-songID')
-    print(allSong)
     for song in allSong:
         # print(song.artistID.artistID)
         if request.user.artist_set.filter(artistID = song.artistID.artistID).exists():
@@ -407,24 +423,34 @@ def enDashboard(request):
             if index < 5:
                 latest5Song[index] = song
             index = index + 1
-    print(latest5Artist)
-    print(latest5Artist[0].artistName)
-    
+
+    for x in range(5):
+        if x < len(Qlatest5Artist):
+            latest5Artist[x] = Qlatest5Artist[x]
+        else:
+            latest5Artist[x] = None
+
+    # print(latest5Artist)
+    # print(latest5Artist[0].artistName)
+
+    # if request.user.groups.all()[0].name == 'entertainment':
+    #     userROLE[0] = None
+    # if request.user.groups.all()[0].name == 'admin':
+    #     userROLE[0] = 1
+    print(artist_count)
+    print(song_count)
+
     context = {'latest5Artist': latest5Artist, 'latest5Song': latest5Song,
-                'artist1':latest5Artist[0],
-                'artist2':latest5Artist[1],
-                'artist3':latest5Artist[2],
-                'artist4':latest5Artist[3],
-                'artist5':latest5Artist[4],
-                'song1':latest5Song[0],
-                'song2':latest5Song[1],
-                'song3':latest5Song[2],
-                'song4':latest5Song[3],
-                'song5':latest5Song[4],
+                'artistPresent':latest5Artist[0],
+                'songPresent':latest5Song[0],
                 'song_count': song_count,
-                'artist_count':artist_count}
+                'artist_count':artist_count,}
+
     return render(request, 'entertainmentPages/enDashboard.html', context)
 
+def enProfile (request):
+    context = {}
+    return render(request, 'entertainmentPages/enProfile.html', context)
 
 # ------------------------------------------- Admin views -----------------------------------------
 
@@ -484,6 +510,9 @@ def adminLogout(request):
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
 
+
+#  ------------------------------ Artist ------------------------------------
+
 def addArtist(request):
     form = addArtistForm()
     if request.method == 'POST':
@@ -510,34 +539,23 @@ def addArtist(request):
         else:
             print(form.errors)
             print('not success')
-            return render(request, 'addArtist.html', context)
+            return render(request, 'artistPages/addArtist.html', context)
     else:
-        return render(request, 'addArtist.html')
+        return render(request, 'artistPages/addArtist.html')
 
+def showAllArtist (request):
+    # print('here')
+    context = {'artists': request.user.artist_set.all().order_by('-artistID')}
+    # print('here')
+    # print(request.user.artist_set.all().order_by('-artistID'))
+    # context = {}
+    return render(request, 'artistPages/allArtistTable.html', context)
 
-
-
-
-def showAllSong(request):
-    songs = []
-    index = 0
-    song_count = 0
-    allSong = Song.objects.all().order_by('-songID')
-    for song in allSong:
-        # print(song.artistID.artistID)
-        if request.user.artist_set.filter(artistID = song.artistID.artistID).exists():
-            songs.append(song)
-    
-    context = {'songs': songs}
-
-    return render(request, 'allSongTable.html', context)
-
-
-def updateSong(request, pk):
-    song = Song.objects.get(songID = pk)
-    form = addSongForm(instance=song)
+def updateArtist(request, pk):
+    artist = Artist.objects.get(artistID = pk)
+    form = addArtistForm(instance=artist)
     if request.method == 'POST':
-        form = addSongForm(request.POST or None, request.FILES or None, instance=song)
+        form = addArtistForm(request.POST or None, request.FILES or None, instance=artist)
 
         # Is form valid?
         if form.is_valid():
@@ -550,10 +568,83 @@ def updateSong(request, pk):
         else:
             print(form.errors)
             print('not success')
-            return render(request, 'updateSong.html', {'song': song})
+            return render(request, 'artistPages/updateArtist.html', {'artist': artist})
+    else:
+        return render(request, 'artistPages/updateArtist.html', {'form': form, 'artist': artist})
+
+def deleteArtist (request, pk):
+    artist = Artist.objects.get(artistID = pk)
+    artist_song = artist.song_set.count()
+    if request.method == 'POST':
+        artist.delete()
+        if request.user.groups.all()[0].name == 'entertainment':
+            return redirect('enDashboard')
+        if request.user.groups.all()[0].name == 'admin':
+            return redirect('adminProfile')
+
+    context = {'artist': artist, 'count': artist_song}
+    return render(request, 'artistPages/deleteArtist.html', context)
+
+def singleArtist(request, pk):
+    artist = Artist.objects.get(artistID = pk)
+    artist_song = artist.song_set.all()
+    count = artist.song_set.count()
+    context = {'artist': artist, 'count': count, 'artist_song': artist_song}
+    return render(request, 'artistPages/singleArtist.html', context)
+
+
+#  ------------------------------ Song ------------------------------------
+
+def showAllSong(request):
+    songs = []
+    index = 0
+    song_count = 0
+    allSong = Song.objects.all().order_by('-songID')
+    for song in allSong:
+        # print(song.artistID.artistID)
+        if request.user.artist_set.filter(artistID = song.artistID.artistID).exists():
+            songs.append(song)
+    context = {'songs': songs}
+
+    return render(request, 'songPages/allSongTable.html', context)
+
+
+def updateSong(request, pk):
+    errorFlag = 0
+    song = Song.objects.get(songID = pk)
+    form = addSongForm(instance=song)
+
+    if request.method == 'POST':
+        form = addSongForm(request.POST or None, request.FILES or None, instance=song)
+
+        genre1 = request.POST['genre1']
+        genre2 = request.POST['genre2']
+        genre3 = request.POST['genre3']
+
+        if genre1 == 'none':
+            messages.success(request, ('Genre 1 must be selected'))
+            errorFlag = 1
+        elif genre2 != 'none' or genre3 != 'none':
+            if len([genre1,genre2,genre3]) != len(set([genre1,genre2,genre3])):
+                messages.success(request, ('There are duplicate genre (Select none for unselect)'))
+                errorFlag = 1
+
+
+        if errorFlag == 0:
+        # Is form valid?
+            if form.is_valid():
+                form.save()
+                print('success')
+                if request.user.groups.all()[0].name == 'entertainment':
+                    return redirect('enDashboard')
+                if request.user.groups.all()[0].name == 'admin':
+                    return redirect('adminProfile')
+        print(form.errors)
+        print('not success')
+        return render(request, 'songPages/updateSong.html', {'form': form, 'song': song})
     else:
         # return render(request, 'updateSong.html', {'song': song})
-        return render(request, 'updateSong.html', {'form': form, 'song': song})
+        return render(request, 'songPages/updateSong.html', {'form': form, 'song': song})
 
 def deleteSong (request, pk):
     song = Song.objects.get(songID = pk)
@@ -565,4 +656,9 @@ def deleteSong (request, pk):
             return redirect('adminProfile')
 
     context = {'song': song}
-    return render(request, 'deleteSong.html', context)
+    return render(request, 'songPages/deleteSong.html', context)
+
+def singleSong (request, pk):
+    song = Song.objects.get(songID = pk)
+    context = {'song': song}
+    return render(request, 'songPages/singleSong.html', context)

@@ -31,7 +31,7 @@ class Song (models.Model):
     ]
 
     LANGUAGE_CHOICES = [
-        ('af', 'Afrikaans'),
+        ('AF', 'Afrikaans'),
         ('SQ','Albanian'),
         ('AR','Arabic'),
         ('HY','Armenian'),

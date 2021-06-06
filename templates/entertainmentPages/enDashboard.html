@@ -5,6 +5,16 @@
 <title>Sporetify</title>
 <link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
 <script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<style>
+thead{
+    background-color: #000;
+}
+th {
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffce73;
+}
+</style>
 {% endblock%}
 
 {% block profile_nav %}
@@ -14,18 +24,11 @@
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
-{% block navbar %}
-<!-- set class="disabled in current page" -->
-<a class="dropdown-item" href="/userprofile">Account</a>
-<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/">Log Out</a>
-{% endblock %}
-
 {% block content %}
 <div class="container-fluid">
     <div class="row">
         <div class="col-3 content-container">
-            <div class="content-box">
+            <div class="content-box" onclick="window.location.href='/song/all/';" style="cursor: pointer;">
                 <div class="box-header">
                     <i class="fab fa-spotify"></i>
                     <span class="d-inline-block">Number of Song</span>
@@ -36,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="content-box" onclick="window.location.href='#';">
+            <div class="content-box" onclick="window.location.href='/artist/all/';" style="cursor: pointer;">
                 <div class="box-header">
                     <i class="fas fa-microphone-alt"></i>
                     <span class="d-inline-block">Number of Artist</span>
@@ -64,19 +67,23 @@
                 <div class="header">
                     <h1>Song</h1>
                     <div class="crud-link">
-                        <a href="{% url 'addSong' %}">Create</a>
-                        <a href="{% url 'showAllSong' %}">Edit</a>
+                        <span style="font-size: 20px; margin-right: 10px;">Add song</span>
+                        <a href="{% url 'addSong' %}" class="btn btn-success"><i class="fas fa-compact-disc me-2"></i><i class="fas fa-plus"></i></a>
                     </div>
                 </div>
                 <div class="row Song-content">
                     <div class="col-4 text-center align-self-center">
                         <div class="image-container">
-                            <img src="{{song1.songImg.url}}" alt="">
+                            {% if songPresent %}
+                                <img src="{{songPresent.songImg.url}}" alt="">
+                            {% else %}
+                                <img src="{% static 'images/img-placeholder.png' %}" alt="">
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-8 align-self-center">
                         <div class="table-responsive">
-                            <table class="table custom-table table-hover">
+                            <table class="table custom-table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -103,7 +110,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <a href="" style="font-size: 18px;">See more ></a>
+                        <a href="{% url 'showAllSong' %}" style="font-size: 20px;">See more ></a>
                     </div>
                 </div>
             </div>
@@ -111,19 +118,24 @@
                 <div class="header">
                     <h1>Artist</h1>
                     <div class="crud-link">
-                        <a href="{% url 'addArtist' %}">Create</a>
-                        <a href="">Edit</a>
+                        <span style="font-size: 20px; margin-right: 10px;">Add artist</span>
+                        <a href="{% url 'addArtist' %}" class="btn btn-success"><i class="fas fa-user-plus"></i></a>
+                        <!-- <a href="{% url 'showAllArtist' %}">Edit</a> -->
                     </div>
                 </div>
                 <div class="row Artist-content">
                     <div class="col-4 text-center align-self-center">
                         <div class="image-container">
-                            <img src="{{artist1.profileImage.url}}" alt="">
+                            {% if artistPresent %}
+                                <img src="{{artistPresent.songImg.url}}" alt="">
+                            {% else %}
+                                <img src="{% static 'images/profile-placeholder.png' %}" alt="">
+                            {% endif %}
                         </div>  
                     </div>
                     <div class="col-8 align-self-center">
                         <div class="table-responsive">
-                            <table class="table custom-table table-hover">
+                            <table class="table custom-table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -133,16 +145,24 @@
                                 </thead>
                                 <tbody>
                                     {% for artist in latest5Artist %}
+                                        {% if artist %}
                                         <tr>
                                             <td>{{artist.artistName}}</td>
                                             <td>{{artist.dob}}</td>
                                             <td>{{artist.artistID}}</td>
                                         </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td>xxx</td>
+                                            <td>xxx</td>
+                                            <td>xxx</td>
+                                        </tr>
+                                        {% endif %}
                                     {% endfor %}   
                                 </tbody>
                             </table>
                         </div>
-                        <a href="" style="font-size: 18px;">See more ></a
+                        <a href="{% url 'showAllArtist' %}" style="font-size: 20px;">See more ></a>
                     </div>
                 </div>
             </div>

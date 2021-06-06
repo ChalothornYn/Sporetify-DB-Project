@@ -1,0 +1,125 @@
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/addSong.css' %}">
+<link rel="stylesheet" href="{% static 'css/songPages/singleSong.css' %}">
+<script src="{% static 'js/updateSong.js' %}"></script>
+<style>
+.image-placeholder{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #ffce73;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+.image-placeholder img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.below-pic {
+    font-size: 25px;
+}
+</style>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a class="btn btn-secondary  mt-5 fs-5" onclick=" window.history.back();">Back</a>
+    <div class="mt-5">
+        <div class="d-flex align-items-end justify-content-between">
+            <div>
+                <span class="d-inline-block fs-1 text-username">"{{artist.artistName}}"</span>
+                <span class="d-inline-block fs-1"> details</span>   
+            </div>
+            <div>
+                <a href="{% url 'updateArtist' artist.artistID %}" class="btn btn-info d-inline-block">Update</a>
+                <a href="{% url 'deleteArtist' artist.artistID %}" class="btn btn-danger d-inline-block">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-10 offset-1">
+            <div class="row">
+                <div class="col-4 text-center">
+                    <div class="image-placeholder">
+                        <img src="{{artist.profileImage.url}}" alt="">
+                    </div>
+                    <span class="d-block below-pic mb-3">{{artist.artistName}}</span>
+                    <span class="d-block below-pic">#{{artist.artistID}}</span>
+                    <div class="content-box mt-5">
+                        <div class="box-header">
+                            <i class="fas fa-microphone-alt"></i>
+                            <span class="d-inline-block">Sang</span>
+                        </div>
+                        <div class="box-content">
+                            <span class="d-inline-block">{{count}}</span>
+                            <span class="">tracks</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 px-5" style="display: grid; grid-template-rows: 160px auto;">
+                    <table class="table profile">
+                        <tbody class="custom-table">
+                            <tr>
+                                <td class="col-5">Artist ID</td>
+                                <td class="text-secondary">#{{ artist.artistID }}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-5">Artist name</td>
+                                <td class="text-secondary">{{ artist.artistName }}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-5">Debut date</td>
+                                <td class="text-secondary">{{ artist.dob }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="song-container" style="overflow: scroll; width: 100%; height: 100%;">
+                        <span class="d-block fs-3">Song</span>
+                        <div class="table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Album</th>
+                                        <th>Genre</th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    {% for song in artist_song %}
+                                        <tr>
+                                            <td>{{song.songName}}</td>
+                                            <td>{{song.album}}</td>
+                                            <td>{{song.genre1}}</td>
+                                        </tr>
+                                    {% endfor %}  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
