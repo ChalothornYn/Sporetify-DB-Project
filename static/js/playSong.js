@@ -16,6 +16,7 @@ var autoplay = 0;
 
 var index_no = 0;
 var Playing_song = false;
+var All_song;
 
 //create a audio Element
 var track = document.createElement('audio');

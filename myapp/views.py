@@ -18,9 +18,14 @@ def landingPage(request):
     logout(request)
     return render(request, 'index.html')
 
+def Song(request):
+    return render(request, 'song.html')
+
 
 def playSong(request):
     return render(request, 'playSong.html')
+def Songtestjs(request):
+    return render(request, 'songtestjs.html')
 
 
 def addSong(request):
