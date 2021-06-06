@@ -28,9 +28,11 @@ urlpatterns = [
     path('', views.landingPage, name='landingPage'),
 
     path('addsong/', views.addSong, name='addSong'),
-    path('enaddsong/', views.enaddSong, name='enaddSong'),
+    path('update/song/<str:pk>/', views.updateSong, name='updateSong'),
+    path('delete/song/<str:pk>/', views.deleteSong, name='deleteSong'),
+
     path('addartist/', views.addArtist, name='addArtist'),
-    path('addsongsubmit/', views.addSongSubmit),
+    # path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
 
     #SONG URL

@@ -11,24 +11,120 @@ class Song (models.Model):
         n = Song.objects.count()
         return "S" + str(n).zfill(9)
 
-    # songID = models.AutoField(primary_key=True)
+    MAIN_GENRE_CHOICES = [
+        ('EDM', 'EDM'),
+        ('Rap', 'Rap'),
+        ('Rock', 'Rock'),
+        ('Pop', 'Pop'),
+        ('R&B', 'R&B'),
+        ('Latin', 'Latin'),
+    ]
+
+    GENRE_CHOICES = [
+        ('none', 'none'),
+        ('EDM', 'EDM'),
+        ('Rap', 'Rap'),
+        ('Rock', 'Rock'),
+        ('Pop', 'Pop'),
+        ('R&B', 'R&B'),
+        ('Latin', 'Latin'),
+    ]
+
+    LANGUAGE_CHOICES = [
+        ('af', 'Afrikaans'),
+        ('SQ','Albanian'),
+        ('AR','Arabic'),
+        ('HY','Armenian'),
+        ('EU','Basque'),
+        ('BN','Bengali'),
+        ('BG','Bulgarian'),
+        ('CA','Catalan'),
+        ('KM','Cambodian'),
+        ('ZH','Chinese (Mandarin)'),
+        ('HR','Croatian'),
+        ('CS','Czech'),
+        ('DA','Danish'),
+        ('NL','Dutch'),
+        ('EN','English'),
+        ('ET','Estonian'),
+        ('FJ','Fiji'),
+        ('FI','Finnish'),
+        ('FR','French'),
+        ('KA','Georgian'),
+        ('DE','German'),
+        ('EL','Greek'),
+        ('GU','Gujarati'),
+        ('HE','Hebrew'),
+        ('HI','Hindi'),
+        ('HU','Hungarian'),
+        ('IS','Icelandic'),
+        ('ID','Indonesian'),
+        ('GA','Irish'),
+        ('IT','Italian'),
+        ('JA','Japanese'),
+        ('JW','Javanese'),
+        ('KO','Korean'),
+        ('LA','Latin'),
+        ('LV','Latvian'),
+        ('LT','Lithuanian'),
+        ('MK','Macedonian'),
+        ('MS','Malay'),
+        ('ML','Malayalam'),
+        ('MT','Maltese'),
+        ('MI','Maori'),
+        ('MR','Marathi'),
+        ('MN','Mongolian'),
+        ('NE','Nepali'),
+        ('NO','Norwegian'),
+        ('FA','Persian'),
+        ('PL','Polish'),
+        ('PT','Portuguese'),
+        ('PA','Punjabi'),
+        ('QU','Quechua'),
+        ('RO','Romanian'),
+        ('RU','Russian'),
+        ('SM','Samoan'),
+        ('SR','Serbian'),
+        ('SK','Slovak'),
+        ('SL','Slovenian'),
+        ('ES','Spanish'),
+        ('SW','Swahili'),
+        ('SV','Swedish'),
+        ('TA','Tamil'),
+        ('TT','Tatar'),
+        ('TE','Telugu'),
+        ('TH','Thai'),
+        ('BO','Tibetan'),
+        ('TO','Tonga'),
+        ('TR','Turkish'),
+        ('UK','Ukrainian'),
+        ('UR','Urdu'),
+        ('UZ','Uzbek'),
+        ('VI','Vietnamese'),
+        ('CY','Welsh'),
+        ('XH','Xhosa'),
+    ]
+
     songID = models.CharField(max_length=10, default=genID ,primary_key=True)
     songName = models.CharField(max_length=100)
     artistID = models.ForeignKey('Artist', on_delete=models.CASCADE)
     songImg = models.ImageField(upload_to='uploads/songImg/')
     normalURL = models.FileField(upload_to='uploads/songQuality/normal/')
     goodURL = models.FileField(upload_to='uploads/songQuality/good/')
-    genre1 = models.CharField(max_length=20)
-    genre2 = models.CharField(max_length=20, null=True)
-    genre3 = models.CharField(max_length=20, null=True)
-    album = models.CharField(max_length=100, null=True)
+    genre1 = models.CharField(max_length=20, choices=MAIN_GENRE_CHOICES, default='none')
+    genre2 = models.CharField(max_length=20, choices=GENRE_CHOICES, default='none')
+    genre3 = models.CharField(max_length=20, choices=GENRE_CHOICES, default='none')
+    album = models.CharField(max_length=100, null=True, blank=True, default='')
     lyrics = models.TextField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    language = models.CharField(max_length=2)
+    language = models.CharField(max_length=10, choices=LANGUAGE_CHOICES)
 
 
 #Artist Table
 class Artist (models.Model):
+
+    def __str__(self):
+        return self.artistName + " | " + self.artistID
 
     def genID():
         n = Artist.objects.count()

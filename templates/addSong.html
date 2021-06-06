@@ -1,35 +1,44 @@
-{% extends 'layout_sideBar.html' %}
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
 {% load static %}
 
 {% block header %}
-	<link rel="stylesheet" href="{% static 'css/addSongs.css' %}">
+<title>Sporetify</title>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/addSong.css' %}">
 	<script src="{% static 'js/addSong.js' %}"></script>
-
-
-    <title>Sporetify</title>
 {% endblock%}
 
-{% block navbar %}
-    <a class="dropdown-item" href="#">Profile</a>
-    <a class="dropdown-item" href="#">Credit card</a>
-    <a class="dropdown-item" href="#">Transaction</a>
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
-{% block sidebar %}
-    <a href="#"><span>ภาพรวมโปรไฟล์</span></a>
-    <a href="#"><span>บัตรเครดิต</span></a>
-    <a href="#"><span>ประวัติการชำระเงิน</span></a>
+{% block navbar %}
+<!-- set class="disabled in current page" -->
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/">Log Out</a>
 {% endblock %}
 
 {% block content %}
-	<div class="container pt-3">
+	<div class="container pt-3 mt-5">
+		<form action="{% url 'enDashboard' %}">
+			<button class="btn btn-secondary fs-5">Back</button>
+		</form>
 		<!-- Image Preview -->
-		<div class="container-fluid d-flex justify-content-between align-items-center mb-5">
-			<span class="d-inline-block fs-1">เพิ่มเพลง</span>
+		<div class="d-flex justify-content-between align-items-center mb-5">
+			<div class="">
+				<span class="d-inline-block fs-1">Add song to </span>
+				<span class="d-inline-block fs-1 text-username">{{user.username}}</span>
+				<span class="d-inline-block fs-1">entertainment</span>   
+			</div>
 			<div class="song-cover-container"  onclick="uploadSongCover()" >
 				<img src="{% static 'images/img-placeholder.png' %}" alt="" class="" id="songImgDisplay">
 				<div class="text-overlay">
-					<div class="text">อัพโหลดรูปภาพ</div>
+					<div class="text">Upload Picture</div>
 				</div>
 			</div>
 		</div>
@@ -37,7 +46,7 @@
 
 		<!-- Start Form -->
 		<!-- <form action="/addsongsubmit/" enctype="multipart/form-data" method="POST"> -->
-		<form action="/addsong/" enctype="multipart/form-data" method="POST" class="mb-5">
+		<form action="{% url 'addSong' %}" enctype="multipart/form-data" method="POST" class="mb-5">
 			{% csrf_token %}
 
 			<!-- Upload song Image -->
@@ -50,14 +59,14 @@
 			<div class="row">
 				<div class="col-6">
 					<div class="input-group mb-5">
-						<span class="input-group-text">ชื่อเพลง</span>
-						<input type="text" placeholder="ป้อนชื่อเพลง" class="form-control" name="songName">
+						<span class="input-group-text">Song name</span>
+						<input type="text" placeholder="..." class="form-control" name="songName" value="{{songName}}" required>
 					</div>
 				</div>
 				<div class="col-6">
 					<div class="input-group mb-5">
-						<span class="input-group-text">ชื่ออัลบั้ม</span>
-						<input type="text" placeholder="ป้อนชื่ออัลบั้ม" class="form-control" name="album">
+						<span class="input-group-text">Album name</span>
+						<input type="text" placeholder="..." class="form-control" name="album" value="{{album}}">
 					</div>
 				</div>
 			</div>
@@ -69,9 +78,9 @@
                         <span class="input-group-text">ชื่อศิลปิน</span>
                     </div>
                     <input type="text" placeholder="ป้อนชื่อศิลปิน" class="form-control" name="Artname"> -->
-					<span class="input-group-text">รหัสศิลปิน</span>
+					<span class="input-group-text">Artist ID</span>
 					<span class="input-group-text">#</span>
-					<input type="text" placeholder="ป้อนรหัสศิลปิน" class="form-control" name="artistID">
+					<input type="text" placeholder="AT000000" class="form-control" name="artistID" value="{{artistID}}" required>
 				</div>
 			</div>
 
@@ -82,45 +91,45 @@
 				<div class="col-4">
 					<!-- First genre -->
 					<div class="input-group mb-5">
-						<label class="input-group-text" for="inputGroupSelect01">หมวดหมู่ 1</label>
+						<label class="input-group-text" for="inputGroupSelect01">Genre 1</label>
 						<select class="form-select" id="inputGroupSelect01" name="genre1">
-							<option value="none" selected">เลือก...</option>
-							<option value="EDM">อีดีเอ็ม (EDM)</option>
-							<option value="Rap">แร๊ป (Rap)</option>
-							<option value="Rock">ร็อก (Rock)</option>
-							<option value="Pop">ป๊อป (Pop)</option>
-							<option value="R&B">ริทึมแอนด์บลูส์ (R&B)</option>
-							<option value="Latin">ลาติน (Latin)</option>
+							<option value="none" selected">Choose...</option>
+							<option value="EDM">EDM (Electronic dance music)</option>
+							<option value="Rap">Rap</option>
+							<option value="Rock">Rock</option>
+							<option value="Pop">Pop</option>
+							<option value="R&B">R&B (Rhythm & Blues)</option>
+							<option value="Latin">Latin</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-4">
 					<!-- Second genre -->
 					<div class="input-group mb-5">
-						<label class="input-group-text" for="inputGroupSelect01">หมวดหมู่ 2</label>
+						<label class="input-group-text" for="inputGroupSelect01">Genre 2</label>
 						<select class="form-select" id="inputGroupSelect01" name="genre2">
-							<option value="none" selected">เลือก...</option>
-							<option value="EDM">อีดีเอ็ม (EDM)</option>
-							<option value="Rap">แร๊ป (Rap)</option>
-							<option value="Rock">ร็อก (Rock)</option>
-							<option value="Pop">ป๊อป (Pop)</option>
-							<option value="R&B">ริทึมแอนด์บลูส์ (R&B)</option>
-							<option value="Latin">ลาติน (Latin)</option>
+							<option value="none" selected">Choose...</option>
+							<option value="EDM">EDM (Electronic dance music)</option>
+							<option value="Rap">Rap</option>
+							<option value="Rock">Rock</option>
+							<option value="Pop">Pop</option>
+							<option value="R&B">R&B (Rhythm & Blues)</option>
+							<option value="Latin">Latin</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-4">
 					<!-- Third genre -->
 					<div class="input-group mb-5">
-						<label class="input-group-text" for="inputGroupSelect01">หมวดหมู่ 3</label>
+						<label class="input-group-text" for="inputGroupSelect01">Genre 3</label>
 						<select class="form-select" id="inputGroupSelect01" name="genre3">
-							<option value="none" selected">เลือก...</option>
-							<option value="EDM">อีดีเอ็ม (EDM)</option>
-							<option value="Rap">แร๊ป (Rap)</option>
-							<option value="Rock">ร็อก (Rock)</option>
-							<option value="Pop">ป๊อป (Pop)</option>
-							<option value="R&B">ริทึมแอนด์บลูส์ (R&B)</option>
-							<option value="Latin">ลาติน (Latin)</option>
+							<option value="none" selected">Choose...</option>
+							<option value="EDM">EDM (Electronic dance music)</option>
+							<option value="Rap">Rap</option>
+							<option value="Rock">Rock</option>
+							<option value="Pop">Pop</option>
+							<option value="R&B">R&B (Rhythm & Blues)</option>
+							<option value="Latin">Latin</option>
 						</select>
 					</div>
 				</div>
@@ -129,9 +138,9 @@
 			<!-- Upload Song lang. -->
 			<div class="" style="width: 50%;">
 				<div class="input-group mb-5">
-					<label class="input-group-text" for="inputGroupSelect01">ภาษา</label>
+					<label class="input-group-text" for="inputGroupSelect01">Song Language</label>
 					<select class="form-select" id="inputGroupSelect01" name="language">
-						<option value="none" selected">เลือก...</option>
+						<option value="none" selected">Choose...</option>
 						<option value="AF">Afrikaans</option>
 						<option value="SQ">Albanian</option>
 						<option value="AR">Arabic</option>
@@ -215,15 +224,15 @@
 				<!-- Normal quality -->
 				<div class="col-6">
 					<div class="input-group mb-3">
-						<input type="file" class="form-control" id="inputGroupFile01" name="normalURL">
-						<label class="input-group-text" for="inputGroupFile01">คุณภาพเสียงแบบปกติ</label>
+						<input type="file" class="form-control" id="inputGroupFile01" name="normalURL" required>
+						<label class="input-group-text" for="inputGroupFile01">Normal-quality file</label>
 					</div>
 				</div>
 				<!-- Good qulity -->
 				<div class="col-6">
 					<div class="input-group mb-3">
-						<input type="file" class="form-control" id="inputGroupFile01" name="goodURL">
-						<label class="input-group-text" for="inputGroupFile01">คุณภาพเสียงแบบพิเศษ</label>
+						<input type="file" class="form-control" id="inputGroupFile01" name="goodURL" required>
+						<label class="input-group-text" for="inputGroupFile01">High-quality file</label>
 					</div>
 				</div>
 			</div>
@@ -232,39 +241,27 @@
 			<div class="row mb-5">
 				<!-- description -->
 				<div class="col-6">
-					<label for="exampleFormControlTextarea1" class="form-label">คำอธิบายเพิ่มเติม</label>
-					<textarea class="form-control" id="description" rows="3" name="description"></textarea>
-					<p id="error">sss</p>
+					<label for="exampleFormControlTextarea1" class="form-label text-label">Song description</label>
+					<textarea class="form-control" id="description" rows="4" name="description">{{description}}</textarea>
 				</div>
 				<!-- lyrics -->
 				<div class="col-6">
-					<label for="exampleFormControlTextarea1" class="form-label">เนื้อเพลง</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="lyrics"></textarea>
+					<label for="exampleFormControlTextarea1" class="form-label text-label">Lyric</label>
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="lyrics"">{{lyrics}}</textarea>
 				</div>
 			</div>
 
-			<input type="submit" value="อัพโหลด" class="btn btn-primary">
+			<input type="submit" value="Upload" class="btn btn-primary mt-5 fs-5">
 		</form>
 
 		<div>
 			{% if messages %}
 				{% for message in messages %}
-					<div class="alert alert-danger alert-dismissible fade show" role="alert">
-						<strong>{{ message }}</strong>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					<div class="alert alert-danger" role="alert">
+						{{ message }}
 					</div>
 				{% endfor %}
 			{% endif %}
 		</div>
 	</div>
-
-	<script>
-
-		myfn();
-		function myfn() {
-			document.getElementById('error').innerHTML = "error message";
-		}
-
-	</script>
-
 {% endblock %}

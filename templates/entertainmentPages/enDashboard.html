@@ -31,7 +31,7 @@
                     <span class="d-inline-block">Number of Song</span>
                 </div>
                 <div class="box-content">
-                    <span class="d-inline-block">1,563</span>
+                    <span class="d-inline-block">{{song_count}}</span>
                     <span class="">tracks</span>
                 </div>
             </div>
@@ -42,11 +42,11 @@
                     <span class="d-inline-block">Number of Artist</span>
                 </div>
                 <div class="box-content">
-                    <span class="d-inline-block">12</span>
+                    <span class="d-inline-block">{{artist_count}}</span>
                     <span class="">artists</span>
                 </div>
             </div>
-
+            
             <div class="content-box">
                 <div class="box-header">
                     <i class="far fa-play-circle"></i>
@@ -64,61 +64,46 @@
                 <div class="header">
                     <h1>Song</h1>
                     <div class="crud-link">
-                        <a href="{% url 'enaddSong' %}">Create</a>
-                        <a href="">Edit</a>
+                        <a href="{% url 'addSong' %}">Create</a>
+                        <a href="{% url 'showAllSong' %}">Edit</a>
                     </div>
                 </div>
                 <div class="row Song-content">
                     <div class="col-4 text-center align-self-center">
                         <div class="image-container">
-                            <img src="{% static 'images/img-placeholder.png' %}" alt="">
+                            <img src="{{song1.songImg.url}}" alt="">
                         </div>
                     </div>
                     <div class="col-8 align-self-center">
                         <div class="table-responsive">
                             <table class="table custom-table table-hover">
                                 <thead>
-                                    <tr class="custom-table">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Album</th>
-                                        <th scope="col">Genre</th>
-                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Album</th>
+                                        <th>Genre</th>
+                                    </tr> 
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    {% for song in latest5Song %}
+                                        {% if song %}
+                                        <tr>
+                                            <td>{{song.songName}}</td>
+                                            <td>{{song.album}}</td>
+                                            <td>{{song.genre1}}</td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td>xxx</td>
+                                            <td>xxx</td>
+                                            <td>xxx</td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %}  
                                 </tbody>
                             </table>
                         </div>
+                        <a href="" style="font-size: 18px;">See more ></a>
                     </div>
                 </div>
             </div>
@@ -133,54 +118,31 @@
                 <div class="row Artist-content">
                     <div class="col-4 text-center align-self-center">
                         <div class="image-container">
-                            <img src="{% static 'images/profile-placeholder.png' %}" alt="">
+                            <img src="{{artist1.profileImage.url}}" alt="">
                         </div>  
                     </div>
                     <div class="col-8 align-self-center">
                         <div class="table-responsive">
                             <table class="table custom-table table-hover">
                                 <thead>
-                                    <tr class="custom-table">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Album</th>
-                                        <th scope="col">Genre</th>
-                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Debut</th>
+                                        <th>ID</th>
+                                    </tr> 
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    {% for artist in latest5Artist %}
+                                        <tr>
+                                            <td>{{artist.artistName}}</td>
+                                            <td>{{artist.dob}}</td>
+                                            <td>{{artist.artistID}}</td>
+                                        </tr>
+                                    {% endfor %}   
                                 </tbody>
                             </table>
                         </div>
+                        <a href="" style="font-size: 18px;">See more ></a
                     </div>
                 </div>
             </div>

@@ -1,0 +1,67 @@
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/addSong.css' %}">
+	<script src="{% static 'js/updateSong.js' %}"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block navbar %}
+<!-- set class="disabled in current page" -->
+<a class="dropdown-item" href="/userprofile">Account</a>
+<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+<a class="dropdown-item" href="/">Log Out</a>
+{% endblock %}
+
+{% block content %}
+    <div class="container pt-3 mt-5">
+        <form action="{% url 'showAllSong' %}">
+            <button class="btn btn-secondary  mt-5 fs-5">Back</button>
+        </form>
+		<!-- Image Preview -->
+		<div class="d-flex justify-content-between align-items-center mb-5">
+			<div class="">
+				<span class="d-inline-block fs-1">Update song</span>
+				<span class="d-inline-block fs-1 text-username">"{{song.songName}}"</span>  
+			</div>
+			<div class="song-cover-container"  onclick="uploadSongCover()" >
+				<img src="{{ song.songImg.url }}" alt="" class="" id="songImgDisplay">
+				<div class="text-overlay">
+					<div class="text">Upload Picture</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Start Form -->
+		<!-- <form action="/addsongsubmit/" enctype="multipart/form-data" method="POST"> -->
+        <form action="{% url 'updateSong' song.songID %}" enctype="multipart/form-data" method="POST" class="mb-5">
+
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <input type="submit" value="Update" class="btn btn-primary mt-5 fs-5">
+        </form>
+       
+
+		<div>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
