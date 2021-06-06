@@ -17,7 +17,6 @@ Gustboyy
 {% block navbar %}
 <a class="dropdown-item" href="/userprofile">Account</a>
 <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/userprofile/songHistory">History</a>
 <a class="dropdown-item" href="/userprofile/package">Package</a>
 <a class="dropdown-item disabled" href="/userprofile/family">Family</a>
 <a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
@@ -27,7 +26,6 @@ Gustboyy
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
 <a href="/userprofile/edit"><span>Edit profile</span></a>
-<a href="/userprofile/songHistory"><span>History</span></a>
 <a href="/userprofile/package"><span>Package</span></a>
 <a href="/userprofile/family" class="side-active"><span>Family</span></a>
 <a href="/userprofile/transaction"><span>Transaction</span></a>
@@ -43,7 +41,8 @@ Gustboyy
 <!-- Family member -->
 <div class="col-10 offset-1">
     <!-- Package in use -->
-    <form>
+    <form method="POST">
+        {% csrf_token %}
         <div class="col-10 offset-1">
             <table class="table profile">
                 <tbody>
@@ -60,67 +59,55 @@ Gustboyy
                         <td>
                             <span>
                                 <label>
-                                    <input type="radio" name="family" value="user1" checked>
+                                    <input type="radio" name="manager" value="{{managerUser.customerID}}" checked>
                                     <i class="fas fa-crown" style="margin-right: 5px;"></i>
                                 </label>
 
-                                {userID1}
+                                {{manager.customerID}}
                             </span>
                         </td>
-                        <td class="text-secondary">{username}</td>
-                        <td class="text-secondary">{firstname}</td>
-                        <td class="text-secondary">{lastname}</td>
-                        <td class="text-secondary">{email}</td>
+                        <td class="text-secondary">{{managerUser.username}}</td>
+                        <td class="text-secondary">{{manager.firstName}}</td>
+                        <td class="text-secondary">{{manager.lastName}}</td>
+                        <td class="text-secondary">{{managerUser.email}}</td>
                     </tr>
+                    {% for child, childUser in childs %}
                     <tr>
                         <td>
                             <span>
                                 <label>
-                                    <input type="radio" name="family" value="user2">
+                                    <input type="radio" name="manager" value="{{child.customerID}}">
                                     <i class="fas fa-crown" style="margin-right: 5px;"></i>
                                 </label>
 
-                                {userID2}
+                                {{child.customerID}}
                             </span>
                         </td>
-                        <td class="text-secondary">{username}</td>
-                        <td class="text-secondary">{firstname}</td>
-                        <td class="text-secondary">{lastname}</td>
-                        <td class="text-secondary">{email}</td>
+                        <td class="text-secondary">{{childUser.username}}</td>
+                        <td class="text-secondary">{{child.firstName}}</td>
+                        <td class="text-secondary">{{child.lastName}}</td>
+                        <td class="text-secondary">{{childUser.email}}</td>
                     </tr>
+
+
+                    {% endfor %}
+                    {% for i in empty_list %}
                     <tr>
                         <td>
                             <span>
                                 <label>
-                                    <input type="radio" name="family" value="user3">
-                                    <i class="fas fa-crown" style="margin-right: 5px;"></i>
+                                    <i class="fas fa-crown" style="margin-right: 5px; opacity: 0.2;"></i>
                                 </label>
 
-                                {userID3}
+                                -
                             </span>
                         </td>
-                        <td class="text-secondary">{username}</td>
-                        <td class="text-secondary">{firstname}</td>
-                        <td class="text-secondary">{lastname}</td>
-                        <td class="text-secondary">{email}</td>
+                        <td class="text-secondary">-</td>
+                        <td class="text-secondary">-</td>
+                        <td class="text-secondary">-</td>
+                        <td class="text-secondary">-</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <span>
-                                <label>
-                                    <input type="radio" name="family" value="user4">
-                                    <i class="fas fa-crown" style="margin-right: 5px;"></i>
-                                </label>
-
-                                {userID4}
-                            </span>
-                        </td>
-                        <td class="text-secondary">{username}</td>
-                        <td class="text-secondary">{firstname}</td>
-                        <td class="text-secondary">{lastname}</td>
-                        <td class="text-secondary">{email}</td>
-                    </tr>
-
+                    {% endfor %}
                 </tbody>
             </table>
             <div class="row">
@@ -128,11 +115,11 @@ Gustboyy
                     <div class="input-group mb-3">
                         <span class="input-group-text">Delete member</span>
                         <span class="input-group-text">#</span>
-                        <select class="form-select" id="delete_member">
-                            <option selected>Choose...</option>
-                            <option value="{userID1}">U1234567</option>
-                            <option value="{userID2}">{userID2}</option>
-                            <option value="{userID3}">{userID3}</option>
+                        <select class="form-select" id="delMember" name="delMember">
+                            <option selected disabled>Choose...</option>
+                            {% for child, childUser in childs %}
+                                <option value="{{child.customerID}}">{{child.customerID}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -140,18 +127,21 @@ Gustboyy
                     <div class="input-group mb-3">
                         <span class="input-group-text">Add member</span>
                         <span class="input-group-text">#</span>
-                        <input type="text" placeholder="e.g. U1234567" class="form-control" name="add_member">
+                        <input type="text" placeholder="e.g. U1234567" class="form-control" name="addMember">
                     </div>
                 </div>
             </div>
         </div>
         <div class="row save-button">
             <div class="col-10 offset-1 text-end">
-                <input type="submit" value="  cancel  " class="btn btn-light">
-                <input type="submit" value="  save change  " class="btn btn-primary">
+                <a class="btn btn-light me-2" href="/userprofile/family" role="button">  Cancel  </a>
+                <input type="submit" value="  Submit  " class="btn btn-primary">
             </div>
         </div>
         <br>
+        <!-- # HIDDEN FORM # -->
+        <input type="text" class="d-none" name="packageID" value="{{package.packageID}}">
+        <input type="text" class="d-none" name="familyID" value="{{family.familyID}}">
     </form>
 </div>
 {% endblock %}

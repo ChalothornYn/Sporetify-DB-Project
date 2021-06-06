@@ -412,11 +412,40 @@ def userProfile_package(request):
 
     return render(request, 'userProfile_package.html', send_data)
 
+# family table
+def userProfile_family(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
+    family = Family.objects.get(manager=customer.customerID)
+    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+    
+    childID = []
+    for i in range(len(childs)):
+        childID.append(childs[i].user_id)
+    childUser = User.objects.filter(customer__user_id__in=childID)    
+
+    manager = Customer.objects.get(customerID = family.manager)
+    managerUser = User.objects.get(id=manager.user_id)
+    empty_list = '123'[:(3-len(childs))]
+
+    # sending data to html
+    send_data = {
+        'user': user, 
+        'customer': customer,
+        'childs': zip(childs, childUser),
+        'family': family,
+        'manager': manager,
+        'managerUser': managerUser,
+        'empty_list': empty_list,
+        'package': package
+    }
+    return render(request, 'userProfile_family.html', send_data)
+
 def userProfile_transaction(request):
     return render(request, 'userProfile_transaction.html')
 
-def userProfile_family(request):
-    return render(request, 'userProfile_family.html')
+
 
 
 # --------------------------------------- Entertainmemt views -------------------------------------
