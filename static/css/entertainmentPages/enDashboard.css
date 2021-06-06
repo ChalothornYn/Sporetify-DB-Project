@@ -28,6 +28,11 @@
     background-color: #ffce73;
     border-radius: 10px;
     padding: 20px 10px;
+    border: 3px solid #ffce73;
+}
+.content-box:hover {
+    box-shadow: #000;
+    border: 3px solid black;
 }
 
 .box-header {
@@ -45,6 +50,7 @@
     width: 100%;
     text-align: center;
 }
+
 
 .box-content span:nth-child(2){
     font-size: 1.3vw;
@@ -108,7 +114,7 @@
     font-size: 18px;
 }
 .custom-table tbody {
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .Artist-content {

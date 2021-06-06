@@ -1,0 +1,75 @@
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/addSong.css' %}">
+	<!-- <script src="{% static 'js/updateSong.js' %}"></script> -->
+<style>
+.song-cover-container {
+	cursor: default;
+}
+p {
+	/* font-size: 18px; */
+	margin: 40px 0px;
+	font-size: 18px;
+}
+.form-container {
+	border: 2px solid #000;
+	padding: 20px;
+}
+.form-container label {
+	font-size: 20px;
+	margin-right: 15px;
+}
+</style>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <a class="btn btn-secondary mt-5 fs-5" onclick=" window.history.back();">Back</a>
+		<!-- Image Preview -->
+		<div class="d-flex justify-content-between align-items-center mb-5">
+			<div class="">
+				<span class="d-inline-block fs-1">Update song</span>
+				<span class="d-inline-block fs-1 text-username">"{{song.songName}}"</span>  
+			</div>
+			<div class="song-cover-container">
+				<img src="{{ song.songImg.url }}" alt="" class="">
+			</div>
+		</div>
+
+
+		<!-- Start Form -->
+		<!-- <form action="/addsongsubmit/" enctype="multipart/form-data" method="POST"> -->
+        <form action="{% url 'updateSong' song.songID %}" enctype="multipart/form-data" method="POST" class="mb-5">
+
+            {% csrf_token %}
+			<div class="form-container">
+				{{form.as_p}}
+			</div>
+
+            <input type="submit" value="Update" class="btn btn-primary mt-5 fs-5">
+        </form>
+       
+
+		<div>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

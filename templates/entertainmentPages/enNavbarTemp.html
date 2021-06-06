@@ -33,17 +33,6 @@
             </button>
             <!-- end button -->
             <div class="collapse navbar-collapse justify-content-end d-flex" id="navbarSupportedContent">
-                <!-- <ul class="navbar-nav text-end">
-                    <li class="nav-item">
-                        <a class="nav-link fs-5 menu" href="/song">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-5 menu ms-3" href="#">Package</a>
-                    </li>
-                    <li class="nav-item d-md-flex ms-4 d-none">
-                        <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
-                    </li>
-                </ul> -->
                 <ul class="navbar-nav text-end fs-5 ms-4">
                     <li class="nav-item dropdown drop">
                         <div class="d-flex">
@@ -55,8 +44,20 @@
 
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="navbarDropdownMenuLink">
-                                {% block navbar %}
-                                {% endblock %}
+                                <!-- {% block navbar %}
+                                {% endblock %} -->
+                                <!-- {% for i in USERROLE %}
+                                    {% if i %}
+                                        <a class="dropdown-item" href="/userprofile">Account</a>
+                                        <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+                                        <a class="dropdown-item" href="/">Log Out</a>
+                                    {% else %}
+           
+                                    {% endif %}
+                                {% endfor %} -->
+                                <a class="dropdown-item" href="{% url 'enProfile' %}">Account</a>
+                                <a class="dropdown-item" href="{% url 'enProfile' %}">Edit profile</a>
+                                <a class="dropdown-item" href="{% url 'landingPage' %}">Log Out</a>
                             </div>
                         </div>
                     </li>
@@ -67,6 +68,7 @@
     </nav>
     <!-- navbar end -->
     {% block content %}
+
     {% endblock content %}
 </body>
 

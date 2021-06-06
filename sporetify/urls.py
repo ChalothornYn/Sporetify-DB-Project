@@ -28,10 +28,18 @@ urlpatterns = [
     path('', views.landingPage, name='landingPage'),
 
     path('addsong/', views.addSong, name='addSong'),
+    path('song/all/', views.showAllSong, name='showAllSong'),
+    path('song/single/<str:pk>/', views.singleSong, name='singleSong'),
     path('update/song/<str:pk>/', views.updateSong, name='updateSong'),
     path('delete/song/<str:pk>/', views.deleteSong, name='deleteSong'),
 
     path('addartist/', views.addArtist, name='addArtist'),
+    path('artist/all/', views.showAllArtist, name='showAllArtist'),
+    path('artist/single/<str:pk>/', views.singleArtist, name='singleArtist'),
+    path('update/artist/<str:pk>/', views.updateArtist, name='updateArtist'),
+    path('delete/artist/<str:pk>/', views.deleteArtist, name='deleteArtist'),
+
+
     # path('addsongsubmit/', views.addSongSubmit),
     path('testtable/', views.Testtable),
 
@@ -42,7 +50,7 @@ urlpatterns = [
     path('song/edm/', views.songEDM),
     path('song/playsong/', views.playSong),
 
-    path('song/all/', views.showAllSong, name='showAllSong'),
+  
 
     #User URL
     path('login/', views.loginUser, name='login'), 
@@ -59,6 +67,7 @@ urlpatterns = [
     path('login/entertainment/', views.loginEntertainment, name='enLogin'),
     path('en/dashboard', views.enDashboard, name='enDashboard'),
     path('songhistory/entertainment', views.songHistoryforEntertainment),
+    path('en/Profile', views.enProfile, name='enProfile'),
 
     # Admin URL
     path('adminregister/', views.adminRegister, name='adminRegister'),

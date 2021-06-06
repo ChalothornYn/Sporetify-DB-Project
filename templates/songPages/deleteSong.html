@@ -16,20 +16,13 @@
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
-{% block navbar %}
-<!-- set class="disabled in current page" -->
-<a class="dropdown-item" href="/userprofile">Account</a>
-<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/">Log Out</a>
-{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
     <p style="font-size: 24px; margin-bottom: 30px;">Are you sure you want to delete song "{{song.songName}}" ?</p>
     
     <form action="{% url 'deleteSong' song.songID %}" method="POST">
         {% csrf_token %}
-        <a style="font-size: 20px;" href="{% url 'enDashboard' %}">Cancle</a>
+        <a style="font-size: 20px;" class="btn btn-secondary btn-lg" onclick=" window.history.back();">Cancle</a>
         <input type="submit" class="btn btn-danger ms-5 btn-lg" name="confirm">
     </form> 
 </div>

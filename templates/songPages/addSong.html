@@ -16,18 +16,9 @@
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
-{% block navbar %}
-<!-- set class="disabled in current page" -->
-<a class="dropdown-item" href="/userprofile">Account</a>
-<a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
-<a class="dropdown-item" href="/">Log Out</a>
-{% endblock %}
-
 {% block content %}
-	<div class="container pt-3 mt-5">
-		<form action="{% url 'enDashboard' %}">
-			<button class="btn btn-secondary fs-5">Back</button>
-		</form>
+	<div class="container">
+		<a class="btn btn-secondary  mt-5 fs-5" onclick=" window.history.back();">Back</a>
 		<!-- Image Preview -->
 		<div class="d-flex justify-content-between align-items-center mb-5">
 			<div class="">
