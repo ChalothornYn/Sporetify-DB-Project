@@ -40,3 +40,8 @@ class editCusInfo (ModelForm):
     class Meta:
         model = Customer
         fields = ['firstName', 'lastName', 'gender', 'profileImage', 'dob', 'interCode', 'telNO'] #
+
+class packCusInfo (ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['packageID']
