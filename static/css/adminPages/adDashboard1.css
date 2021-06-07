@@ -1,0 +1,127 @@
+.enUsername {
+    /* change color in 'menu class' (enNavbarTemp.css) */
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.container-fluid {
+    padding: 0 40px;
+    flex-grow: 1;
+}
+
+.container-fluid > .row {
+    padding: 30px 0;
+}
+
+.content-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.content-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ff6961;
+    border-radius: 10px;
+    padding: 20px 10px;
+    border: 3px solid #ff6961;
+}
+.content-box:hover {
+    box-shadow: #000;
+    border: 3px solid black;
+}
+
+.box-header {
+    color: #fff;
+    font-size: 2vw;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #ffce73;
+    padding-bottom: 15px;
+}
+
+.box-content {
+    /* color: #0d6efd; */
+    /* color: #52eb8a; */
+    color: #000;
+    font-size: 3.5vw;
+    width: 100%;
+    text-align: center;
+}
+
+
+.box-content span:nth-child(2){
+    font-size: 1.3vw;
+    color: #fff;
+}
+
+.content2-container {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    padding-left: 20px;
+}
+
+.Song {
+    display: grid;
+    grid-template-rows: 60px auto;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-self: center;
+}
+.header h1 {
+    margin: 0;
+}
+
+.header a {
+    font-size: 20px;
+}
+
+.Song-content {
+    padding: 20px 0;
+}
+
+.Song-content > div:first-child {
+    padding: 0 0px;
+}
+
+.image-container {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    background-color: #ffce73;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+.image-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.custom-table {
+    font-size: 18px;
+}
+.custom-table tbody {
+    /* cursor: pointer; */
+}
+
+.Artist-content {
+    padding: 20px 0;
+}
+
+.Artist-content > div:first-child {
+    padding: 0 0px;
+}

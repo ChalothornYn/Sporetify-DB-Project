@@ -1,4 +1,4 @@
-{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% extends 'adminPages/adNavbarTemp.html' %}
 {% load static %}
 
 {% block header %}
@@ -9,7 +9,7 @@
 
 {% block profile_nav %}
 <div class="profile-show">
-    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
 </div>
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}

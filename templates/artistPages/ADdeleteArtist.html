@@ -1,17 +1,17 @@
-{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% extends 'adminPages/adNavbarTemp.html' %}
 {% load static %}
 
 {% block header %}
 <title>Sporetify</title>
 <script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
-<link rel="stylesheet" href="{% static 'css/addSong.css' %}">
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard1.css' %}">
+<link rel="stylesheet" href="{% static 'css/ad_addSong.css' %}">
 	<script src="{% static 'js/updateSong.js' %}"></script>
 {% endblock%}
 
 {% block profile_nav %}
 <div class="profile-show">
-    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
 </div>
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
@@ -19,6 +19,7 @@
 {% block content %}
 <div class="container mt-5">
     <p style="font-size: 24px; margin-bottom: 30px;">Are you sure you want to delete artist "{{artist.artistName}}" ?</p>
+    <p style="font-size: 24px; margin-bottom: 30px;">"{{artist.artistName}}" will be deleted from "{{en.entertainmentName}} <span style="color: #FF5147;">|</span> {{en.entertainmentID}}"</p>
     <p style="font-size: 24px; margin-bottom: 30px;">The song related to "{{artist.artistName}}" will also be deleted ({{count}} songs)</p>
     
     <form action="{% url 'deleteArtist' artist.artistID %}" method="POST">

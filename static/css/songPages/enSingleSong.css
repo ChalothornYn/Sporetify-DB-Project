@@ -1,0 +1,25 @@
+.image-placeholder{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #ffce73;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+.image-placeholder img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.below-pic {
+    font-size: 25px;
+}
+.content-box:hover {
+    border: 3px solid #ffce73;
+}

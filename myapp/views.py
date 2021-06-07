@@ -1,4 +1,5 @@
 from django.db import reset_queries
+from django.db.models.indexes import Index
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -124,10 +125,17 @@ def addSong(request):
         elif len(artistID) > 8:
             messages.success(request, ('artist ID not found'))
             errorFlag = 1
-        elif not ((request.user.artist_set.filter(artistID = artistID)).exists()):
-            messages.success(request, ('artist ID not found'))
-            errorFlag = 1
-        
+        elif request.user.groups.all()[0].name == 'entertainment':
+            # Can add only they own artist
+            if not ((request.user.artist_set.filter(artistID = artistID)).exists()):
+                messages.success(request, ('artist ID not found'))
+                errorFlag = 1
+        elif request.user.groups.all()[0].name == 'admin':
+            # Can add to any artist
+            if not (Artist.objects.filter(artistID = artistID).exists()):
+                messages.success(request, ('artist ID not found'))
+                errorFlag = 1
+
         if genre1 == 'none':
             messages.success(request, ('Genre 1 must be selected'))
             errorFlag = 1
@@ -166,41 +174,18 @@ def addSong(request):
                 if request.user.groups.all()[0].name == 'entertainment':
                     return redirect('enDashboard')
                 if request.user.groups.all()[0].name == 'admin':
-                    return redirect('adminProfile')
+                    return redirect('adminDashboard')
         print(form.errors)
         print('not success')
-        return render(request, 'songPages/addSong.html', context)
+        if request.user.groups.all()[0].name == 'entertainment':
+            return render(request, 'songPages/addSong.html', context)
+        if request.user.groups.all()[0].name == 'admin':
+            return render(request, 'songPages/ADaddSong.html', context)
     else:
-        return render(request, 'songPages/addSong.html')
-
-# def addSongSubmit(request):
-#     form = addSongForm()
-#     if request.method == 'POST':
-#         form = addSongForm(request.POST or None, request.FILES or None)
-#         #fields = ['songName', 'artistID', 'songImg', 'normalURL', 'goodURL', 'genre1', 'genre2', 'genre3', 'album', 'lyrics', 'description', 'language'] 
-#         songName = request.POST['songName']
-#         artistID = request.POST['artistID']
-#         songImg = request.POST['songImg']
-#         normalURL = request.POST['normalURL']
-#         goodURL = request.POST['goodURL']
-#         genre1 = request.POST['genre1']
-#         genre2 = request.POST['genre2']
-#         genre3 = request.POST['genre3']
-#         album = request.POST['album']
-#         lyrics = request.POST['lyrics']
-#         description = request.POST['description']
-#         language = request.POST['language']
-
-#         if form.is_valid():
-#             form.save()
-#             print('success')
-#             result = Song.objects.last()
-#             return render(request, 'tempResult.html', {'result': result})
-#         else:
-#             print(form.errors)
-#             print('not success')
-
-#     return render(request, 'tempResult.html')
+        if request.user.groups.all()[0].name == 'entertainment':
+            return render(request, 'songPages/addSong.html')
+        if request.user.groups.all()[0].name == 'admin':
+            return render(request, 'songPages/ADaddSong.html')
     
 def Testtable(request):
     return render(request, 'testtable.html')
@@ -589,8 +574,8 @@ def enDashboard(request):
     #     userROLE[0] = None
     # if request.user.groups.all()[0].name == 'admin':
     #     userROLE[0] = 1
-    print(artist_count)
-    print(song_count)
+    # print(artist_count)
+    # print(song_count)
 
     context = {'latest5Artist': latest5Artist, 'latest5Song': latest5Song,
                 'artistPresent':latest5Artist[0],
@@ -615,20 +600,27 @@ def enProfileEdit (request):
     #phone
     telNO = enPresent.interCode + enPresent.telNO if enPresent.telNO != None and enPresent.interCode != None else ''
 
-    # x = request.POST['artistID']
-
-    # z = request.FILES.get('profileImage')
-    # print(enPresent)
-    ### update ###
     form = editEntertainment(instance=enPresent)
-    if request.method == 'POST':
-
-        form = editEntertainment(request.POST or None, request.FILES or None, instance=enPresent)
-        if form.is_valid():
-            form.save()
-            return redirect('enProfileEdit')
-        print(form.errors)
+    errorflag = 0
     
+    ### update ###
+    if request.method == 'POST':
+        if request.POST['interCode']== None or request.POST['telNO'] == None:
+            messages.success(request, ('Please field your telephone number'))
+            errorflag = 1
+
+        if request.POST['interCode']== None or request.POST['telNO'] == None:
+            messages.success(request, ('Please field your telephone number'))
+            errorflag = 1
+       
+
+        if errorflag==0:
+            form = editEntertainment(request.POST or None, request.FILES or None, instance=enPresent)
+            if form.is_valid():
+                form.save()
+                return redirect('enProfileEdit')
+        print(form.errors)
+
     # sending data to html
     context = {
         'telNO': telNO,
@@ -636,7 +628,8 @@ def enProfileEdit (request):
     }
     return render(request, 'entertainmentPages/enProfileEdit.html', context)
 
-
+def showAllEntertainment (request):
+    print('Im here')
 
 # ------------------------------------------- Admin views -----------------------------------------
 
@@ -679,7 +672,7 @@ def adminLogin(request):
 
         if (user is not None) and (user.groups.all()[0].name == 'admin'):
             login(request, user)
-            return redirect('adminProfile')
+            return redirect('adminDashboard')
         else:
             messages.info(request, 'Username or Password is incorrect')
             return render(request, 'adminPages/adminLogin.html', {'username':username})
@@ -696,8 +689,80 @@ def adminLogout(request):
 def adminProfile(request):
     return render(request, 'adminPages/adminProfile.html')
 
+def adminDashboard(request):
+    c_song = Song.objects.count()
+    c_artist = Artist.objects.count()
+    c_en = Entertainment.objects.count()
+    c_customer = Customer.objects.count()
+
+    index = 0
+
+    latest5Song = [None, None, None, None, None]
+    allSong = Song.objects.all().order_by('-songID')
+    for song in allSong:
+        # print(song.artistID.artistID)
+        if index < 5:
+            latest5Song[index] = song
+            index = index + 1
+    
+    index = 0
+    latest5Customer = [None, None, None, None, None]
+    allCust = Customer.objects.all().order_by('-customerID')
+    for customer in allCust:
+        # print(song.artistID.artistID)
+        if index < 5:
+            latest5Customer[index] = customer
+            index = index + 1
+
+    context = {
+        'c_song': c_song,
+        'c_artist': c_artist,
+        'c_en': c_en,
+        'c_customer': c_customer,
+        'latest5Song': latest5Song,
+        'latest5Customer': latest5Customer,
+    }
+
+    return render(request, 'adminPages/adDashboard.html', context)
 
 #  ------------------------------ Artist ------------------------------------
+def ADaddArtist(request):
+    form = addArtistForm()
+    if request.method == 'POST':
+        errorFlag = 0
+
+        form = addArtistForm(request.POST or None, request.FILES or None)
+
+        artistName = request.POST.get('artistName')
+        entertainmentID = request.POST.get('entertainmentID')
+        dob = request.POST.get('dob')
+
+        if not (Entertainment.objects.filter(entertainmentID = entertainmentID).exists()):
+            messages.success(request, ('entertainment ID not found'))
+            errorFlag = 1
+
+        context = {'artistName':artistName, 'dob':dob, 'entertainmentID': entertainmentID}
+     
+        #Is form valid?
+        if errorFlag == 0:
+            if form.is_valid():
+                en = Entertainment.objects.get(entertainmentID = entertainmentID)
+                print(en.user_id)
+                # ----------- Add FK autometically -----------
+                addArtistFK = form.save(commit=False)
+                addArtistFK.entertainmentID = User.objects.get(id = en.user_id)
+                addArtistFK.save()
+                print('success')
+                if request.user.groups.all()[0].name == 'entertainment':
+                    return redirect('enDashboard')
+                if request.user.groups.all()[0].name == 'admin':
+                    return redirect('adminDashboard')
+        print(form.errors)
+        print('not success')
+        return render(request, 'artistPages/ADaddArtist.html', context)
+
+    else:
+        return render(request, 'artistPages/ADaddArtist.html')
 
 def addArtist(request):
     form = addArtistForm()
@@ -720,22 +785,26 @@ def addArtist(request):
             if request.user.groups.all()[0].name == 'entertainment':
                 return redirect('enDashboard')
             if request.user.groups.all()[0].name == 'admin':
-                return redirect('adminProfile')
-            return redirect('enDashboard')
+                return redirect('adminDashboard')
         else:
             print(form.errors)
             print('not success')
             return render(request, 'artistPages/addArtist.html', context)
+
     else:
         return render(request, 'artistPages/addArtist.html')
 
 def showAllArtist (request):
-    # print('here')
-    context = {'artists': request.user.artist_set.all().order_by('-artistID')}
-    # print('here')
-    # print(request.user.artist_set.all().order_by('-artistID'))
-    # context = {}
-    return render(request, 'artistPages/allArtistTable.html', context)
+    if request.user.groups.all()[0].name == 'entertainment':
+        context = {'artists': request.user.artist_set.all().order_by('-artistID')}
+        return render(request, 'artistPages/allArtistTable.html', context)
+
+    if request.user.groups.all()[0].name == 'admin':
+        context = {'artists': Artist.objects.all().order_by('-artistID')}
+        print(context)
+        return render(request, 'artistPages/ADallArtistTable.html', context)
+
+    return redirect('landingPage')
 
 def updateArtist(request, pk):
     artist = Artist.objects.get(artistID = pk)
@@ -750,49 +819,72 @@ def updateArtist(request, pk):
             if request.user.groups.all()[0].name == 'entertainment':
                 return redirect('enDashboard')
             if request.user.groups.all()[0].name == 'admin':
-                return redirect('adminProfile')
+                return redirect('adminDashboard')
         else:
             print(form.errors)
             print('not success')
-            return render(request, 'artistPages/updateArtist.html', {'artist': artist})
-    else:
-        return render(request, 'artistPages/updateArtist.html', {'form': form, 'artist': artist})
+            if request.user.groups.all()[0].name == 'entertainment':
+                return render(request, 'artistPages/updateArtist.html',{'form': form, 'artist': artist})
+            if request.user.groups.all()[0].name == 'admin':
+                return render(request, 'artistPages/ADupdateArtist.html', {'form': form, 'artist': artist})
+    else:        
+        if request.user.groups.all()[0].name == 'entertainment':
+            return render(request, 'artistPages/updateArtist.html',{'form': form, 'artist': artist})
+        if request.user.groups.all()[0].name == 'admin':
+            return render(request, 'artistPages/ADupdateArtist.html', {'form': form, 'artist': artist})
 
 def deleteArtist (request, pk):
     artist = Artist.objects.get(artistID = pk)
+    en = User.objects.get(id = artist.entertainmentID_id)
+    en = en.entertainment
     artist_song = artist.song_set.count()
     if request.method == 'POST':
         artist.delete()
         if request.user.groups.all()[0].name == 'entertainment':
             return redirect('enDashboard')
         if request.user.groups.all()[0].name == 'admin':
-            return redirect('adminProfile')
+            return redirect('adminDashboard')
 
-    context = {'artist': artist, 'count': artist_song}
-    return render(request, 'artistPages/deleteArtist.html', context)
+    context = {'artist': artist, 'count': artist_song, 'en': en}
+    if request.user.groups.all()[0].name == 'entertainment':
+        return render(request, 'artistPages/deleteArtist.html', context)
+    if request.user.groups.all()[0].name == 'admin':
+        return render(request, 'artistPages/ADdeleteArtist.html', context)
 
 def singleArtist(request, pk):
     artist = Artist.objects.get(artistID = pk)
+    en = User.objects.get(id = artist.entertainmentID_id)
+    en = en.entertainment
     artist_song = artist.song_set.all()
     count = artist.song_set.count()
-    context = {'artist': artist, 'count': count, 'artist_song': artist_song}
-    return render(request, 'artistPages/singleArtist.html', context)
+    context = {'artist': artist, 'count': count, 'artist_song': artist_song, 'en': en}
+
+    if request.user.groups.all()[0].name == 'entertainment':
+        return render(request, 'artistPages/singleArtist.html', context)
+    if request.user.groups.all()[0].name == 'admin':
+        return render(request, 'artistPages/ADsingleArtist.html', context)
 
 
 #  ------------------------------ Song ------------------------------------
 
 def showAllSong(request):
     songs = []
-    index = 0
-    song_count = 0
-    allSong = Song.objects.all().order_by('-songID')
-    for song in allSong:
-        # print(song.artistID.artistID)
-        if request.user.artist_set.filter(artistID = song.artistID.artistID).exists():
-            songs.append(song)
-    context = {'songs': songs}
 
-    return render(request, 'songPages/allSongTable.html', context)
+    allSong = Song.objects.all().order_by('-songID')
+    if request.user.groups.all()[0].name == 'entertainment':
+        for song in allSong:
+            # print(song.artistID.artistID)
+            if request.user.artist_set.filter(artistID = song.artistID.artistID).exists():
+                songs.append(song)
+        context = {'songs': songs}
+
+        return render(request, 'songPages/allSongTable.html', context)
+
+    if request.user.groups.all()[0].name == 'admin':
+        context = {'songs': allSong}
+        return render(request, 'songPages/ADallSongTable.html', context)
+
+    return redirect('landingPage')
 
 
 def updateSong(request, pk):
@@ -824,30 +916,45 @@ def updateSong(request, pk):
                 if request.user.groups.all()[0].name == 'entertainment':
                     return redirect('enDashboard')
                 if request.user.groups.all()[0].name == 'admin':
-                    return redirect('adminProfile')
+                    return redirect('adminDashboard')
         print(form.errors)
         print('not success')
-        return render(request, 'songPages/updateSong.html', {'form': form, 'song': song})
+        if request.user.groups.all()[0].name == 'entertainment':
+            return render(request, 'songPages/updateSong.html', {'form': form, 'song': song})
+        if request.user.groups.all()[0].name == 'admin':
+            return render(request, 'songPages/ADupdateSong.html', {'form': form, 'song': song})
     else:
         # return render(request, 'updateSong.html', {'song': song})
-        return render(request, 'songPages/updateSong.html', {'form': form, 'song': song})
+        if request.user.groups.all()[0].name == 'entertainment':
+            return render(request, 'songPages/updateSong.html', {'form': form, 'song': song})
+        if request.user.groups.all()[0].name == 'admin':
+            return render(request, 'songPages/ADupdateSong.html', {'form': form, 'song': song})
 
 def deleteSong (request, pk):
     song = Song.objects.get(songID = pk)
     if request.method == 'POST':
         song.delete()
         if request.user.groups.all()[0].name == 'entertainment':
-                return redirect('enDashboard')
+            return redirect('enDashboard')
         if request.user.groups.all()[0].name == 'admin':
-            return redirect('adminProfile')
+            return redirect('adminDashboard')
 
     context = {'song': song}
-    return render(request, 'deleteSong.html', context)
+    if request.user.groups.all()[0].name == 'entertainment':
+        return render(request, 'songPages/deleteSong.html', context)
+    if request.user.groups.all()[0].name == 'admin':
+        return render(request, 'songPages/ADdeleteSong.html', context)
 
-def adminProfile(request):
-    return render(request, 'adminPages/adminProfile.html')
+    return redirect('langingPage')
 
 def singleSong (request, pk):
     song = Song.objects.get(songID = pk)
+    # context = {'song': song}
+
     context = {'song': song}
-    return render(request, 'songPages/singleSong.html', context)
+    if request.user.groups.all()[0].name == 'entertainment':
+        return render(request, 'songPages/singleSong.html', context)
+    if request.user.groups.all()[0].name == 'admin':
+        return render(request, 'songPages/ADSingleSong.html', context)
+
+    return redirect('langingPage')

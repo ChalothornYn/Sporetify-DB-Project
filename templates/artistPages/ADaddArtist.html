@@ -1,0 +1,81 @@
+{% extends 'adminPages/adNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/ad_addArtist.css' %}">
+<script src="{% static 'js/addArtist.js' %}"></script>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a class="btn btn-secondary  mt-5 fs-5" onclick=" window.history.back();">Back</a>
+    <div class="container pt-3 mt-5">
+        <!-- Header -->
+        <div class="mb-5">
+            <span class="d-inline-block fs-1">Add artist to </span>
+            <!-- <span class="d-inline-block fs-1 text-username">{{user.username}}</span> -->
+            <span class="d-inline-block fs-1 text-username">entertainment</span>   
+        </div>
+
+       
+        <!-- Start Form -->
+        <form action="{% url 'ADaddArtist' %}" enctype="multipart/form-data" method="POST" class="mb-5">
+            {% csrf_token %}
+
+            <!-- Upload Artist Image -->
+            <div class="mb-3 d-none">
+                <label for="songImg" class="form-label">Upload picture</label>
+                <input class="form-control" onchange="displayImg(this)" type="file" id="songImg" name="profileImage">
+            </div>
+
+            <!-- Upload Song name & Album name -->
+            <div class="row align-items-center justify-content-center">
+                <div class="col-7 align-items-center">
+                    <div class="input-group mb-5">
+                        <span class="input-group-text">Entertainment ID</span>
+					    <span class="input-group-text">#</span>
+                        <input type="text" placeholder="add artist to what entertainment ex : EN000000" class="form-control" name="entertainmentID" value="{{entertainmentID}}" required>
+                    </div>
+                    <div class="input-group mb-5">
+                        <span class="input-group-text">Artist Name</span>
+                        <input type="text" placeholder="single artist or band name" class="form-control" name="artistName" value="{{artistName}}" required>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Debut date</span>
+                        <!-- year - month - date -->
+                        <input type="date" class="form-control" id="floatingDOB" name="dob" value="{{dob}}" required>
+                    </div>
+                </div>
+                <div class="col-5 d-flex justify-content-center">
+                    <div class="song-cover-container" onclick="uploadSongCover()">
+                        <img src="{% static 'images/profile-placeholder.png' %}" alt="" class="" id="songImgDisplay">
+                        <div class="text-overlay">
+                            <div class="text">Upload Picture</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Upload" class="btn btn-primary mt-5 fs-5">
+        </form>
+        <div>
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-danger" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+    </div>
+</div>
+{% endblock %}

@@ -34,6 +34,7 @@ urlpatterns = [
     path('delete/song/<str:pk>/', views.deleteSong, name='deleteSong'),
 
     path('addartist/', views.addArtist, name='addArtist'),
+    path('adminaddartist/', views.ADaddArtist, name='ADaddArtist'),
     path('artist/all/', views.showAllArtist, name='showAllArtist'),
     path('artist/single/<str:pk>/', views.singleArtist, name='singleArtist'),
     path('update/artist/<str:pk>/', views.updateArtist, name='updateArtist'),
@@ -69,12 +70,15 @@ urlpatterns = [
     path('songhistory/entertainment', views.songHistoryforEntertainment),
     path('en/Profile', views.enProfile, name='enProfile'),
     path('en/Profile/edit', views.enProfileEdit, name='enProfileEdit'),
+    path('en/all/', views.showAllEntertainment, name='showAllEn'),
 
     # Admin URL
     path('adminregister/', views.adminRegister, name='adminRegister'),
     path('adminlogin/', views.adminLogin, name='adminLogin'),
     path('adminlogout/', views.adminLogout, name='adminLogout'),
+    path('admindashborad', views.adminDashboard, name='adminDashboard'),
     path('adminprofile/', views.adminProfile, name='adminProfile'),
     path('history/', views.AdminHistory),
+
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
