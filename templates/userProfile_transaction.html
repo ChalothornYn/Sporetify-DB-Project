@@ -9,9 +9,9 @@
 
 {% block profile_nav %}
 <div class="d-inline profile-show">
-    <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
+    <img src="{{ customer.profileImage.url }}" width="40" height="40" class="rounded-circle">
 </div>
-Gustboyy
+{{ user.username }}
 {% endblock %}
 
 {% block navbar %}
@@ -59,23 +59,24 @@ Gustboyy
                             </tr>
                         </thead>
                         <tbody>
+                            {% for card in cards%}
                             <tr>
-                                <td class="text-secondary">{cardID}</td>
-                                <td class="text-secondary">{cardType}</td>
+                                <td class="text-secondary">{{card.cardID}}</td>
+                                <td class="text-secondary">{{card.cardType}}</td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="radio" name="card_activate" value="card1" checked>
+                                        <input type="radio" name="cardID" value="{{card.cardID}}" checked>
                                         <i class="fas fa-check-circle"></i>
                                     </label>
                                 </td>
                             </tr>
+                            {% endfor %}
                             <tr>
-                                <td class="text-secondary">{cardID}</td>
-                                <td class="text-secondary">{cardType}</td>
+                                <td class="text-secondary">-</td>
+                                <td class="text-secondary">-</td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="radio" name="card_activate" value="card2">
-                                        <i class="fas fa-check-circle"></i>
+                                        <input type="radio" name="card_activate" value="card2" disabled>
                                     </label>
                                 </td>
                             </tr>
@@ -91,7 +92,8 @@ Gustboyy
                 <h3>Add card</h3>
                 <div class='card-wrapper'></div>
                 <script src="{% static 'js/card.js'%}"></script>
-                <form class="credit-card">
+                <form class="credit-card" method="POST">
+                    {% csrf_token %}
                     <div class="col-12">
                         <div class="mb-1">
                             <label for="cardNo" class="form-label">Card number</label>
@@ -104,10 +106,10 @@ Gustboyy
                             </div>
                             <div class="col-5">
                                 <label for="type" class="form-label">Card type</label>
-                                <select class="form-select" aria-label="Default select example" id="type">
+                                <select class="form-select" aria-label="Default select example" id="type" name="type">
                                     <option selected></option>
-                                    <option value="1">Credit card</option>
-                                    <option value="2">Debit card</option>
+                                    <option value="Credit card">Credit card</option>
+                                    <option value="Debit card">Debit card</option>
                                 </select>
                             </div>
                         </div>
@@ -125,6 +127,14 @@ Gustboyy
                             <button type="submit" class="btn btn-primary">Add card</button>
                         </div>
                     </div>
+                    <!-- ## HIDDEN ## -->
+                    <input type="text" class="d-none" name="cardType" value="hidden">
+                    <input type="text" class="d-none" name="cvv" value="hid">
+                    <input type="text" class="d-none" name="cardID" value="hidden">
+                    <input type="text" class="d-none" name="expireDate" value="2000-12-01">
+                    <input type="text" class="d-none" name="card_ID" value="hidden">
+                    <input type="text" class="d-none" name="customer_ID" value="{{customer.customerID}}">
+                    <input type="number" class="d-none" name="activate" value="0">
                 </form>
                 <script>
                     var card = new Card({

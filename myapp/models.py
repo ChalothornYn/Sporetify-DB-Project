@@ -175,7 +175,7 @@ class Customer (models.Model):
         return "U" + str(n).zfill(7)
 
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    customerID =  models.CharField(max_length=8, default=genID)
+    customerID =  models.CharField(max_length=8, default=genID, unique=True)
     firstName = models.CharField(max_length=50, default='No data', blank=False)
     lastName = models.CharField(max_length=50, default='No data', blank=False)
     gender = models.CharField(max_length=1, choices=[('M','MALE'), ('F','FEMALE'), ('O', 'OTHER')], null=True)
@@ -200,3 +200,33 @@ class Package (models.Model):
     packageName = models.CharField(max_length=30)
     packagePrice = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     packageDuration = models.DurationField(null=True)
+
+# Card_details table
+class Card_details (models.Model):
+    cardID = models.CharField(max_length=19, primary_key=True)
+    cvv = models.CharField(max_length=3)
+    cardType = models.CharField(max_length=15)
+    expireDate = models.DateField()
+
+# Card table
+class Card (models.Model):
+    customer_ID = models.ForeignKey('Customer', on_delete=models.CASCADE, db_column='customerID', to_field='customerID')
+    card_ID = models.ForeignKey("Card_details", on_delete=models.CASCADE, db_column='cardID', to_field='cardID')
+    activate = models.BooleanField()
+
+# Transaction table
+# class Transaction (models.Model):
+#     def genID():
+#         n = Family.objects.count()
+#         return "T" + str(n).zfill(9)
+#     paymentID = models.CharField(max_length=10, default=genID ,primary_key=True)
+#     startDate = models.DateTimeField()
+#     endDate = models.DateTimeField()
+#     cardID = models.ForeignKey('Card_details', on_delete=models.CASCADE)
+#     packageID = models.ForeignKey('Package', on_delete=models.CASCADE)
+#     payerID = models.CharField(max_length=8)
+
+# Transaction_details
+# class Transaction_details (models.Model):
+#     paymentID = models.ManyToManyField(Transaction)
+#     userID = models.
