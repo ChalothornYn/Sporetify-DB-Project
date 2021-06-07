@@ -585,16 +585,16 @@ def userProfile_transaction(request):
                 new_card.save()
                 card.save()
 
-                # collect = request.POST.copy()
-                # collect['customer_ID'] = customer.customerID
-                # collect['card_ID'] = request.POST['number']
-                # request.POST = collect
-                # # create Card table
-                # matchCard = collectCard(request.POST, False)
-                # if matchCard.is_valid():
-                #     matchCard.save()
-                # else:
-                #     print("match card ERROR: ", matchCard.errors)
+                collect = request.POST.copy()
+                collect['customer_ID'] = customer.customerID
+                collect['card_ID'] = request.POST['number']
+                request.POST = collect
+                # create Card table
+                matchCard = collectCard(request.POST, False)
+                if matchCard.is_valid():
+                    matchCard.save()
+                else:
+                    print("match card ERROR: ", matchCard.errors)
 
             
             
@@ -602,11 +602,25 @@ def userProfile_transaction(request):
                 print("ERROR ADD card: ", card.errors)
     else:
         print("NOTHING")
-
-    send_data = {
+    
+    if Card.objects.filter(customer_ID = customer.customerID).exists():
+        cardCollect = Card.objects.filter(customer_ID = customer.customerID)
+        cardAll = []
+        for i in range(len(cardCollect)):
+            cardAll.append(cardCollect[i].card_ID)
+        card = Card_details.objects.filter(card__card_ID__in=cardAll)
+        send_data = {
+        'user': user,
+        'customer': customer,
+        'cards': card
+    }
+    else:
+        send_data = {
         'user': user,
         'customer': customer
     }
+
+    
     return render(request, 'userProfile_transaction.html', send_data)
 
 

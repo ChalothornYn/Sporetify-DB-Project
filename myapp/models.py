@@ -205,7 +205,7 @@ class Package (models.Model):
 class Card_details (models.Model):
     cardID = models.CharField(max_length=19, primary_key=True)
     cvv = models.CharField(max_length=3)
-    cardType = models.CharField(max_length=10)
+    cardType = models.CharField(max_length=15)
     expireDate = models.DateField()
 
 # Card table

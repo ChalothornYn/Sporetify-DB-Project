@@ -59,23 +59,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for card in cards%}
                             <tr>
-                                <td class="text-secondary">{cardID}</td>
-                                <td class="text-secondary">{cardType}</td>
+                                <td class="text-secondary">{{card.cardID}}</td>
+                                <td class="text-secondary">{{card.cardType}}</td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="radio" name="card_activate" value="card1" checked>
+                                        <input type="radio" name="cardID" value="{{card.cardID}}" checked>
                                         <i class="fas fa-check-circle"></i>
                                     </label>
                                 </td>
                             </tr>
+                            {% endfor %}
                             <tr>
-                                <td class="text-secondary">{cardID}</td>
-                                <td class="text-secondary">{cardType}</td>
+                                <td class="text-secondary">-</td>
+                                <td class="text-secondary">-</td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="radio" name="card_activate" value="card2">
-                                        <i class="fas fa-check-circle"></i>
+                                        <input type="radio" name="card_activate" value="card2" disabled>
                                     </label>
                                 </td>
                             </tr>
