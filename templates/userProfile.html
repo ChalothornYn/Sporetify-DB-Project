@@ -130,21 +130,21 @@
                         <table class="table profile">
                             <tbody>
                                 <tr>
-                                    <td class="col-5 key">{userID1} <i class="fas fa-crown" style="margin-left: 5px;"></i></td>
-                                    <td class="text-secondary">{username1}</td>
+                                    <td class="col-5 key">{{manager.customerID}} <i class="fas fa-crown" style="margin-left: 5px;"></i></td>
+                                    <td class="text-secondary">{{managerUser.username}}</td>
                                 </tr>
+                                {% for child, childUser in childs%}
                                 <tr>
-                                    <td class="col-5 key">{userID2}</td>
-                                    <td class="text-secondary">{username2}</td>
+                                    <td class="col-5 key">{{child.customerID}}</td>
+                                    <td class="text-secondary">{{childUser.username}}</td>
                                 </tr>
+                                {% endfor %}
+                                {% for i in empty_list %}
                                 <tr>
-                                    <td class="col-5 key">{userID3}</td>
-                                    <td class="text-secondary">{username3}</td>
+                                    <td class="col-5 key">-</td>
+                                    <td class="text-secondary">-</td>
                                 </tr>
-                                <tr>
-                                    <td class="col-5 key">{userID4}</td>
-                                    <td class="text-secondary">{username4}</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
