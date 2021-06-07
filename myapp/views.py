@@ -14,6 +14,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import *
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def landingPage(request):
@@ -260,6 +261,16 @@ def userProfile(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
+    family = Family.objects.get(familyID=customer.familyID_id)
+    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+    
+    childID = []
+    for i in range(len(childs)):
+        childID.append(childs[i].user_id)
+    childUser = User.objects.filter(customer__user_id__in=childID)    
+    manager = Customer.objects.get(customerID = family.manager)
+    managerUser = User.objects.get(id=manager.user_id)
+    empty_list = '123'[:(3-len(childs))]
     # calculate age
     if customer.dob != None:
         birth = customer.dob
@@ -284,7 +295,11 @@ def userProfile(request):
         'age': age,
         'gender': gender[customer.gender],
         'phone': phone,
-        'package': package
+        'package': package,
+        'childs': zip(childs, childUser),
+        'manager': manager,
+        'managerUser': managerUser,
+        'empty_list': empty_list
     }
     return render(request, 'userProfile.html', send_data)
 
@@ -344,6 +359,17 @@ def userProfile_package(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
+    family = Family.objects.get(familyID=customer.familyID_id)
+    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+    
+    childID = []
+    for i in range(len(childs)):
+        childID.append(childs[i].user_id)
+    childUser = User.objects.filter(customer__user_id__in=childID)    
+    manager = Customer.objects.get(customerID = family.manager)
+    managerUser = User.objects.get(id=manager.user_id)
+    empty_list = '123'[:(3-len(childs))]
+    
 
     ### update ###
     if request.method == 'POST':
@@ -410,12 +436,25 @@ def userProfile_package(request):
         user = request.user
         customer = Customer.objects.get(user_id=user.id)
         package = Package.objects.get(packageID=customer.packageID_id)
+        family = Family.objects.get(familyID=customer.familyID_id)
+        childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+        childID = []
+        for i in range(len(childs)):
+            childID.append(childs[i].user_id)
+        childUser = User.objects.filter(customer__user_id__in=childID)    
+        manager = Customer.objects.get(customerID = family.manager)
+        managerUser = User.objects.get(id=manager.user_id)
+        empty_list = '123'[:(3-len(childs))]
 
     # sending data to html
     send_data = {
         'user': user, 
         'customer': customer, 
-        'package': package
+        'package': package,
+        'childs': zip(childs, childUser),
+        'manager': manager,
+        'managerUser': managerUser,
+        'empty_list': empty_list,
     }
 
     return render(request, 'userProfile_package.html', send_data)
@@ -425,7 +464,7 @@ def userProfile_family(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
-    family = Family.objects.get(manager=customer.customerID)
+    family = Family.objects.get(familyID=customer.familyID_id)
     childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
     
     childID = []
@@ -458,12 +497,18 @@ def userProfile_family(request):
                     memberChange.save()
                 else:
                     print("ERROR: ", memberChange.errors)
+
+        if 'manager' in request.POST and 'delMember' not in request.POST:
+            new_manager = addFamily(request.POST or None, instance=family)
+            if new_manager.is_valid():
+                new_manager.save()
             else:
-                print("not ADD")
+                print("ERROR: ", new_manager.errors)
+
         user = request.user
         customer = Customer.objects.get(user_id=user.id)
         package = Package.objects.get(packageID=customer.packageID_id)
-        family = Family.objects.get(manager=customer.customerID)
+        family = Family.objects.get(familyID=customer.familyID_id)
         childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
         childID = []
         for i in range(len(childs)):

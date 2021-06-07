@@ -15,6 +15,14 @@
     object-fit: cover;
 }
 
+.savebtn{
+  background-color : #1ED760;
+  border: none;
+}
+.savebtn:hover{
+  background-color: #3EC26D;
+}
+
 /* HIDE RADIO*/
 [type=radio] { 
     position: absolute;
