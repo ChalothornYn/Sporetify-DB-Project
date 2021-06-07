@@ -4,7 +4,7 @@
 {% block header %}
 <title>Sporetify</title>
 <link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
-<link rel="stylesheet" href="{% static 'css/entertainmentPages/enProfile2.css' %}">
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enProfile3.css' %}">
 <script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
 <style>
 thead{
@@ -32,74 +32,59 @@ th {
 </div>
 
 <!-- pic and ID -->
-<div class="row">
-    <div class="col-10 offset-1 d-flex">
+<div class="container mt-5">
+    <div class="row">
         <div class="col-6 align-self-center">
-            <div class="col-10 offset-1">
-                <!-- Image show -->
-                <div class="d-flex justify-content-center">
-                    <div class="profile-container-img">
-                        <img src="{{user.entertainment.profileImage.url}}" alt="" class="">
-                    </div>
+            <!-- Image show -->
+            <div class="d-flex justify-content-center">
+                <div class="profile-container-img">
+                    <img src="{{user.entertainment.profileImage.url}}" alt="" class="">
                 </div>
-                <!-- username and ID -->
-                <div class="d-flex justify-content-center text-center">
-                    <div class="align-self-end">
-                        <h2 class="username">{{ user.username }}</h2>
-                        <h5 class="userID">#{{ user.entertainment.entertainmentID }}</h5>
-                    </div>
+            </div>
+            <!-- username and ID -->
+            <div class="d-flex justify-content-center text-center">
+                <div class="align-self-end mt-3">
+                    <h2 class="username">{{ user.username }}</h2>
+                    <h5 class="userID">#{{ user.entertainment.entertainmentID }}</h5>
                 </div>
             </div>
         </div>
         <div class="col-6">
-            <div class="col-xl-11 col-sm-12">
-                <div class="text-start">
-                    <span class="d-flex justify-content-between topic">
-                        <h3>Profile</h3>
-                        <a href="edit"><i class="fa fa-edit"></i></a>
-                    </span>
 
-                    <table class="table profile">
-                        <tbody>
-                            <tr>
-                                <td class="col-5 key">Entertainment Username</td>
-                                <td class="text-secondary">{{ user.username }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">User ID</td>
-                                <td class="text-secondary">#{{ customer.customerID}}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Email</td>
-                                <td class="text-secondary">{{ user.email }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Firstname</td>
-                                <td class="text-secondary">{{ customer.firstName }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Lastname</td>
-                                <td class="text-secondary">{{ customer.lastName }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Gender</td>
-                                <td class="text-secondary">{{ gender }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Age</td>
-                                <td class="text-secondary">{{ age }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Date of Birth</td>
-                                <td class="text-secondary">{{ customer.dob }}</td>
-                            </tr>
-                            <tr>
-                                <td class="col-5 key">Telephone</td>
-                                <td class="text-secondary">{{ phone }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="text-start">
+                <span class="d-flex justify-content-between topic">
+                    <h3>Profile</h3>
+                    <a href="{% url 'enProfileEdit' %}"><i class="fa fa-edit fs-4"></i></a>
+                </span>
+
+                <table class="table profile">
+                    <tbody>
+                        <tr>
+                            <td class="col-5 key">Entertainment Username</td>
+                            <td class="text-secondary">{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5 key">Entertainment ID</td>
+                            <td class="text-secondary">#{{ user.entertainment.entertainmentID}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5 key">Entertainment Name</td>
+                            <td class="text-secondary">{{ user.entertainment.entertainmentName }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5 key">Email</td>
+                            <td class="text-secondary">{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5 key">Telephone</td>
+                            <td class="text-secondary">{{ phone }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5 key">Address</td>
+                            <td class="text-secondary">{{ user.entertainment.address }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

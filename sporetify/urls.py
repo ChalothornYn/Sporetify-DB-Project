@@ -44,7 +44,7 @@ urlpatterns = [
     path('testtable/', views.Testtable),
 
     #SONG URL
-    path('song/', views.viewSong),
+    path('song/', views.viewSong, name='song'),
     path('songtest/', views.songTest),
     path('songtestjs/', views.Songtestjs),
     path('song/edm/', views.songEDM),
@@ -68,6 +68,7 @@ urlpatterns = [
     path('en/dashboard', views.enDashboard, name='enDashboard'),
     path('songhistory/entertainment', views.songHistoryforEntertainment),
     path('en/Profile', views.enProfile, name='enProfile'),
+    path('en/Profile/edit', views.enProfileEdit, name='enProfileEdit'),
 
     # Admin URL
     path('adminregister/', views.adminRegister, name='adminRegister'),

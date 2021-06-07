@@ -259,7 +259,7 @@ def loginUser(request):
 
         if (user is not None) and (user.groups.all()[0].name == 'customer'):
             login(request, user)
-            return redirect('/userprofile/')
+            return redirect('song')
         else:
             messages.info(request, 'Username or Password is incorrect')
             return render(request, 'login.html', {'username':username})
@@ -598,7 +598,6 @@ def enDashboard(request):
     #     userROLE[0] = 1
     print(artist_count)
     print(song_count)
-    print(latest5Artist[0].profileImage.url)
 
     context = {'latest5Artist': latest5Artist, 'latest5Song': latest5Song,
                 'artistPresent':latest5Artist[0],
@@ -612,8 +611,39 @@ def songHistoryforEntertainment(request):
     return render(request, 'entertainmentPages/songHistoryforEntertainment.html')
 
 def enProfile (request):
-    context = {}
+    en = request.user.entertainment
+    phone = en.interCode + ' ' + en.telNO if en.interCode != None and en.telNO != None else None
+    context = {'phone': phone}
     return render(request, 'entertainmentPages/enProfile.html', context)
+
+def enProfileEdit (request):
+    ### show result ###
+    enPresent = Entertainment.objects.get(user_id=request.user.id)
+    #phone
+    telNO = enPresent.interCode + enPresent.telNO if enPresent.telNO != None and enPresent.interCode != None else ''
+
+    # x = request.POST['artistID']
+
+    # z = request.FILES.get('profileImage')
+    # print(enPresent)
+    ### update ###
+    form = editEntertainment(instance=enPresent)
+    if request.method == 'POST':
+
+        form = editEntertainment(request.POST or None, request.FILES or None, instance=enPresent)
+        if form.is_valid():
+            form.save()
+            return redirect('enProfileEdit')
+        print(form.errors)
+    
+    # sending data to html
+    context = {
+        'telNO': telNO,
+        'form': form
+    }
+    return render(request, 'entertainmentPages/enProfileEdit.html', context)
+
+
 
 # ------------------------------------------- Admin views -----------------------------------------
 

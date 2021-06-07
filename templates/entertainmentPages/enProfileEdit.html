@@ -1,0 +1,163 @@
+{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/entertainmentPages/enProfileEdit.css' %}">
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<!-- Download Tel inter -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="{% static 'js/profileImg.js' %}"></script>
+<style>
+thead{
+    background-color: #000;
+}
+th {
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffce73;
+}
+</style>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data" onsubmit="process()">
+    {% csrf_token %}
+
+    <div class="text-center mt-5">
+        <h1>Edit profile</h1>
+        <hr style="width: 83.33%; margin-left: 8.33%;">
+    </div>
+
+    <!-- pic and ID -->
+    <div class="">
+        <!-- Image show -->
+        <div class="d-flex justify-content-center">
+            <div class="profile-container" onclick="uploadProfile()">
+                <img src="{{ user.entertainment.profileImage.url }}" alt="" class="" id="profileImgDisplay">
+                <div class="text-overlay">
+                    <div class="text">Upload image</div>
+                </div>
+            </div>
+        </div>
+        <!-- username and ID -->
+        <div class="d-flex justify-content-center text-center mt-3">
+            <div class="align-self-end">
+                <h2 class="username">{{ user.username }}</h2>
+                <h5 class="userID">#{{ user.entertainment.entertainmentID }}</h5>
+            </div>
+        </div>
+
+         <!-- Upload profile Image # HIDDEN # -->
+        <div class="d-none">
+            <label for="profileImg" class="form-label">Upload picture</label>
+            <input class="form-control" onchange="displayImg(this)" type="file" id="profileImage" name="profileImage">
+        </div>
+
+    </div>
+
+
+    <div class="container form-container mt-4">
+        <div class="input-group mb-5">
+            <span class="input-group-text">Entertainment Name</span>
+            {% if user.entertainment.entertainmentName != "None" %}
+            <input type="text" value="{{ user.entertainment.entertainmentName }}" class="form-control" name="entertainmentName">
+            {% else %}
+            <input type="text" placeholder="entertainmentName" class="form-control" name="entertainmentName">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- telephone number -->
+    <div class="container form-container">
+        <div class="input-group mb-5">
+            <span class="input-group-text">Telephone </span>
+            <input type="tel" class="form-control" id="phone">
+        </div>
+    </div>
+
+    <div class="container form-container">
+        <div class="input-group mb-5">
+            <div class="input-group-prepend d-flex align-items-center">
+              <span class="input-group-text d-inline-block" style="height: 100%;">Address</span>
+            </div>
+            <textarea class="form-control" aria-label="With textarea" name="address">{{user.entertainment.address}}</textarea>
+        </div>  
+    </div>
+
+    <!-- HIDDEN TEL -->
+    <input type="text" class="d-none" name="interCode" id="interCode">
+    <input type="text" class="d-none" name="telNO" id="telNO">
+   
+    <div class="container d-flex justify-content-end">
+        <a class="btn btn-light me-2" href="{% url 'enProfileEdit' %}" role="button">  Cancel  </a>
+        <input type="submit" value="  save  " class="btn btn-primary">
+    </div>
+    
+    <div class="container form-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</form>
+
+<!-- telephone script -->
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        // allowDropdown: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: "polite",
+        // dropdownContainer: document.body,
+        // excludeCountries: ["us"],
+        // formatOnDisplay: false,
+        // geoIpLookup: function(callback) {
+        //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+        //     var countryCode = (resp && resp.country) ? resp.country : "";
+        //     callback(countryCode);
+        //   });
+        // },
+        // hiddenInput: "full_number",
+        // initialCountry: "auto",
+        // localizedCountries: { 'de': 'Deutschland' },
+        // nationalMode: false,
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do', 'th'],
+        // placeholderNumberType: "MOBILE",
+        // preferredCountries: ['cn', 'jp'],
+        separateDialCode: true,
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+
+    function process() {
+        var phoneNumber = phoneInput.getNumber();
+        var interNumber = phoneInput.getSelectedCountryData().dialCode;
+        var interCode = "+" + interNumber;
+        var telNO = phoneNumber.replace(interCode,'');
+
+        document.getElementById("interCode").value = interCode;
+        document.getElementById("telNO").value = telNO;
+    }
+</script>
+<script type="text/javascript">
+    var telNO = "{{ telNO }}";
+    document.addEventListener('DOMContentLoaded', function () {
+        phoneInput.setNumber(telNO);
+    }, false);
+</script>
+
+{% endblock %}

@@ -53,6 +53,11 @@ class packCusInfo (ModelForm):
         model = Customer
         fields = ['packageID']
 
+class editEntertainment (ModelForm):
+    class Meta:
+        model = Entertainment
+        fields = ['entertainmentName', 'profileImage', 'interCode', 'telNO', 'address'] 
+        
 # Add family
 class addFamily (ModelForm):
     class Meta:

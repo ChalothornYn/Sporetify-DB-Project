@@ -31,6 +31,9 @@
 .below-pic {
     font-size: 25px;
 }
+.content-box:hover {
+    border: 3px solid #ffce73;
+}
 </style>
 {% endblock%}
 
@@ -93,7 +96,7 @@
                             </tr>
                             <tr>
                                 <td class="col-5">Sung by</td>
-                                <td class="text-secondary">{{ song.artistID.artistName}} | {{song.artistID.artistID}}</td>
+                                <td class="text-secondary"><a href="{% url 'singleArtist' song.artistID.artistID %}">{{ song.artistID.artistName}} | {{song.artistID.artistID}}</a></td>
                             </tr>
                             <tr>
                                 <td class="col-5">Normal Quality file</td>
