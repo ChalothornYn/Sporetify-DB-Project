@@ -18,11 +18,11 @@
 
 {% block content %}
 <div class="container mt-5">
-    <p style="font-size: 24px; margin-bottom: 30px;">Are you sure you want to delete artist "{{artist.artistName}}" ?</p>
-    <p style="font-size: 24px; margin-bottom: 30px;">"{{artist.artistName}}" will be deleted from "{{en.entertainmentName}} <span style="color: #FF5147;">|</span> {{en.entertainmentID}}"</p>
-    <p style="font-size: 24px; margin-bottom: 30px;">The song related to "{{artist.artistName}}" will also be deleted ({{count}} songs)</p>
-    
-    <form action="{% url 'deleteArtist' artist.artistID %}" method="POST">
+    <p style="font-size: 24px; margin-bottom: 30px;">Are you sure you want to delete Entertainment "{{en.entertainmentName}}" ?</p>
+    <p style="font-size: 24px; margin-bottom: 30px;">{{artist_count}} artist and {{song_count}} song will be deleted</p>
+   
+    <!-- {% url 'deleteEn' en.entertainmentID %} -->
+    <form action="{% url 'deleteEn' en.entertainmentID %}" method="POST"> 
         {% csrf_token %}
         <a style="font-size: 20px;" class="btn btn-secondary btn-lg" onclick=" window.history.back();">Cancle</a>
         <input type="submit" class="btn btn-danger ms-5 btn-lg" value="confirm">

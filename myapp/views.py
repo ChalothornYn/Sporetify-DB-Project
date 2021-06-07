@@ -1,5 +1,6 @@
 from django.db import reset_queries
 from django.db.models.indexes import Index
+from django.forms.utils import pretty_name
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -674,7 +675,55 @@ def enProfileEdit (request):
     return render(request, 'entertainmentPages/enProfileEdit.html', context)
 
 def showAllEntertainment (request):
-    print('Im here')
+    entertainments = Entertainment.objects.all().order_by('-entertainmentID')  
+    list = []
+    if entertainments:
+        for en in entertainments:
+            data = {
+                'entertainmentID': en.entertainmentID,
+                'entertainmentName': en.entertainmentName,
+                'phone': en.interCode + ' ' + en.telNO if en.interCode != None and en.telNO != None else None
+            }
+            list.append(data)
+
+        context = {'entertainments': list}
+    else:
+        context = {}
+
+    return render(request, 'entertainmentPages/ADallEntertainmentTable.html', context)
+
+def singleEntertainment (request, pk):
+    en = Entertainment.objects.get(entertainmentID = pk)
+    phone = en.interCode + ' ' + en.telNO if en.interCode != None and en.telNO != None else None
+    artists = Artist.objects.filter(entertainmentID = en.user_id)
+    context = {
+        'en': en,
+        'phone': phone,
+        'artists': artists
+    }
+    return render(request, 'entertainmentPages/ADsingleEntertainment.html', context)
+
+def deleteEntertianment (request, pk):
+    en = Entertainment.objects.get(entertainmentID = pk)
+    user = User.objects.get(id = en.user_id)
+    c_artist = Artist.objects.filter(entertainmentID = en.user_id)
+    
+    print(user.username)
+    song_count = 0
+    allSong = Song.objects.all()
+    for song in allSong:
+        # print(song.artistID.artistID)
+        if user.artist_set.filter(artistID = song.artistID.artistID).exists():
+            song_count = song_count + 1
+
+        
+    if request.method == 'POST':
+       user.delete()
+       return redirect('adminDashboard')
+
+    context = {'en': en, 'song_count':  song_count, 'artist_count': len(c_artist)}
+
+    return render(request, 'entertainmentPages/ADdeleteEntertainment.html', context)
 
 # ------------------------------------------- Admin views -----------------------------------------
 
@@ -1003,3 +1052,39 @@ def singleSong (request, pk):
         return render(request, 'songPages/ADSingleSong.html', context)
 
     return redirect('langingPage')
+
+def showAllcustomer (request):
+    customers = Customer.objects.all().order_by('-customerID')
+    context = {'customers': customers}
+    return render(request, 'adminPages/ADallCustomerTable.html', context)
+
+
+
+def deleteCustomer (request, pk):
+    customer = Customer.objects.get(customerID = pk)
+    user = User.objects.get(id = customer.user_id)
+
+    if request.method == 'POST':
+        user.delete()
+        return redirect('adminDashboard')
+
+    customerUsername = user.username
+
+    context = {'customerUsername': customerUsername, 'customer': customer}
+    return render (request, 'adminPages/ADdeleteCustomer.html', context)
+
+
+def singleCustomer (request, pk):
+    customer = Customer.objects.get(customerID = pk)
+    user = User.objects.get(id = customer.user_id)
+    customerUsername = user.username
+    phone = customer.interCode + ' ' + customer.telNO if customer.interCode != None and customer.telNO != None else None
+  
+    age = None
+    if customer.dob != None:
+        birth = customer.dob
+        today = date.today()
+        age = today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
+        
+    context = {'customerUsername': customerUsername, 'customer': customer, 'phone': phone, 'age': age}
+    return render (request, 'adminPages/ADsingleCustomer.html', context)

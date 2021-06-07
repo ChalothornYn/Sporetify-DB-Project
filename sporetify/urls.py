@@ -51,7 +51,12 @@ urlpatterns = [
     path('song/edm/', views.songEDM),
     path('song/playsong/', views.playSong),
 
-  
+
+
+    path('customer/all/', views.showAllcustomer, name='showAllcustomer'),
+    path('delete/customer/<str:pk>/', views.deleteCustomer, name='deleteCustomer'),
+    path('customer/single/<str:pk>/', views.singleCustomer, name='singleCustomer'),
+
 
     #User URL
     path('login/', views.loginUser, name='login'), 
@@ -71,6 +76,8 @@ urlpatterns = [
     path('en/Profile', views.enProfile, name='enProfile'),
     path('en/Profile/edit', views.enProfileEdit, name='enProfileEdit'),
     path('en/all/', views.showAllEntertainment, name='showAllEn'),
+    path('en/single/<str:pk>/', views.singleEntertainment, name='singleEn'),
+    path('delete/en/<str:pk>/', views.deleteEntertianment, name='deleteEn'),
 
     # Admin URL
     path('adminregister/', views.adminRegister, name='adminRegister'),

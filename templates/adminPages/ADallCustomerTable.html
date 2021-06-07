@@ -20,24 +20,24 @@
     <table class="table custom-table mt-5">
         <thead>
             <tr>
-                <th>Artist ID</th>
-                <th>Name</th>
-                <th>Debut date</th>
+                <th>Customer ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Package use</th>
                 <th>View</th>
-                <th>Update</th>
                 <th>Remove</th>
             </tr> 
         </thead>
         <tbody>
-            {% for artist in artists %}
+            {% for customer in customers %}       
                 <tr>
-                    <td>{{artist.artistID}}</td>
-                    <td>{{artist.artistName}}</td>
-                    <td>{{artist.dob}}</td>
-                    <td><a href="{% url 'singleArtist' artist.artistID %}" class="btn btn-warning">View</a></td>
-                    <td><a href="{% url 'updateArtist' artist.artistID %}" class="btn btn-info">Update</a></td>
-                    <td><a href="{% url 'deleteArtist' artist.artistID %}" class="btn btn-danger">Delete</a></td>
-                </tr>
+                    <td>{{customer.customerID}}</td>
+                    <td>{{customer.firstName}}</td>
+                    <td>{{customer.lastName}}</td>
+                    <td>{{customer.packageID.packageName}}</td>
+                    <td><a href="{% url 'singleCustomer' customer.customerID%}" class="btn btn-warning">View</a></td>
+                    <td><a href="{% url 'deleteCustomer' customer.customerID %}" class="btn btn-danger">Delete</a></td>
+                </tr> 
             {% endfor %}   
         </tbody>
     </table>

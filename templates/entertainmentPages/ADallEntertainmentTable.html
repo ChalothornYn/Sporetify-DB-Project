@@ -20,23 +20,21 @@
     <table class="table custom-table mt-5">
         <thead>
             <tr>
-                <th>Artist ID</th>
-                <th>Name</th>
-                <th>Debut date</th>
+                <th>Entertainment ID</th>
+                <th>Entertainment name</th>
+                <th>Telephone</th>
                 <th>View</th>
-                <th>Update</th>
                 <th>Remove</th>
             </tr> 
         </thead>
         <tbody>
-            {% for artist in artists %}
+            {% for en in entertainments %}
                 <tr>
-                    <td>{{artist.artistID}}</td>
-                    <td>{{artist.artistName}}</td>
-                    <td>{{artist.dob}}</td>
-                    <td><a href="{% url 'singleArtist' artist.artistID %}" class="btn btn-warning">View</a></td>
-                    <td><a href="{% url 'updateArtist' artist.artistID %}" class="btn btn-info">Update</a></td>
-                    <td><a href="{% url 'deleteArtist' artist.artistID %}" class="btn btn-danger">Delete</a></td>
+                    <td>{{en.entertainmentID}}</td>
+                    <td>{{en.entertainmentName}}</td>
+                    <td>{{en.phone}}</td>
+                    <td><a href="{% url 'singleEn' en.entertainmentID %}" class="btn btn-warning">View</a></td>
+                    <td><a href="{% url 'deleteEn' en.entertainmentID %}" class="btn btn-danger">Delete</a></td>
                 </tr>
             {% endfor %}   
         </tbody>
