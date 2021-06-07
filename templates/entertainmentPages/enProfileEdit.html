@@ -9,7 +9,7 @@
 <!-- Download Tel inter -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<script src="{% static 'js/profileImg.js' %}"></script>
+<script src="{% static 'js/enProfileEdit.js' %}"></script>
 <style>
 thead{
     background-color: #000;
@@ -104,14 +104,18 @@ th {
     </div>
     
     <div class="container form-container">
-        {% if messages %}
+        <!-- {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-danger" role="alert">
                     {{ message }}
                 </div>
             {% endfor %}
+        {% endif %} -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.errors }}
+            </div>
         {% endif %}
-    </div>
 </form>
 
 <!-- telephone script -->

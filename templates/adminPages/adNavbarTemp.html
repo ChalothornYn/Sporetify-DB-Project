@@ -12,7 +12,7 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
     <!-- call css -->
-    <link rel="stylesheet" href="{% static 'css/entertainmentPages/enNavbarTemp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/adminPages/adNavbarTemp.css' %}">
     {% block header %}
 
     {% endblock %}
@@ -22,8 +22,8 @@
     <!-- navbar start -->
     <nav class="navbar navbar-expand-md navbar-dark nav-bg">
         <div class="container" style="height: 100%;">
-            <a class="navbar-brand" href="{% url 'enDashboard' %}" style="height: 64px; padding: 10px 0 10px 25px;">
-                <img src="{% static 'images/logo_black.png' %}" alt="" height="100%">
+            <a class="navbar-brand" href="{% url 'adminDashboard' %}" style="height: 64px; padding: 10px 0 10px 25px;">
+                <img src="{% static 'images/logo_white.png' %}" alt="" height="100%">
             </a>
             <!-- button small display -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -41,13 +41,10 @@
                                 {% block profile_nav %}
                                 {% endblock %}
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="navbarDropdownMenuLink">
-                                <!-- {% block navbar %}
-                                {% endblock %} -->
-                                <a class="dropdown-item" href="{% url 'enProfile' %}">Account</a>
-                                <a class="dropdown-item" href="{% url 'enProfileEdit' %}">Edit profile</a>
+                                <a class="dropdown-item" href="#">Account</a>
+                                <a class="dropdown-item" href="#">Edit profile</a>
                                 <a class="dropdown-item" href="{% url 'landingPage' %}">Log Out</a>
                             </div>
                         </div>

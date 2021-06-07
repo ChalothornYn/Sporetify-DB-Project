@@ -1,0 +1,180 @@
+{% extends 'adminPages/adNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard1.css' %}">
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<style>
+thead{
+    background-color: #ff6961;
+}
+th {
+    font-size: 20px;
+    font-weight: 400;
+    color: #000;
+}
+</style>
+{% endblock%}
+
+{% block profile_nav %}
+<div class="profile-show">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
+</div>
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">                 
+            <div class="content-box" onclick="window.location.href='/song/all/';" style="cursor: pointer;">
+                <div class="box-header">
+                    <i class="fab fa-spotify"></i>
+                    <span class="d-inline-block">Song</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">{{c_song}}</span>
+                    <span class="">tracks</span>
+                </div>
+            </div>
+            <a class="btn btn-success mt-2 fs-5" href="{% url 'addSong' %}" style="width: 100%;">
+                Add Song
+                <i class="fas fa-compact-disc mx-2"></i><i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div class="col-3">             
+            <div class="content-box" onclick="window.location.href='artist/all/';" style="cursor: pointer;">
+                <div class="box-header">
+                    <i class="fas fa-microphone-alt"></i>
+                    <span class="d-inline-block">Artist</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">{{c_artist}}</span>
+                    <span class="">artists</span>
+                </div>
+            </div>
+            <a class="btn btn-success mt-2 fs-5" href="{% url 'ADaddArtist' %}" style="width: 100%;">
+                Add Artist
+                <i class="fas fa-user-plus">
+            </a>
+        </div>
+        <div class="col-3">             
+            <div class="content-box" onclick="window.location.href='artist/all/';" style="cursor: pointer;">
+                <div class="box-header">
+                    <i class="fas fa-building"></i>
+                    <span class="d-inline-block">Entertainment</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">{{c_en}}</span>
+                    <span class="">accounts</span>
+                </div>
+            </div>
+            <a class="btn btn-success mt-2 fs-5" href="#" style="width: 100%;">
+                Add entertainment
+                <i class="fas fa-building mx-2"></i><i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div class="col-3">             
+            <div class="content-box" onclick="window.location.href='/song/all/';" style="cursor: pointer;">
+                <div class="box-header">
+                    <i class="fas fa-users"></i>
+                    <span class="d-inline-block">Customer</span>
+                </div>
+                <div class="box-content">
+                    <span class="d-inline-block">{{c_customer}}</span>
+                    <span class="">accounts</span>
+                </div>
+            </div>
+            <a class="btn btn-success mt-2 fs-5" href="#" style="width: 100%;">
+                Add Customer
+                <i class="fas fa-user-plus">
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6"> 
+            <h3 class="mb-5">Latest 5 Songs</h3>
+            <table class="table custom-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Album</th>
+                        <th>Genre</th>
+                        <th>Artist</th>
+                        <th>View</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {% for song in latest5Song %}
+                        {% if song %}
+                        <tr>
+                            <td>{{song.songName}}</td>
+                            <td>{{song.album}}</td>
+                            <td>{{song.genre1}}</td>
+                            <td>{{song.artistID.artistName}}</td>
+                            <td><a href="{% url 'singleSong' song.songID %}" class="btn btn-warning">View</a></td>
+                            <td><a href="{% url 'updateSong' song.songID %}" class="btn btn-info">Update</a></td>
+                            <td><a href="{% url 'deleteSong' song.songID %}" class="btn btn-danger">Delete</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}   
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <h3 class="mb-5">Latest 5 Customer</h3>
+            <table class="table custom-table">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Package use</th>
+                        <th>View</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {% for customer in latest5Customer %}       
+                        {% if customer %}
+                        <tr>
+                            <td>{{customer.customerID}}</td>
+                            <td>{{customer.firstName}}</td>
+                            <td>{{customer.lastName}}</td>
+                            <td>{{customer.packageID.packageName}}</td>
+                            <td><a href="#" class="btn btn-warning">View</a></td>
+                            <td><a href="#" class="btn btn-info">Update</a></td>
+                            <td><a href="#" class="btn btn-danger">Delete</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                            <td>xxx</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

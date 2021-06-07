@@ -1,21 +1,21 @@
-{% extends 'entertainmentPages/enNavbarTemp.html' %}
+{% extends 'adminPages/adNavbarTemp.html' %}
 {% load static %}
 
 {% block header %}
 <title>Sporetify</title>
-<link rel="stylesheet" href="{% static 'css/entertainmentPages/enDashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard1.css' %}">
 <script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
 {% endblock%}
 
 {% block profile_nav %}
 <div class="profile-show">
-    <img src="{{user.entertainment.profileImage.url}}" width="40" height="40" class="">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
 </div>
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container">
     <a class="btn btn-secondary mt-5 fs-5" onclick=" window.history.back();">Back</a>
     <table class="table custom-table mt-5">
         <thead>
