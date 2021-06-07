@@ -74,3 +74,14 @@ class manageFamily (ModelForm):
     class Meta:
         model = Customer
         fields = ['familyID', 'packageID']
+
+# card_details
+class addCard (ModelForm):
+    class Meta:
+        model = Card_details
+        fields = ['cardID', 'cardType', 'expireDate', 'cvv']
+
+# class collectCard(ModelForm):
+#     class Meta:
+#         model = Card
+#         fields = ['customer_ID', 'card_ID', 'activate']

@@ -259,7 +259,7 @@ def loginUser(request):
 
         if (user is not None) and (user.groups.all()[0].name == 'customer'):
             login(request, user)
-            return redirect('song')
+            return redirect('/song')
         else:
             messages.info(request, 'Username or Password is incorrect')
             return render(request, 'login.html', {'username':username})
@@ -276,16 +276,7 @@ def userProfile(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
-    family = Family.objects.get(familyID=customer.familyID_id)
-    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
     
-    childID = []
-    for i in range(len(childs)):
-        childID.append(childs[i].user_id)
-    childUser = User.objects.filter(customer__user_id__in=childID)    
-    manager = Customer.objects.get(customerID = family.manager)
-    managerUser = User.objects.get(id=manager.user_id)
-    empty_list = '123'[:(3-len(childs))]
     # calculate age
     if customer.dob != None:
         birth = customer.dob
@@ -302,20 +293,42 @@ def userProfile(request):
     }
     # phone number
     phone = customer.interCode + ' ' + customer.telNO if customer.interCode != None and customer.telNO != None else None
-
-    # sending data to html
-    send_data = {
-        'user': user, 
-        'customer': customer, 
-        'age': age,
-        'gender': gender[customer.gender],
-        'phone': phone,
-        'package': package,
-        'childs': zip(childs, childUser),
-        'manager': manager,
-        'managerUser': managerUser,
-        'empty_list': empty_list
-    }
+    if Family.objects.filter(familyID=customer.familyID_id).exists():
+        family = Family.objects.get(familyID=customer.familyID_id)
+        childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+        childID = []
+        for i in range(len(childs)):
+            childID.append(childs[i].user_id)
+        childUser = User.objects.filter(customer__user_id__in=childID)    
+        manager = Customer.objects.get(customerID = family.manager)
+        managerUser = User.objects.get(id=manager.user_id)
+        empty_list = '123'[:(3-len(childs))]
+        # sending data to html
+        send_data = {
+            'user': user, 
+            'customer': customer, 
+            'age': age,
+            'gender': gender[customer.gender],
+            'phone': phone,
+            'package': package,
+            'childs': zip(childs, childUser),
+            'manager': manager,
+            'managerUser': managerUser,
+            'empty_list': empty_list
+        }
+    else:
+        send_data = {
+            'user': user, 
+            'customer': customer, 
+            'age': age,
+            'gender': gender[customer.gender],
+            'phone': phone,
+            'package': package,
+            'manager': customer,
+            'managerUser': user,
+            'empty_list': '123'
+        }
+    
     return render(request, 'userProfile.html', send_data)
 
 # Edit profile
@@ -374,16 +387,17 @@ def userProfile_package(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
-    family = Family.objects.get(familyID=customer.familyID_id)
-    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
-    
-    childID = []
-    for i in range(len(childs)):
-        childID.append(childs[i].user_id)
-    childUser = User.objects.filter(customer__user_id__in=childID)    
-    manager = Customer.objects.get(customerID = family.manager)
-    managerUser = User.objects.get(id=manager.user_id)
-    empty_list = '123'[:(3-len(childs))]
+    if Family.objects.filter(familyID=customer.familyID_id).exists():
+        family = Family.objects.get(familyID=customer.familyID_id)
+        childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+        
+        childID = []
+        for i in range(len(childs)):
+            childID.append(childs[i].user_id)
+        childUser = User.objects.filter(customer__user_id__in=childID)    
+        manager = Customer.objects.get(customerID = family.manager)
+        managerUser = User.objects.get(id=manager.user_id)
+        empty_list = '123'[:(3-len(childs))]
     
 
     ### update ###
@@ -448,9 +462,11 @@ def userProfile_package(request):
                 packageIDform = packCusInfo(request.POST or None, instance=customer)
                 if packageIDform.is_valid():
                     packageIDform.save()
+        
         user = request.user
         customer = Customer.objects.get(user_id=user.id)
         package = Package.objects.get(packageID=customer.packageID_id)
+    if Family.objects.filter(familyID=customer.familyID_id).exists():
         family = Family.objects.get(familyID=customer.familyID_id)
         childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
         childID = []
@@ -461,16 +477,25 @@ def userProfile_package(request):
         managerUser = User.objects.get(id=manager.user_id)
         empty_list = '123'[:(3-len(childs))]
 
-    # sending data to html
-    send_data = {
-        'user': user, 
-        'customer': customer, 
-        'package': package,
-        'childs': zip(childs, childUser),
-        'manager': manager,
-        'managerUser': managerUser,
-        'empty_list': empty_list,
-    }
+        # sending data to html
+        send_data = {
+            'user': user, 
+            'customer': customer, 
+            'package': package,
+            'childs': zip(childs, childUser),
+            'manager': manager,
+            'managerUser': managerUser,
+            'empty_list': empty_list,
+        }
+    else:
+        send_data = {
+            'user': user, 
+            'customer': customer, 
+            'manager': customer,
+            'managerUser': user,
+            'package': package,
+            'empty_list': '123'
+        }
 
     return render(request, 'userProfile_package.html', send_data)
 
@@ -479,76 +504,125 @@ def userProfile_family(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
     package = Package.objects.get(packageID=customer.packageID_id)
-    family = Family.objects.get(familyID=customer.familyID_id)
-    childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
-    
-    childID = []
-    for i in range(len(childs)):
-        childID.append(childs[i].user_id)
-    childUser = User.objects.filter(customer__user_id__in=childID)    
-    manager = Customer.objects.get(customerID = family.manager)
-    managerUser = User.objects.get(id=manager.user_id)
-    empty_list = '123'[:(3-len(childs))]
-
-    if request.method == "POST":
-        # DELETE member
-        if 'delMember' in request.POST:
-            if Customer.objects.filter(customerID=request.POST['delMember']).exists():
-                member = Customer.objects.get(customerID=request.POST['delMember'])
-                memberChange = manageFamily(request.POST or None, instance=member)
-                if memberChange.is_valid():
-                    del_member = memberChange.save(commit=False)
-                    del_member.packageID_id = "PF00"
-                    del_member.familyID = None
-                    del_member.save()
-                    memberChange.save()
-            #else:
-        # ADD member
-        if 'addMember' in request.POST:
-            if Customer.objects.filter(customerID=request.POST['addMember']).exists():
-                newMember = Customer.objects.get(customerID=request.POST['addMember'])
-                memberChange = manageFamily(request.POST or None, instance=newMember)
-                if memberChange.is_valid():
-                    memberChange.save()
-                else:
-                    print("ERROR: ", memberChange.errors)
-
-        if 'manager' in request.POST and 'delMember' not in request.POST:
-            new_manager = addFamily(request.POST or None, instance=family)
-            if new_manager.is_valid():
-                new_manager.save()
-            else:
-                print("ERROR: ", new_manager.errors)
-
-        user = request.user
-        customer = Customer.objects.get(user_id=user.id)
-        package = Package.objects.get(packageID=customer.packageID_id)
+    if Family.objects.filter(familyID=customer.familyID_id).exists():
         family = Family.objects.get(familyID=customer.familyID_id)
         childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+        
         childID = []
         for i in range(len(childs)):
             childID.append(childs[i].user_id)
-        childUser = User.objects.filter(customer__user_id__in=childID)
+        childUser = User.objects.filter(customer__user_id__in=childID)    
         manager = Customer.objects.get(customerID = family.manager)
         managerUser = User.objects.get(id=manager.user_id)
         empty_list = '123'[:(3-len(childs))]
 
-    # sending data to html
-    send_data = {
-        'user': user, 
-        'customer': customer,
-        'childs': zip(childs, childUser),
-        'delete': zip(childs, childUser),
-        'family': family,
-        'manager': manager,
-        'managerUser': managerUser,
-        'empty_list': empty_list,
-        'package': package
-    }
+        if request.method == "POST":
+            # DELETE member
+            if 'delMember' in request.POST:
+                if Customer.objects.filter(customerID=request.POST['delMember']).exists():
+                    member = Customer.objects.get(customerID=request.POST['delMember'])
+                    memberChange = manageFamily(request.POST or None, instance=member)
+                    if memberChange.is_valid():
+                        del_member = memberChange.save(commit=False)
+                        del_member.packageID_id = "PF00"
+                        del_member.familyID = None
+                        del_member.save()
+                        memberChange.save()
+                #else:
+            # ADD member
+            if 'addMember' in request.POST:
+                if Customer.objects.filter(customerID=request.POST['addMember']).exists():
+                    newMember = Customer.objects.get(customerID=request.POST['addMember'])
+                    memberChange = manageFamily(request.POST or None, instance=newMember)
+                    if memberChange.is_valid():
+                        memberChange.save()
+                    else:
+                        print("ERROR: ", memberChange.errors)
+
+            if 'manager' in request.POST and 'delMember' not in request.POST:
+                new_manager = addFamily(request.POST or None, instance=family)
+                if new_manager.is_valid():
+                    new_manager.save()
+                else:
+                    print("ERROR: ", new_manager.errors)
+
+            user = request.user
+            customer = Customer.objects.get(user_id=user.id)
+            package = Package.objects.get(packageID=customer.packageID_id)
+            family = Family.objects.get(familyID=customer.familyID_id)
+            childs = Customer.objects.filter(familyID_id = family.familyID).exclude(customerID = family.manager)
+            childID = []
+            for i in range(len(childs)):
+                childID.append(childs[i].user_id)
+            childUser = User.objects.filter(customer__user_id__in=childID)
+            manager = Customer.objects.get(customerID = family.manager)
+            managerUser = User.objects.get(id=manager.user_id)
+            empty_list = '123'[:(3-len(childs))]
+
+        # sending data to html
+        send_data = {
+            'user': user, 
+            'customer': customer,
+            'childs': zip(childs, childUser),
+            'delete': zip(childs, childUser),
+            'family': family,
+            'manager': manager,
+            'managerUser': managerUser,
+            'empty_list': empty_list,
+            'package': package
+        }
+    else:
+        send_data = {
+            'user': user, 
+            'customer': customer,
+            'manager': customer,
+            'managerUser': user,
+            'empty_list': '123',
+            'package': package
+        }
     return render(request, 'userProfile_family.html', send_data)
 
+# Card and Add card
 def userProfile_transaction(request):
-    return render(request, 'userProfile_transaction.html')
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    if request.method == "POST":
+        if 'number' in request.POST and 'name' in request.POST and 'type' in request.POST and 'expiry' in request.POST and 'cvc' in request.POST:
+            card = addCard(request.POST or None)
+            if card.is_valid():
+                new_card = card.save(commit=False)
+                new_card.cardID = request.POST['number']
+                new_card.cardType = request.POST['type']
+                expiry = request.POST['expiry']
+                month, year = expiry.split(' / ')
+                new_card.expireDate = year+"-"+month+"-01"
+                new_card.cvv = request.POST['cvc']
+                new_card.save()
+                card.save()
+
+                # collect = request.POST.copy()
+                # collect['customer_ID'] = customer.customerID
+                # collect['card_ID'] = request.POST['number']
+                # request.POST = collect
+                # # create Card table
+                # matchCard = collectCard(request.POST, False)
+                # if matchCard.is_valid():
+                #     matchCard.save()
+                # else:
+                #     print("match card ERROR: ", matchCard.errors)
+
+            
+            
+            else:
+                print("ERROR ADD card: ", card.errors)
+    else:
+        print("NOTHING")
+
+    send_data = {
+        'user': user,
+        'customer': customer
+    }
+    return render(request, 'userProfile_transaction.html', send_data)
 
 
 
