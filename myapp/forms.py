@@ -85,3 +85,10 @@ class collectCard(ModelForm):
     class Meta:
         model = Card
         fields = ['customer_ID', 'card_ID', 'activate']
+
+
+# Listening History
+class addListeningHist(ModelForm):
+    class Meta:
+        model = ListeningHistory
+        fields = ['customerID', 'songID']

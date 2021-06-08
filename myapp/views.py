@@ -12,6 +12,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 
+from json import dumps
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import *
@@ -24,75 +26,30 @@ def landingPage(request):
     return render(request, 'index.html')
 
 def viewSong(request):
-    return render(request, 'song.html')
+    # data = ["Laugh"]
+    # data = dumps(data)
+    songs = Song.objects.all().order_by('-songID')
+    context = {'songs': songs}
+    return render(request, 'song.html', context)
 
+def playSong(request, pk):
+    song = Song.objects.get(songID = pk)
+    customer = Customer.objects.get(user_id = request.user)
 
-def playSong(request):
-    return render(request, 'playSong.html')
+    form = addListeningHist()
+    history = form.save(commit=False)
+    history.customerID = customer
+    history.songID = song
+    history.save()
+
+    context = {'song': song}
+    return render(request, 'playSong.html', context)
+
+# def listening(request):
+#     return render()
+
 def Songtestjs(request):
     return render(request, 'songtestjs.html')
-
-
-# def addSong(request):
-#     form = addSongForm()
-#     if request.method == 'POST':
-#         form = addSongForm(request.POST or None, request.FILES or None)
-
-#         songName = request.POST['songName']
-#         artistID = request.POST['artistID']
-#         songImg = request.FILES.get('songImg')
-#         normalURL = request.FILES.get('normalURL')
-#         goodURL = request.FILES.get('goodURL')
-#         genre1 = request.POST['genre1']
-#         genre2 = request.POST['genre2']
-#         genre3 = request.POST['genre3']
-#         album = request.POST['album']
-#         lyrics = request.POST['lyrics']
-#         description = request.POST['description']
-#         language = request.POST['language']
-
-#         if songName == '':
-#             messages.success(request, ('Please provide song name'))
-#         elif len(songName) > 100:
-#             messages.success(request, ('Your song name cannot exceed 100 character'))
-
-#         if artistID == '':
-#             messages.success(request, ('Please provide artistID'))
-#         elif len(songName) > 6:
-#             messages.success(request, ('artistId not found'))
-#         elif artistID != Artist.objects.get(artistID = artistID):
-#             messages.success(request, ('artistId not found'))
-        
-#         if songImg == None:
-#             messages.success(request, ('Please upload song cover image'))
-        
-#         if normalURL == None:
-#             messages.success(request, ('Please upload normal quality song'))
-        
-#         if goodURL == None:
-#             messages.success(request, ('Please upload good quality song'))
-
-#         if genre1 == 'none':
-#             messages.success(request, ('Genre 1 must be selected'))
-#         elif genre2 != 'none' or genre3 != 'none':
-#             if len([genre1,genre2,genre3]) != len(set([genre1,genre2,genre3])):
-#                 messages.success(request, ('There are duplicate genre (Select none for unselect)'))
-        
-#         if len(language) > 2:
-#             messages.success(request, ('Song language must be selected'))
-
-#         # Is form valid?
-#         if form.is_valid():
-#             form.save()
-#             print('success')
-#             result = Song.objects.last()
-#             return render(request, 'tempResult.html', {'result': result})
-#         else:
-#             print(form.errors)
-#             print('not success')
-#             return render(request, 'addSong.html', {'form': form})
-#     else:
-#         return render(request, 'addSong.html')
 
 
 def addSong(request):
@@ -711,11 +668,21 @@ def enDashboard(request):
     # print(artist_count)
     # print(song_count)
 
+    listen = 0
+    history = ListeningHistory.objects.all()
+    if history:
+        for h in history:
+            # print(song.artistID.artistID)
+            if request.user.artist_set.filter(artistID = h.songID.artistID.artistID).exists():
+                listen = listen + 1
+            # print(h.songID.artistID.artistID)
+
     context = {'latest5Artist': latest5Artist, 'latest5Song': latest5Song,
                 'artistPresent':latest5Artist[0],
                 'songPresent':latest5Song[0],
                 'song_count': song_count,
-                'artist_count':artist_count,}
+                'artist_count':artist_count,
+                'listen': listen}
 
     return render(request, 'entertainmentPages/enDashboard.html', context)
 
@@ -784,10 +751,24 @@ def singleEntertainment (request, pk):
     en = Entertainment.objects.get(entertainmentID = pk)
     phone = en.interCode + ' ' + en.telNO if en.interCode != None and en.telNO != None else None
     artists = Artist.objects.filter(entertainmentID = en.user_id)
+
+    thisEnArtistID = []
+    if artists:
+        for a in artists:
+            thisEnArtistID.append(a.artistID)
+
+    listen = 0
+    history = ListeningHistory.objects.all()
+    if history:
+        for h in history:
+            if h.songID.artistID.artistID in thisEnArtistID:
+                listen = listen + 1
+                
     context = {
         'en': en,
         'phone': phone,
-        'artists': artists
+        'artists': artists,
+        'listen': listen
     }
     return render(request, 'entertainmentPages/ADsingleEntertainment.html', context)
 
@@ -1131,9 +1112,17 @@ def deleteSong (request, pk):
 
 def singleSong (request, pk):
     song = Song.objects.get(songID = pk)
-    # context = {'song': song}
+ 
+    listen = 0
+    history = ListeningHistory.objects.all()
+    if history:
+        for h in history:
+            print(song.artistID.artistID)
+            # if request.user.artist_set.filter(artistID = h.songID.artistID.artistID).exists():
+            if h.songID.songID == song.songID:
+                listen = listen + 1
 
-    context = {'song': song}
+    context = {'song': song, 'listen': listen}
     if request.user.groups.all()[0].name == 'entertainment':
         return render(request, 'songPages/singleSong.html', context)
     if request.user.groups.all()[0].name == 'admin':
@@ -1173,6 +1162,6 @@ def singleCustomer (request, pk):
         birth = customer.dob
         today = date.today()
         age = today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
-        
+
     context = {'customerUsername': customerUsername, 'customer': customer, 'phone': phone, 'age': age}
     return render (request, 'adminPages/ADsingleCustomer.html', context)

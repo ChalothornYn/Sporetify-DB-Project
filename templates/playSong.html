@@ -1,68 +1,83 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> {% endcomment %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
-    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/playSong.css' %}">
+    <link rel="stylesheet" href="{% static 'css/playSong1.css' %}">
     <title>Document</title>
 </head>
-    <body>
-        <!-- navbar start -->
-        <nav class="navbar navbar-expand-md navbar-dark nav-bg">
-            <div class="container" style="height: 100%;">
-                <a class="navbar-brand" href="http://127.0.0.1:8000/song/" style="height: 64px; padding: 10px 0 10px 25px;">
-                    <img src="{% static 'images/logo.png' %}" alt="" height="100%">
-                </a>
-                <!-- button small display -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <!-- end button -->
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav text-end">
-                        <li class="nav-item">
-                            <a class="nav-link fs-5 menu" href="#">Package</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-5 menu ms-3" href="#">About us</a>
-                        </li>
-                        <li class="nav-item d-md-flex ms-5 d-none">
-                            <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav text-end fs-5 ms-5">
-                        <li class="nav-item dropdown drop">
+
+<body>
+    <!-- navbar start -->
+    <nav class="navbar navbar-expand-md navbar-dark nav-bg fixed-top">
+        <div class="container" style="height: 100%;">
+            <a class="navbar-brand" href="/song" style="height: 64px; padding: 10px 0 10px 25px;">
+                <img src="{% static 'images/logo.png' %}" alt="" height="100%">
+            </a>
+            <!-- button small display -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- end button -->
+            <div class="collapse navbar-collapse justify-content-end d-flex" id="navbarSupportedContent">
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu" href="/song">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 menu ms-3" href="#">Package</a>
+                    </li>
+                    <li class="nav-item d-md-flex ms-4 d-none">
+                        <span class="fw-light fs-4 align-self-center" style="color: white;">|</span>
+                    </li>
+                </ul>
+                <ul class="navbar-nav text-end fs-5 ms-4">
+                    <li class="nav-item dropdown drop">
+                        <div class="d-flex">
                             <a class="nav-link dropdown-toggle menu" href="#" id="navbarDropdownMenuLink" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{% static 'images/Gust.jpg'%}" width="40" height="40" class="rounded-circle">
-                                Gustboyy
+                                <div class="d-inline profile-show">
+                                    <img src="{{ user.customer.profileImage.url }}" width="40" height="40"
+                                        class="rounded-circle">
+                                </div>
+                                <span>{{ user.username }}</span>
                             </a>
+
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/userprofile">Profile</a>
-                                <a class="dropdown-item" href="#">Credit card</a>
-                                <a class="dropdown-item" href="#">Transaction</a>
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <!-- set class="disabled in current page" -->
+                                <a class="dropdown-item disabled" href="/userprofile">Account</a>
+                                <a class="dropdown-item" href="/userprofile/edit">Edit profile</a>
+                                <a class="dropdown-item" href="/userprofile/songHistory">History</a>
+                                <a class="dropdown-item" href="/userprofile/package">Package</a>
+                                <a class="dropdown-item" href="/userprofile/family">Family</a>
+                                <a class="dropdown-item" href="/userprofile/transaction">Transaction</a>
+                                <a class="dropdown-item" href="/">Log Out</a>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
+
             </div>
-        </nav>
-        <!-- navbar end --> 
-        <div class="container songdetail">
+        </div>
+    </nav>
+    <!-- navbar end -->
+
+    <div class="container">
+        <div class="songdetail">
             <!-- song images -->
-            <div class="songimage text-center">
-                 <img id="songimg">
+            <div class="songimage">
+                <img id="songimg">
             </div>
 
             <!-- Artist name -->
@@ -76,13 +91,173 @@
 
             <!-- song button -->
             <div class="middle text-center">
-                <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
-                <button style="margin-left: 20px" onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
-                <button style="margin-left: 20px" onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
-                <button style="margin-left: 20px" onclick="autoplay_switch()"id="auto"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                <!-- <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward"
+                        aria-hidden="true"></i></button> -->
+                <button style="margin-left: 20px" onclick="justplay()" id="play"><i class="fa fa-play"
+                        aria-hidden="true"></i></button>
+                        <!-- <button style="margin-left: 20px" onclick="next_song()" id="next"><i class="fa fa-step-forward"
+                                aria-hidden="true"></i></button> -->
+                <button style="margin-left: 20px" onclick="autoplay_switch()" id="auto"><i class="fa fa-refresh"
+                        aria-hidden="true"></i></button>
             </div>
         </div>
+    </div>
 
-        <script src="{% static 'js/playSong.js'  %}"></script>
-    </body>
+    <!-- <script src="{% static 'js/playSong.js'  %}"></script> -->
+    <!-- <script>
+        var data = JSON.parse("{{data|escapejs}}");
+        console.log(data[0])
+    </script> -->
+
+    <script>
+        var previous = document.getElementById('pre');
+        var play = document.getElementById('play');
+        var next = document.getElementById('next');
+        var title = document.getElementById('title');
+        var recent_volume = document.getElementById('volume');
+        var volume_show = document.getElementById('volume_show');
+        var slider = document.getElementById('duration_slider');
+        var show_duration = document.getElementById('show_duration');
+        var track_image = document.getElementById('songimg');
+        var auto_play = document.getElementById('auto');
+        var artist = document.getElementById('artist');
+
+
+        var timer;
+        var autoplay = 0;
+
+        var index_no = 0;
+        var Playing_song = false;
+        var All_song;
+
+        //create a audio Element
+        var track = document.createElement('audio');
+
+        //All songs list
+        All_song = [{
+            name: "{{song.songName}}",
+            path: "{{song.normalURL.url}}",
+            img: "{{song.songImg.url}}",
+            singer: "{{song.artistID.artistName}}"
+        },
+        ];
+
+        function load_track(index_no) {
+            clearInterval(timer);
+            reset_slider();
+
+            track.src = All_song[index_no].path;
+            title.innerHTML = All_song[index_no].name;
+            track_image.src = All_song[index_no].img;
+            artist.innerHTML = All_song[index_no].singer;
+            track.load();
+
+            timer = setInterval(range_slider, 1000);
+            total = All_song.length;
+            present = index_no + 1;
+        }
+
+        load_track(index_no);
+
+        // checking.. the song is playing or not
+        function justplay() {
+            if (Playing_song == false) {
+                playsong();
+
+            } else {
+                pausesong();
+            }
+        }
+
+        //reset song slider
+        function reset_slider() {
+            slider.value = 0;
+        }
+
+        // play song
+        function playsong() {
+            track.play();
+            Playing_song = true;
+            play.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
+        }
+
+        //pause song
+        function pausesong() {
+            track.pause();
+            Playing_song = false;
+            play.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+        }
+
+        // next song
+
+        function next_song() {
+            if (index_no < All_song.length - 1) {
+                index_no += 1;
+                load_track(index_no);
+                playsong();
+            } else {
+                index_no = 0;
+                load_track(index_no);
+                playsong();
+
+            }
+        }
+
+
+        // previous song
+        function previous_song() {
+            if (index_no > 0) {
+                index_no -= 1;
+                load_track(index_no);
+                playsong();
+
+            } else {
+                index_no = All_song.length;
+                load_track(index_no);
+                playsong();
+            }
+        }
+
+        // autoplay function
+        function autoplay_switch() {
+            if (autoplay == 1) {
+                autoplay = 0;
+                auto_play.style.background = "rgba(189, 189, 189, 0.192)";
+            } else {
+                autoplay = 1;
+                auto_play.style.background = "#1FD662";
+            }
+        }
+
+
+        // change slider position 
+        function change_duration() {
+            slider_position = track.duration * (slider.value / 100);
+            track.currentTime = slider_position;
+        }
+
+
+        function range_slider() {
+            let position = 0;
+
+            // update slider position
+            if (!isNaN(track.duration)) {
+                position = track.currentTime * (100 / track.duration);
+                slider.value = position;
+            }
+
+
+            // function will run when the song is over
+            if (track.ended) {
+                play.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+                if (autoplay == 1) {
+                    index_no += 1;
+                    load_track(index_no);
+                    playsong();
+                }
+            }
+        }
+    </script>
+</body>
+
 </html>

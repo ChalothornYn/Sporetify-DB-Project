@@ -49,7 +49,7 @@ urlpatterns = [
     path('songtest/', views.songTest),
     path('songtestjs/', views.Songtestjs),
     path('song/edm/', views.songEDM),
-    path('song/playsong/', views.playSong),
+    path('song/playsong/<str:pk>/', views.playSong, name='playSong'),
 
 
 
