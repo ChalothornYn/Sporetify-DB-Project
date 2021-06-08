@@ -538,6 +538,8 @@ def userProfile_family(request):
 def userProfile_transaction(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
+    package = Package.objects.get(packageID=customer.packageID_id)
+
     if request.method == "POST":
         if 'number' in request.POST and 'name' in request.POST and 'type' in request.POST and 'expiry' in request.POST and 'cvc' in request.POST:
             if not Card_details.objects.filter(cardID=request.POST['number']).exists():
@@ -594,6 +596,38 @@ def userProfile_transaction(request):
                         actForm.save()
                     else:
                         print("Activate error: ", actForm.errors)
+        
+        # add transaction
+        if 'trans' in request.POST:
+            if Card.objects.filter(customer_ID = customer.customerID).exists():
+                act_card = Card.objects.get(customer_ID = customer.customerID, activate = True).card_ID.cardID
+                today = datetime.now()
+                duedate = today if package.packageDuration == None else today + package.packageDuration
+                post = request.POST.copy()
+                post['startDate'] = today
+                post['endDate'] = duedate
+                post['cardID'] = act_card
+                post['packageID'] = package.packageID
+                post['payerID'] = customer.customerID
+                request.POST = post
+                form = addTrans(request.POST or None)
+                if form.is_valid():
+                    form.save()
+                else:
+                    print("Transaction ERROR: ", form.errors)
+                
+                trans = Transaction.objects.get(startDate=today, payerID=customer.customerID)
+                post = request.POST.copy()
+                post['payment_ID'] = trans.paymentID
+                post['payer_ID'] = customer.customerID
+                form = transDetails(post or None)
+                if form.is_valid():
+                    form.save()
+                else:
+                    print("Trans_detial ERROR: ", form.errors)
+                
+            else:
+                print("NONE")
                     
 
     
@@ -603,21 +637,57 @@ def userProfile_transaction(request):
         for i in range(len(cardCollect)):
             cardAll.append(cardCollect[i].card_ID)
         card = Card_details.objects.filter(card__card_ID__in=cardAll)
-
+        package = Package.objects.get(packageID=customer.packageID_id)
         mainCard = Card.objects.get(customer_ID = customer.customerID, activate = True).card_ID
+        if customer.familyID != None:
+            family = Family.objects.get(familyID=customer.familyID_id)
+            manager = Customer.objects.get(customerID = family.manager)
+            if Transaction_details.objects.filter().exists():
+                trans_detail = Transaction_details.objects.filter(payer_ID = manager.customerID)
+                transAll = []
+                for i in range(len(trans_detail)):
+                    transAll.append(trans_detail[i].payment_ID)
+                transaction = Transaction.objects.filter(transaction_details__payment_ID__in=transAll)
+                print("######################", transaction[0].paymentID)
+                send_data = {
+                'user': user,
+                'customer': customer,
+                'cards': card,
+                'mainCard': mainCard,
+                'package': package,
+                'transaction': transaction
+                }
+                return render(request, 'userProfile_transaction.html', send_data)
+        
         send_data = {
         'user': user,
         'customer': customer,
         'cards': card,
-        'mainCard': mainCard
+        'mainCard': mainCard,
+        'package': package
     }
     else:
+        if customer.familyID != None:
+            family = Family.objects.get(familyID=customer.familyID_id)
+            manager = Customer.objects.get(customerID = family.manager)
+            if Transaction_details.objects.filter().exists():
+                trans_detail = Transaction_details.objects.filter(payer_ID = manager.customerID)
+                transAll = []
+                for i in range(len(trans_detail)):
+                    transAll.append(trans_detail[i].payment_ID)
+                transaction = Transaction.objects.filter(transaction_details__payment_ID__in=transAll)
+                send_data = {
+                'user': user,
+                'customer': customer,
+                'package': package,
+                'transaction': transaction
+                }
+                return render(request, 'userProfile_transaction.html', send_data)
         send_data = {
         'user': user,
-        'customer': customer
-    }
-
-    
+        'customer': customer,
+        'package': package
+        }
     return render(request, 'userProfile_transaction.html', send_data)
 
 

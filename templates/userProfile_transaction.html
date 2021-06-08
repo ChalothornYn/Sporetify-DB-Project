@@ -168,14 +168,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr>
-                        <td class="col key">{{ transaction.paymentID }}</td>
-                        <td class="col key">{{ transaction.startDate }}</td>
-                        <td class="col key">{{ transaction.endDate }}</td>
+                    {% for trans in transaction %}
+                    <tr>
+                        <td class="col key">{{ trans.paymentID }}</td>
+                        <td class="col key">{{ trans.startDate }}</td>
+                        <td class="col key">{{ trans.endDate }}</td>
                         <td class="col key">{{ package.packageID }} {{ package.packName }}</td>
-                        <td class="col key">#{{ transaction.payerID }}</td>
+                        <td class="col key">#{{ trans.payerID }}</td>
                         <td class="col key">{{ package.packagePrice }}</td>
-                    </tr> -->
+                    </tr>
+                    {% endfor %}
 
                     <!-- <tr>
                         <td colspan="5" class="col text-center">Total {{ transNum }} transaction</td>
@@ -183,10 +185,14 @@
                     </tr> -->
                 </tbody>
             </table>
-            <div class="text-center">
-                <input type="submit" value="Buy" class="btn btn-primary">
-            </div>
-            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="text-center">
+                    <input type="text" value="{{package.packageID}}" name="trans" class="d-none">
+                    <button type="submit" class="btn btn-primary">Buy</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>

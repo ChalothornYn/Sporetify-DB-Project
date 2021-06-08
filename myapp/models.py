@@ -220,29 +220,24 @@ class Card (models.Model):
         unique_together = ('customer_ID', 'card_ID',)
 
 # Transaction table
-# class Transaction (models.Model):
-#     def genID():
-#         n = Family.objects.count()
-#         return "T" + str(n).zfill(9)
-#     paymentID = models.CharField(max_length=10, default=genID ,primary_key=True)
-#     startDate = models.DateTimeField()
-#     endDate = models.DateTimeField()
-#     cardID = models.ForeignKey('Card_details', on_delete=models.CASCADE)
-#     packageID = models.ForeignKey('Package', on_delete=models.CASCADE)
-#     payerID = models.CharField(max_length=8)
+class Transaction (models.Model):
+    def genID():
+        n = Transaction.objects.count()
+        return "T" + str(n).zfill(9)
+    paymentID = models.CharField(max_length=10, default=genID ,primary_key=True)
+    startDate = models.DateTimeField()
+    endDate = models.DateTimeField()
+    cardID = models.ForeignKey('Card_details', on_delete=models.CASCADE)
+    packageID = models.ForeignKey('Package', on_delete=models.CASCADE)
+    payerID = models.CharField(max_length=8)
 
 # Transaction_details
-# class Transaction_details (models.Model):
-#     paymentID = models.ManyToManyField(Transaction)
-#     userID = models.
+class Transaction_details (models.Model):
+    payment_ID = models.ForeignKey('Transaction', on_delete=models.CASCADE, db_column='paymentID', to_field='paymentID')
+    payer_ID = models.ForeignKey('Customer', on_delete=models.CASCADE, db_column='customerID', to_field='customerID')
 
-
-
-
-
-
-
-
+    class Meta:
+        unique_together = ('payment_ID', 'payer_ID',)
 
 #--------------------------- new --------------------
 # Listening History

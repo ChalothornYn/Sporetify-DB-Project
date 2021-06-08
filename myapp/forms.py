@@ -96,3 +96,13 @@ class addListeningHist(ModelForm):
     class Meta:
         model = ListeningHistory
         fields = ['customerID', 'songID']
+
+class addTrans(ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['startDate', 'endDate', 'cardID', 'packageID', 'payerID']
+
+class transDetails(ModelForm):
+    class Meta:
+        model = Transaction_details
+        fields = ['payment_ID', 'payer_ID']
