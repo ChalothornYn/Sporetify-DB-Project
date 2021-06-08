@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block profile_nav %}
-<div class="profile-show">
+<!-- <div class="profile-show">
     <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
-</div>
+</div> -->
 <span class="enUsername">{{user.username}}</span>
 {% endblock %}
 
@@ -47,7 +47,7 @@
                             <span class="d-inline-block">Song played</span>
                         </div>
                         <div class="box-content">
-                            <span class="d-inline-block">2,984</span>
+                            <span class="d-inline-block">{{listen}}</span>
                             <span class="">times</span>
                         </div>
                     </div>

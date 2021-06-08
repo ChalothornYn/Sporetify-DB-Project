@@ -1,0 +1,29 @@
+{% extends 'adminPages/adNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard1.css' %}">
+<link rel="stylesheet" href="{% static 'css/ad_addSong.css' %}">
+	<script src="{% static 'js/updateSong.js' %}"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<!-- <div class="profile-show">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
+</div> -->
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <p style="font-size: 24px; margin-bottom: 30px;">Are you sure you want to delete customer "{{customerUsername}}" ?</p>
+   
+    <form action="{% url 'deleteCustomer' customer.customerID %}" method="POST"> 
+        {% csrf_token %}
+        <a style="font-size: 20px;" class="btn btn-secondary btn-lg" onclick=" window.history.back();">Cancle</a>
+        <input type="submit" class="btn btn-danger ms-5 btn-lg" value="confirm">
+    </form> 
+</div>
+{% endblock %}

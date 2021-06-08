@@ -1,0 +1,45 @@
+{% extends 'adminPages/adNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard1.css' %}">
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+{% endblock%}
+
+{% block profile_nav %}
+<!-- <div class="profile-show">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
+</div> -->
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a class="btn btn-secondary mt-5 fs-5" onclick=" window.history.back();">Back</a>
+    <table class="table custom-table mt-5">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Package use</th>
+                <th>View</th>
+                <th>Remove</th>
+            </tr> 
+        </thead>
+        <tbody>
+            {% for customer in customers %}       
+                <tr>
+                    <td>{{customer.customerID}}</td>
+                    <td>{{customer.firstName}}</td>
+                    <td>{{customer.lastName}}</td>
+                    <td>{{customer.packageID.packageName}}</td>
+                    <td><a href="{% url 'singleCustomer' customer.customerID%}" class="btn btn-warning">View</a></td>
+                    <td><a href="{% url 'deleteCustomer' customer.customerID %}" class="btn btn-danger">Delete</a></td>
+                </tr> 
+            {% endfor %}   
+        </tbody>
+    </table>
+</div>
+{% endblock %}

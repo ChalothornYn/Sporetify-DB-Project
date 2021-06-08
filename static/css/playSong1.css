@@ -1,0 +1,224 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(41, 61, 59, 1) 75%, rgba(44, 70, 66) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.songdetail {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.songimage {
+    height: 300px;
+    width: 300px;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.songimage img {
+    /* height: 300px; */
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.songname {
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0px;
+}
+
+.artistname {
+    color: rgba(221, 219, 219, 0.438);
+    font-size: 10 px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 50%;
+    outline: none;
+    height: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background: #1FD662;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.duration input[type=range] {
+    width: 300px;
+}
+
+.duration p {
+    color: #fff;
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+.middle {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.middle button {
+    margin-top: 15px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    transition: 0.5s;
+    background: rgba(189, 189, 189, 0.192);
+}
+
+button:hover {
+    background: #1FD662;
+}
+
+i {
+    color: white;
+}
+
+.playlist {
+    color: white;
+    font-size: 17px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+/* ------------------------  NAV BAR ------------------------*/
+
+.nav-bg {
+    background-color: #000;
+    /* opacity: 0.5; */
+    border-bottom: 5px solid #1FD662;
+}
+
+.menu {
+    color: white !important;
+}
+.menu:hover {
+    color: #1FD662 !important;
+}
+
+.sidebar{
+    background: #000;
+    margin-top: 80px;
+    padding-top: 50px;
+    position: fixed;
+    width: 250px;
+    height: 100%;
+}   
+
+.sidebar a:not(.side-active){
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.side-hidden{
+    visibility: hidden;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.sidebar a:not(.side-active):hover{
+    color: #1fd662;
+}
+
+.side-active{
+    color: #000;
+    pointer-events: none;
+    cursor: default;
+}
+
+.sidebar span{
+    font-size: larger;
+}
+
+.form-content{
+    background-color: white;
+    margin-top: 80px;
+    padding-top: 30px;
+    padding-left: calc(250px - 100%/11)
+}
+
+.logo-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 50%; */
+    height: auto;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 30px;
+    /* border: 3px solid black; */
+}
+
+.logo-show > img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.profile-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    position: relative;
+    /* border: 3px solid black; */
+}
+
+.profile-show > img {
+    object-fit: cover;
+    width: 40px;
+    margin-right: 5px;
+}
+
+.side-active{
+    color: #000;
+    background-color: #1fd662;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}

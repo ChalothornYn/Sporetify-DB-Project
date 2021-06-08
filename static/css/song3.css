@@ -1,0 +1,200 @@
+.nav-bg {
+    background-color: #000;
+    border-bottom: 5px solid #1FD662;
+}
+
+.song .header {
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.card-container {
+    width: 70%;
+    /* padding: 0 30px; */
+    margin-top: 30px;
+}
+
+.song-cover-container {
+    width: 100%;
+    background-color: #1FD662;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+} 
+
+.song-cover-container:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.song-cover-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+
+}
+
+.song-name{
+    font-weight: 500;
+    margin-left: 8px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.song-artist {
+    font-weight: 400;
+    margin-top: 7px;
+    margin-left: 8px;
+    font-size: 16px;
+    color: rgba(104, 103, 103, 0.671);
+}
+
+.song button {
+    margin-top: 15px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    transition: 0.5s;
+    background: rgba(145, 144, 144, 0.349);
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background: #1FD662;
+}
+
+i {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* ------------------------  NAV BAR ------------------------*/
+
+.nav-bg {
+    background-color: #000;
+    /* opacity: 0.5; */
+    border-bottom: 5px solid #1FD662;
+}
+
+.menu {
+    color: white !important;
+}
+.menu:hover {
+    color: #1FD662 !important;
+}
+
+.sidebar{
+    background: #000;
+    margin-top: 80px;
+    padding-top: 50px;
+    position: fixed;
+    width: 250px;
+    height: 100%;
+}   
+
+.sidebar a:not(.side-active){
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.side-hidden{
+    visibility: hidden;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.sidebar a:not(.side-active):hover{
+    color: #1fd662;
+}
+
+.side-active{
+    color: #000;
+    pointer-events: none;
+    cursor: default;
+}
+
+.sidebar span{
+    font-size: larger;
+}
+
+.form-content{
+    background-color: white;
+    margin-top: 80px;
+    padding-top: 30px;
+    padding-left: calc(250px - 100%/11)
+}
+
+.logo-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 50%; */
+    height: auto;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 30px;
+    /* border: 3px solid black; */
+}
+
+.logo-show > img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.profile-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    position: relative;
+    /* border: 3px solid black; */
+}
+
+.profile-show > img {
+    object-fit: cover;
+    width: 40px;
+    margin-right: 5px;
+}
+
+.side-active{
+    color: #000;
+    background-color: #1fd662;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+}

@@ -56,7 +56,7 @@ th {
                     <span class="d-inline-block">Song played</span>
                 </div>
                 <div class="box-content">
-                    <span class="d-inline-block">2,984</span>
+                    <span class="d-inline-block">{{listen}}</span>
                     <span class="">times</span>
                 </div>
             </div>
@@ -65,7 +65,7 @@ th {
         <div class="col-9 content2-container">
             <div class="Song">
                 <div class="header">
-                    <h1>Song</h1>
+                    <h1>Latest 5 Song</h1>
                     <div class="crud-link">
                         <span style="font-size: 20px; margin-right: 10px;">Add song</span>
                         <a href="{% url 'addSong' %}" class="btn btn-success"><i class="fas fa-compact-disc me-2"></i><i class="fas fa-plus"></i></a>
@@ -116,7 +116,7 @@ th {
             </div>
             <div class="Artist">
                 <div class="header">
-                    <h1>Artist</h1>
+                    <h1>Latest 5 Artist</h1>
                     <div class="crud-link">
                         <span style="font-size: 20px; margin-right: 10px;">Add artist</span>
                         <a href="{% url 'addArtist' %}" class="btn btn-success"><i class="fas fa-user-plus"></i></a>

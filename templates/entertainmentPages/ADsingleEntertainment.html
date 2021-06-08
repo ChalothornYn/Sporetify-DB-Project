@@ -1,0 +1,135 @@
+{% extends 'adminPages/adNavbarTemp.html' %}
+{% load static %}
+
+{% block header %}
+<title>Sporetify</title>
+<script src="https://kit.fontawesome.com/e073b44707.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/adminPages/adDashboard1.css' %}">
+<link rel="stylesheet" href="{% static 'css/ad_addSong.css' %}">
+<link rel="stylesheet" href="{% static 'css/songPages/adsingleSong.css' %}">
+<script src="{% static 'js/updateSong.js' %}"></script>
+<style>
+.image-placeholder{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #ffce73;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+.image-placeholder img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+.below-pic {
+    font-size: 25px;
+}
+</style>
+{% endblock%}
+
+{% block profile_nav %}
+<!-- <div class="profile-show">
+    <img src="{{user.admin.profileImage.url}}" width="40" height="40" class="">
+</div> -->
+<span class="enUsername">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a class="btn btn-secondary  mt-5 fs-5" onclick=" window.history.back();">Back</a>
+    <div class="mt-5">
+        <div class="d-flex align-items-end justify-content-between">
+            <div>
+                <span class="d-inline-block fs-1">Entertainment </span>   
+                <span class="d-inline-block fs-1 text-username">"{{en.entertainmentName}}"</span>
+                <span class="d-inline-block fs-1"> details</span>   
+            </div>
+            <div>
+                <a href="{% url 'deleteEn' en.entertainmentID %}" class="btn btn-danger d-inline-block">Delete this Entertainment</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-3 text-center">
+                    <div class="image-placeholder">
+                        <img src="{{en.profileImage.url}}" alt="">
+                    </div>
+                    <span class="d-block below-pic mb-3">{{en.entertainmentName}}</span>
+                    <span class="d-block below-pic">#{{en.entertainmentID}}</span>
+                    <div class="content-box mt-5">
+                        <div class="box-header">
+                            <i class="far fa-play-circle"></i>
+                            <span class="d-inline-block">Song played</span>
+                        </div>
+                        <div class="box-content">
+                            <span class="d-inline-block">{{listen}}</span>
+                            <span class="">times</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 px-5" style="display: grid; grid-template-rows: 190px auto;">
+                    <table class="table profile">
+                        <tbody class="custom-table">
+                            <tr>
+                                <td class="col-5">Entertainment ID</td>
+                                <td class="text-secondary">#{{en.entertainmentID}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-5">Entertainment name</td>
+                                <td class="text-secondary">{{en.entertainmentName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-5">Telephone</td>
+                                <td class="text-secondary">{{phone}}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-5">Address</td>
+                                <td class="text-secondary">{{en.address}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="song-container">
+                        <span class="d-block fs-3">{{en.entertainmentName}}'s artist</span>
+                        <div class="table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Artist ID</th>
+                                        <th>Name</th>
+                                        <th>Debut date</th>
+                                        <th>View</th>
+                                        <th>Update</th>
+                                        <th>Remove</th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    {% for artist in artists %}
+                                        <tr>
+                                            <td>{{artist.artistID}}</td>
+                                            <td>{{artist.artistName}}</td>
+                                            <td>{{artist.dob}}</td>
+                                            <td><a href="{% url 'singleArtist' artist.artistID %}" class="btn btn-warning">View</a></td>
+                                            <td><a href="{% url 'updateArtist' artist.artistID %}" class="btn btn-info">Update</a></td>
+                                            <td><a href="{% url 'deleteArtist' artist.artistID %}" class="btn btn-danger">Delete</a></td>
+                                        </tr>
+                                    {% endfor %}   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

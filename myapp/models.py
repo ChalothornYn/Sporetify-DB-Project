@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.  # NOT NULL is DEFAULT
 
 
+
+
 # Song Table
 class Song (models.Model):  
 
@@ -233,3 +235,18 @@ class Card (models.Model):
 # class Transaction_details (models.Model):
 #     paymentID = models.ManyToManyField(Transaction)
 #     userID = models.
+
+
+
+
+
+
+
+
+
+#--------------------------- new --------------------
+# Listening History
+class ListeningHistory (models.Model):
+    customerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    songID = models.ForeignKey(Song, on_delete=models.CASCADE)  
+    datetime = models.DateTimeField(auto_now_add=True)
