@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib import messages
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 # For authentication
 from django.contrib.auth.forms import UserCreationForm
@@ -461,6 +461,14 @@ def userProfile_package(request):
         manager = Customer.objects.get(customerID = family.manager)
         managerUser = User.objects.get(id=manager.user_id)
         empty_list = '123'[:(3-len(childs))]
+        if package.packageID[1] == 'F':
+            duration = '-'
+        elif package.packageID[3] == '1':
+            duration = datetime.now() + timedelta(days=30)
+        elif package.packageID[3] == '2':
+            duration = datetime.now() + timedelta(days=60)
+        elif package.packageID[3] == '3':
+            duration = datetime.now() + timedelta(days=7)
 
         # sending data to html
         send_data = {
@@ -471,6 +479,7 @@ def userProfile_package(request):
             'manager': manager,
             'managerUser': managerUser,
             'empty_list': empty_list,
+            'duration': duration
         }
     else:
         send_data = {
@@ -573,35 +582,62 @@ def userProfile_transaction(request):
     customer = Customer.objects.get(user_id=user.id)
     if request.method == "POST":
         if 'number' in request.POST and 'name' in request.POST and 'type' in request.POST and 'expiry' in request.POST and 'cvc' in request.POST:
-            card = addCard(request.POST or None)
-            if card.is_valid():
-                new_card = card.save(commit=False)
-                new_card.cardID = request.POST['number']
-                new_card.cardType = request.POST['type']
-                expiry = request.POST['expiry']
-                month, year = expiry.split(' / ')
-                new_card.expireDate = year+"-"+month+"-01"
-                new_card.cvv = request.POST['cvc']
-                new_card.save()
-                card.save()
+            if not Card_details.objects.filter(cardID=request.POST['number']).exists():
+                card = addCard(request.POST or None)
+                if card.is_valid():
+                    new_card = card.save(commit=False)
+                    new_card.cardID = request.POST['number']
+                    new_card.cardType = request.POST['type']
+                    expiry = request.POST['expiry']
+                    month, year = expiry.split(' / ')
+                    new_card.expireDate = year+"-"+month+"-01"
+                    new_card.cvv = request.POST['cvc']
+                    new_card.save()
+                    card.save()
 
-                collect = request.POST.copy()
-                collect['customer_ID'] = customer.customerID
-                collect['card_ID'] = request.POST['number']
-                request.POST = collect
-                # create Card table
-                matchCard = collectCard(request.POST, False)
-                if matchCard.is_valid():
-                    matchCard.save()
+                    collect = request.POST.copy()
+                    collect['customer_ID'] = customer.customerID
+                    collect['card_ID'] = request.POST['number']
+                    if Card.objects.filter(customer_ID = customer.customerID).exists():
+                        collect['activate'] = False                     #Case have new card already
+                    else:
+                        collect['activate'] = True                      #Case this is new card
+                    request.POST = collect
+                    # create Card table
+                    matchCard = collectCard(request.POST or None)
+                    if matchCard.is_valid():
+                        matchCard.save()
+                    else:
+                        print("match card ERROR: ", matchCard.errors)
+
+                
+                
                 else:
-                    print("match card ERROR: ", matchCard.errors)
+                    print("ERROR ADD card: ", card.errors)
+        #activate card
+        if 'cardAct' in request.POST:
+            if Card.objects.filter(customer_ID = customer.customerID).exists():
+                usedCard = Card.objects.get(customer_ID = customer.customerID, activate = True)
+                new_card = Card.objects.get(card_ID=request.POST['cardAct'], customer_ID = customer.customerID)
+                if usedCard.card_ID.cardID != new_card.card_ID.cardID:
+                    post = request.POST.copy()
+                    post['activate'] = False
+                    request.POST = post
+                    oldForm = activateCard(request.POST or None, instance=usedCard)
+                    if oldForm.is_valid:
+                        oldForm.save()
+                    else:
+                        print("Old card ERROR: ", oldForm.save())
+                    post = request.POST.copy()
+                    post['activate'] = True
+                    request.POST = post
+                    actForm = activateCard(request.POST or None, instance=new_card)
+                    if actForm.is_valid:
+                        actForm.save()
+                    else:
+                        print("Activate error: ", actForm.errors)
+                    
 
-            
-            
-            else:
-                print("ERROR ADD card: ", card.errors)
-    else:
-        print("NOTHING")
     
     if Card.objects.filter(customer_ID = customer.customerID).exists():
         cardCollect = Card.objects.filter(customer_ID = customer.customerID)
@@ -609,10 +645,13 @@ def userProfile_transaction(request):
         for i in range(len(cardCollect)):
             cardAll.append(cardCollect[i].card_ID)
         card = Card_details.objects.filter(card__card_ID__in=cardAll)
+
+        mainCard = Card.objects.get(customer_ID = customer.customerID, activate = True).card_ID
         send_data = {
         'user': user,
         'customer': customer,
-        'cards': card
+        'cards': card,
+        'mainCard': mainCard
     }
     else:
         send_data = {

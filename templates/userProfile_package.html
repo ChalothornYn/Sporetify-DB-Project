@@ -27,6 +27,7 @@
 {% block sidebar %}
 <a href="/userprofile"><span>Account overview</span></a>
 <a href="/userprofile/edit"><span>Edit profile</span></a>
+<a href="/userprofile/songHistory"><span>History</span></a>
 <a href="/userprofile/package" class="side-active"><span>Package</span></a>
 <a href="/userprofile/family"><span>Family</span></a>
 <a href="/userprofile/transaction"><span>Transaction</span></a>
@@ -44,13 +45,10 @@
     <div class="row">
         <div class="col-4 offset-1 justify-content-end">
             <div class="card inUse">
-                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                <img src="http://127.0.0.1:8000/media/uploads/img/{{package.packageID}}.jpg"
                     class="package-pic" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ package.packageID }} {{ package.packageName }}</h5>
-                    <p class="card-text">This is a detail about the package#1 home alone but i'm lazy to think about it,
-                        so
-                        i will use this sentence for testing instead :p</p>
                 </div>
             </div>
         </div>
@@ -70,7 +68,7 @@
                             </tr>
                             <tr>
                                 <td class="col-5 key">Due date</td>
-                                <td class="text-secondary">{Waiting..}</td>
+                                <td class="text-secondary">{{ duration }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -126,12 +124,12 @@
                 <label class="h-100">
                     <input type="radio" name="packageID" value="PP01" id="PP01">
                     <div class="card h-100">
-                        <img src="http://127.0.0.1:8000/media/uploads/img/PP.jpg" class="card-img-top"
+                        <img src="http://127.0.0.1:8000/media/uploads/img/PP01.jpg" class="card-img-top"
                             alt="..." />
                         <div class="card-body">
                             <h5 class="card-title">PP01 ลำพังแต่ฟังเพลิน</h5>
                             <p class="card-text">
-                                แพคเกจลำพังแต่ฟังเพลิน ราคา 100 บาทสามารถใช้ได้นานถึง 30 วันเหมาะผู้ใช้ใหม่ที่อยากลอง
+                                แพคเกจลำพังแต่ฟังเพลิน ราคา 199 บาทสามารถใช้ได้นานถึง 30 วันเหมาะผู้ใช้ใหม่ที่อยากลอง
                             </p>
                         </div>
                     </div>
@@ -147,7 +145,7 @@
                         <div class="card-body">
                             <h5 class="card-title">PP02 ลำพังจนฟังสองเดือน</h5>
                             <p class="card-text">
-                                แพคเกจลำพังจนฟังสองเดือน ราคา 159 บาทสามารถใช้ได้นานถึง 60 วันเหมาะผู้ใช้ที่ฟังแล้วติดใจจนอยากต่อฟังอีก 2 เดือน 
+                                แพคเกจลำพังจนฟังสองเดือน ราคา 349 บาทสามารถใช้ได้นานถึง 60 วันเหมาะผู้ใช้ที่ฟังแล้วติดใจจนอยากต่อฟังอีก 2 เดือน 
                             </p>
                         </div>
                     </div>
@@ -161,9 +159,9 @@
                         <img src="http://127.0.0.1:8000/media/uploads/img/PP03.jpg" class="card-img-top"
                             alt="..." />
                         <div class="card-body">
-                            <h5 class="card-title">PP03 ลำพังก็จะฟัง</h5>
+                            <h5 class="card-title">PP03 ก่อนจะพังลองฟังก่อน</h5>
                             <p class="card-text">
-                                แพคเกจลำพังก็จะฟัง ราคา 219 บาทสามารถใช้ได้นานถึง 90 วันเหมาะผู้ใช้ที่ฟังจนอยากฟังอีกเรื่อย จัดเต็มถึง 3 เดือน
+                                แพคเกจลำพังก็จะฟัง ราคา 69 บาทสามารถใช้ได้ 7 วันเหมาะผู้ใช้ที่อยากทดลองบริการของเรา!
                             </p>
                         </div>
                     </div>
@@ -185,7 +183,7 @@
                         <div class="card-body">
                             <h5 class="card-title">PG01 สามสิบวันฉันและเกลอ</h5>
                             <p class="card-text">
-                                แพคเกจสามสิบวันฉันและเกลอ ราคา 150 บาทสามารถใช้ได้นานถึง 30 วันเหมาะผู้ใช้ใหม่ที่อยากลอง
+                                แพคเกจสามสิบวันฉันและเกลอ ราคา 749 บาทสามารถใช้ได้นานถึง 30 วัน เหมาะผู้ใช้ใหม่ที่อยากลอง
                             </p>
                         </div>
                     </div>
@@ -201,7 +199,7 @@
                         <div class="card-body">
                             <h5 class="card-title">PG02 ฟังฉลองสองเดือน</h5>
                             <p class="card-text">
-                                แพคเกจฟังฉลองสองเดือน ราคา 250 บาทสามารถใช้ได้นานถึง 60 วันเหมาะผู้ใช้ที่ฟังแล้วติดใจจนอยากต่อฟังอีก 2 เดือน
+                                แพคเกจฟังฉลองสองเดือน ราคา 749 บาทสามารถใช้ได้นานถึง 60 วันเหมาะผู้ใช้ที่ฟังแล้วติดใจจนอยากต่อฟังอีก 2 เดือน
                             </p>
                         </div>
                     </div>
@@ -217,7 +215,7 @@
                         <div class="card-body">
                             <h5 class="card-title">PG03 กลุ่มนี้พี่ขอลอง</h5>
                             <p class="card-text">
-                                แพคเกจกลุ่มนี้พี่ขอลอง ราคา 350 บาทสามารถใช้ได้นานถึง 90 วันเหมาะผู้ใช้ที่ฟังจนอยากฟังอีกเรื่อย จัดเต็มถึง 3 เดือน
+                                แพคเกจกลุ่มนี้พี่ขอลอง ราคา 199 บาทสามารถใช้งาน 7 วันเหมาะผู้ใช้งานที่อยากทดลองเป็นหมู่คณะ!
                             </p>
                         </div>
                     </div>
@@ -235,7 +233,7 @@
                 <label class="h-100">
                     <input type="radio" name="packageID" value="PF00" id="PF00">
                     <div class="card h-100">
-                        <img src="http://127.0.0.1:8000/media/uploads/img/FREE2.jpg" class="card-img-top" alt="..." />
+                        <img src="http://127.0.0.1:8000/media/uploads/img/PF00.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <h5 class="card-title">PF00 ใช้บริการฟรี</h5>
                             <p class="card-text">

@@ -85,3 +85,8 @@ class collectCard(ModelForm):
     class Meta:
         model = Card
         fields = ['customer_ID', 'card_ID', 'activate']
+
+class activateCard(ModelForm):
+    class Meta:
+        model = Card
+        fields = ['activate']

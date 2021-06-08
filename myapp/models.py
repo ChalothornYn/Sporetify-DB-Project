@@ -214,6 +214,9 @@ class Card (models.Model):
     card_ID = models.ForeignKey("Card_details", on_delete=models.CASCADE, db_column='cardID', to_field='cardID')
     activate = models.BooleanField()
 
+    class Meta:
+        unique_together = ('customer_ID', 'card_ID',)
+
 # Transaction table
 # class Transaction (models.Model):
 #     def genID():
